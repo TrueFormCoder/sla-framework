@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SLA Layer 5 · Film + Unified Scanner</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+:root{--bg:#0c0b0a;--sf:#141311;--sf2:#1c1a18;--brd:#2a2825;--brd2:#3a3733;--t1:#e2dfd8;--t2:#9a9690;--t3:#5a5652;--coh:#1a9e78;--fail:#c44040;--neut:#7a71d4;--rep:#b87514;--gray:#666460;--chf:rgba(196,64,64,.14);--chc:rgba(26,158,120,.12);--chn:rgba(122,113,212,.13);--chr:rgba(184,117,20,.12);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;padding:2rem 1.5rem 5rem;max-width:940px;margin:0 auto}
+h1{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:400;color:var(--t2);margin-bottom:.2rem}
+h2{font-size:.67rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin:2.5rem 0 .85rem;padding-bottom:.35rem;border-bottom:.5px solid var(--brd)}
+p{font-size:.8rem;color:var(--t2);line-height:1.72;margin-bottom:.55rem}
+p strong{color:var(--t1)}.meta{font-size:.62rem;color:var(--t3);margin-bottom:2rem;font-family:'IBM Plex Mono',monospace}
+code{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--t2);background:var(--sf2);padding:1px 5px;border-radius:3px}
+.tbl{width:100%;border-collapse:collapse;font-size:.73rem;margin-bottom:1.25rem}
+.tbl th{font-size:.6rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .65rem;border-bottom:.5px solid var(--brd);text-align:left;color:var(--t3)}
+.tbl td{padding:.5rem .65rem;border-bottom:.5px solid var(--brd);vertical-align:top;line-height:1.55;color:var(--t2)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:500;width:7%}
+.tbl td:nth-child(2){width:24%;color:var(--t1);font-size:.72rem}
+.tbl td strong{color:var(--t1)}
+.film-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.25rem}
+@media(max-width:600px){.film-grid{grid-template-columns:1fr}}
+.fc{background:var(--sf);border:.5px solid var(--brd);border-radius:8px;overflow:hidden}
+.fc-head{padding:.55rem .8rem;border-bottom:.5px solid var(--brd)}
+.fc-film{font-size:.82rem;font-weight:500;color:var(--t1)}
+.fc-year{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3)}
+.fc-badge{font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:500;padding:2px 6px;border-radius:3px;display:inline-block;margin-top:.15rem}
+.bc{background:var(--chf);color:var(--fail)}.bd{background:var(--chr);color:var(--rep)}
+.bb{background:var(--chn);color:var(--neut)}.bok{background:var(--chc);color:var(--coh)}
+.fc-body{padding:.55rem .8rem;font-size:.72rem;color:var(--t2);line-height:1.6}
+.fc-body strong{color:var(--t1)}
+.fc-receipt{font-size:.62rem;font-family:'IBM Plex Mono',monospace;color:var(--t3);padding:.35rem .8rem;border-top:.5px solid var(--brd);line-height:1.55}
+/* UNIFIED SCANNER */
+.u-scanner{border:.5px solid var(--brd2);border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
+.u-head{padding:.7rem 1.1rem;background:var(--sf);border-bottom:.5px solid var(--brd)}
+.u-title{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);font-family:'IBM Plex Mono',monospace;margin-bottom:.5rem}
+.domain-tabs{display:flex;gap:0}
+.dtab{padding:.45rem 1.1rem;font-size:.75rem;cursor:pointer;border:.5px solid var(--brd);background:none;color:var(--t3);font-family:'DM Sans',sans-serif;transition:all .15s;margin-right:4px;border-radius:4px}
+.dtab.active{background:var(--neut);color:#fff;border-color:var(--neut)}
+.dtab:hover:not(.active){border-color:var(--t2);color:var(--t2)}
+.u-input{padding:.7rem 1rem;border-bottom:.5px solid var(--brd)}
+.u-input input{width:100%;background:var(--sf2);border:.5px solid var(--brd2);border-radius:5px;padding:.45rem .75rem;color:var(--t1);font-family:'DM Sans',sans-serif;font-size:.8rem;outline:none}
+.u-input input::placeholder{color:var(--t3)}
+.qs-panel{padding:.75rem 1rem;border-bottom:.5px solid var(--brd);display:none}
+.qs-panel.active{display:block}
+.uq{display:flex;align-items:flex-start;gap:12px;padding:.45rem 0;border-bottom:.5px solid var(--brd)}
+.uq:last-child{border-bottom:none}
+.uqn{font-size:.62rem;font-weight:500;font-family:'IBM Plex Mono',monospace;color:var(--t3);min-width:18px;padding-top:2px}
+.uqt{flex:1;font-size:.75rem;color:var(--t2);line-height:1.5}
+.uqb{display:flex;gap:5px;flex-shrink:0}
+.yn{background:none;border:.5px solid var(--brd2);border-radius:4px;padding:3px 10px;font-size:.68rem;cursor:pointer;color:var(--t3);font-family:'IBM Plex Mono',monospace;transition:all .15s}
+.yn:hover{border-color:var(--t2);color:var(--t2)}
+.yn.sy{background:var(--chc);border-color:var(--coh);color:var(--coh)}
+.yn.sn{background:var(--sf2);border-color:var(--brd2);color:var(--t2)}
+.u-ctrl{padding:.65rem 1rem;border-bottom:.5px solid var(--brd);display:flex;gap:8px;align-items:center}
+.u-run{background:var(--neut);border:none;border-radius:6px;padding:.45rem 1.1rem;font-size:.75rem;font-weight:500;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif}
+.u-run:disabled{opacity:.35;cursor:not-allowed}
+.u-rst{background:none;border:.5px solid var(--brd2);border-radius:6px;padding:.45rem 1rem;font-size:.75rem;color:var(--t3);cursor:pointer;font-family:'DM Sans',sans-serif}
+.u-prog{font-size:.65rem;color:var(--t3);font-family:'IBM Plex Mono',monospace;margin-left:auto}
+.u-out{padding:.9rem 1.1rem;display:none}
+.u-out.vis{display:block}
+.u-badge{display:inline-flex;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;padding:4px 10px;border-radius:4px;margin-bottom:.65rem}
+.u-gram{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--t3);margin-bottom:.55rem;display:block}
+.u-domain-tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--neut);margin-bottom:.35rem;display:block}
+.u-det{font-size:.75rem;color:var(--t2);line-height:1.65;margin-bottom:.5rem}
+.u-det strong{color:var(--t1)}
+.u-dir{font-size:.72rem;padding:.45rem .7rem;border-radius:5px;line-height:1.55;font-style:italic}
+.dc{background:var(--chf);color:var(--fail)}.dok{background:var(--chc);color:var(--coh)}
+.dd{background:var(--chr);color:var(--rep)}.db{background:var(--chn);color:var(--neut)}
+.dw{background:var(--chr);color:var(--rep)}
+.u-subj{font-size:.72rem;color:var(--t3);font-family:'IBM Plex Mono',monospace;margin-bottom:.25rem}
+.mr{display:flex;gap:10px;padding:.65rem 0;border-bottom:.5px solid var(--brd);align-items:flex-start}
+.mr:last-child{border-bottom:none}
+.mbadge{font-size:.6rem;font-weight:500;padding:3px 8px;border-radius:3px;white-space:nowrap;min-width:64px;text-align:center;font-family:'IBM Plex Mono',monospace;line-height:1.4}
+.mbu{background:var(--chn);color:var(--neut)}.mbt{background:var(--chf);color:var(--fail)}
+.mc .mt_{font-size:.82rem;font-weight:500;color:var(--t1);margin-bottom:.12rem}
+.mc .mb_{font-size:.73rem;color:var(--t2);line-height:1.58}
+.mc .mb_ strong{color:var(--t1)}
+</style>
+</head>
+<body>
+<h1>SLA · Layer 5 · Film Grammar · Unified Scanner</h1>
+<div class="meta">Film/cinema as SLA domain · canonical film scans · unified cross-domain scanner · 2026-05-11</div>
+
+<h2>SLA → film / cinema (domain 7)</h2>
+<p>Cinema encodes the grammar in time, image, sound, and editing rhythm simultaneously — four simultaneous signal streams, each of which can carry different primitives. The most powerful cinematic T3 specimens are those where all four streams confirm the same collapsed state. The most powerful Type C films are those where the soundtrack and color grading claim F1 while the narrative confirms T3.</p>
+
+<table class="tbl">
+<thead><tr><th>Prim</th><th>Cinematic form</th><th>What it looks/sounds like</th><th>Type C warning</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--coh)">F1</td><td>Classical continuity editing</td><td>Shot/reverse shot. 180° rule honored. Eyeline matches. The cut that disappears. The sequence moving story forward without calling attention to technique. The edit the viewer doesn't notice — only the narrative.</td><td>The film that claims F1 through editing while the narrative content is T3. Uplifting score over T3 events = musical Type C imposed on cinematic T3.</td></tr>
+<tr><td style="color:#3b8bd4">L2</td><td>The visual and sonic motif returning across the film</td><td>Hitchcock's recurring visual elements. The leitmotif in a score. The color that returns with a character. The genre convention as L2: the audience knows the grammar before the film begins. L2 = the loop the audience and filmmaker share.</td><td>L2→T3: the genre promise betrayed without honoring the T3 Rule. Subverting genre expectations is valid; claiming genre resolution while delivering T3 = Type C.</td></tr>
+<tr><td style="color:var(--rep)">P1</td><td>Tension toward a narrative destination</td><td>The Hitchcockian bomb under the table. Cross-cutting implying convergence. The establishing shot directing attention toward what matters. The sound cue that says something is coming. P1 in cinema = the director pointing.</td><td>Unresolved P1 accumulates into T3. The P1 that never completes is a promise broken. Multiple broken P1 promises = narrative T3.</td></tr>
+<tr><td style="color:var(--neut)">I1</td><td>The film's visual identity anchor — the establishing shot that tells you what kind of film this is</td><td>The first image of Citizen Kane (Xanadu in the mist). The opening shot of 2001. The establishing shot that is so precise the film's entire grammar is implied before a word is spoken. The director's signature as I1: Kubrick's symmetry, Welles' deep focus.</td><td>I1 lost = the film that can't decide what it is. The genre mismatch that begins as comedy and ends as tragedy without navigating the transition. I1 lost = S1 or T3.</td></tr>
+<tr><td style="color:var(--fail)">T1</td><td>The rupture — the cut or scene that breaks the grammar once</td><td>The sudden violence in an otherwise quiet film. The fourth-wall break. The scene in a different visual grammar. The unexpected sound intrusion. The unexpected cut that shouldn't work but does. T1 = the grammar break that produces emphasis by being once.</td><td>T1 Rule: once. Multiple T1s = T3 (no reliable emphasis hierarchy). A film that keeps breaking its grammar has no grammar to break.</td></tr>
+<tr style="background:rgba(139,32,32,.03)"><td style="color:var(--fail)">T3</td><td>Systematic narrative dysfunction — no arc resolves, no reading of events is stable</td><td>Two uses: (1) the film in T3 (narrative dysfunction: the characters can't navigate their world; the viewer can't navigate the narrative); (2) the story world in T3 (the characters' world is collapsed; the film honestly acknowledges it). The second use is grammatically valid; the first is artistic T3.</td><td>T3 Rule applies to the story world. If the story world is in T3, the film cannot claim that world is F1 at the end without having shown the R1 process. The uplifting ending over an unresolved story world = Type C at the narrative level.</td></tr>
+<tr><td style="color:#9e4a1a">S1</td><td>Two incompatible narrative grammars coexisting</td><td>The film that commits to neither comedy nor tragedy. The scene that plays for both laughs and tears without navigating the collision. The tonal mismatch that exists not as D1 (intentional productive warp) but as unresolved conflict. Marriage Story navigates this precisely; films that don't navigate it are S1.</td><td>S1 resolved = D1 (the productive warp). S1 unresolved = T3. The test: does the tonal collision produce meaning or prevent it?</td></tr>
+<tr><td style="color:#4a7a1a">S3</td><td>The organizing principle — genre grammar, visual grammar, world-rules</td><td>The genre that tells the audience how to process what they're seeing. Kubrick's symmetry as S3 (every shot orients around a central axis). The Western's visual grammar as S3 (wide open spaces, the standoff, the lone figure). The world-rules of a fantasy film as S3.</td><td>S3 absent = the film that doesn't know what it is. Every scene in a different visual grammar. The audience with no organizing center for their interpretation.</td></tr>
+<tr><td style="color:var(--neut)">R1</td><td>The narrative arc that earns its resolution</td><td>The character who works through their T3 rather than bypassing it. The ending that carries the weight of the development. The final image that is both a return and a transformation — not the same world as the beginning, but one the film has earned through its arc.</td><td>Type C in film: the uplifting ending over a story world still in T3. The montage that claims resolution while the structural dysfunction continues. The score that swells while the T3 remains.</td></tr>
+<tr><td style="color:#7a4a9e">D1</td><td>The productive formal warp that earns its transgression</td><td>The Godard jump cut (rules of continuity bent without breaking comprehension). Breaking the fourth wall in a realist film (Ferris Bueller, Annie Hall). The anachronistic score that works because the context earns it (American Graffiti's oldies over Vietnam-era events). D1 in cinema = the formal choice that shouldn't work and does.</td><td>D1 vs. T3: the productive warp maintains narrative coherence; T3 prevents it. Test: does the formal violation produce meaning, or does it produce confusion? If confusion: T3 dressed as D1.</td></tr>
+</tbody>
+</table>
+
+<h2>Canonical film specimens — 6 scans</h2>
+<div class="film-grid">
+<div class="fc">
+<div class="fc-head">
+<div class="fc-film">Chinatown</div>
+<div class="fc-year">Polanski · 1974</div>
+<div class="fc-badge bb">T3→T3 · T3 Rule honored</div>
+</div>
+<div class="fc-body">The story world is in T3 from the first frame (corruption, power, institutional evil). Jake tries to find order (F1 → R1 attempt). Every attempt at repair reveals deeper T3. <strong>The ending is the most precisely governed in American cinema:</strong> "Forget it, Jake. It's Chinatown." T3 Rule honored. The story world remains in T3. The film does not claim resolution. The corrupt system continues.</div>
+<div class="fc-receipt">Arc: D1→S1→T3→T3 · R1-A (structural T3 unavailable) · notAllowedToProve: the film is not nihilistic — it is structurally honest</div>
+</div>
+<div class="fc">
+<div class="fc-head">
+<div class="fc-film">Manchester by the Sea</div>
+<div class="fc-year">Lonergan · 2016</div>
+<div class="fc-badge bd">T3 + R1-D · canonical</div>
+</div>
+<div class="fc-body">Lee Chandler is in genuine T3 (the fire, the guilt, the structural impossibility of self-forgiveness). The film does not resolve this — it cannot and does not claim to. <strong>R1-D: Lee takes in Patrick (direction) but cannot return to Manchester (arrival not claimed).</strong> The final shot: Lee on the water, not back in Manchester but not still. The most precisely R1-D ending in recent American cinema.</div>
+<div class="fc-receipt">Arc: I1→F1→T3→T3→R1-D · T3 Rule honored · canonical R1-D specimen · the film earns its ending because it doesn't overclaim it</div>
+</div>
+<div class="fc">
+<div class="fc-head">
+<div class="fc-film">It's a Wonderful Life</div>
+<div class="fc-year">Capra · 1946 · contested</div>
+<div class="fc-badge bw">R1 or Type C — requires Mahnke analysis</div>
+</div>
+<div class="fc-body">The most debated resolution in the corpus. George Bailey is in T3. Clarence shows him the counterfactual (what Bedford Falls would be without him). <strong>The structural question: does the ending resolve George's T3 (genuine R1) or does it show him the Type C alternative while leaving the structural T3 (financial pressure, Mr. Potter's power, the town's dependence on one person) intact?</strong> The money arrives. But Mr. Potter keeps the money from the beginning. The structural dysfunction of the town's economy is unchanged.</div>
+<div class="fc-receipt">Contested: R1 for George personally (REMEMBER restored, I1 reactivated) · T3-A for Bedford Falls systemically · the film may be both simultaneously · requires domain specification before scan is conclusive</div>
+</div>
+<div class="fc">
+<div class="fc-head">
+<div class="fc-film">Marriage Story</div>
+<div class="fc-year">Baumbach · 2019</div>
+<div class="fc-badge bb">T3→T3 · both characters honest</div>
+</div>
+<div class="fc-body">The marriage is in T3 from before the film begins (the list-reading exercise establishes this immediately — Love and its failure coexisting). The divorce proceeds. Neither character experiences false repair. <strong>The final scene (Nicole reading Charlie's unsent letter) is T3→T3 honest: they still love each other; the marriage is still over; neither fact resolves the other.</strong> Henry ties his father's shoe. R1-D implied for both — but not claimed.</div>
+<div class="fc-receipt">Arc: T3 (pre-existing) → T3 (acknowledged) · T3 Rule honored · both characters in R1-D by the final frame · the film's grammar matches its subject precisely</div>
+</div>
+<div class="fc">
+<div class="fc-head">
+<div class="fc-film">La La Land</div>
+<div class="fc-year">Chazelle · 2016 · contested</div>
+<div class="fc-badge bw">Type C critique or Type C enactment?</div>
+</div>
+<div class="fc-body">The "what if" finale is the most structurally interesting sequence in recent film. The film builds to T3 (Sebastian and Mia's relationship seals). The "what if" shows them together, happy, at the piano. <strong>The question: is the film endorsing the Type C fantasy (showing it as the better outcome) or critiquing it (showing it as the road not taken, then returning to T3 reality)?</strong> The final shared glance before they separate again answers this: the film returns to T3, acknowledging the Type C alternative was a fantasy. T3 Rule honored — barely.</div>
+<div class="fc-receipt">Contested · most likely: T3 + Type C sequence as internal character fantasy, returned to T3 reality · the ending's grammar depends on whether the audience believes the final glance or the final montage</div>
+</div>
+<div class="fc">
+<div class="fc-head">
+<div class="fc-film">Cast Away</div>
+<div class="fc-year">Zemeckis · 2000</div>
+<div class="fc-badge bd">R1-D · canonical directional</div>
+</div>
+<div class="fc-body">Chuck's T3 is the island (isolation, survival, near-death). He escapes (T3→R1 initiated). He returns to find Kelly has moved on (the ◇ sealed in his absence — a temporal near-miss at civilizational scale). <strong>The final shot is the most structurally honest directional image in mainstream cinema: Chuck at a crossroads, literally, looking in all directions.</strong> He doesn't know which way to go. He might go any of them. R1-D: direction set (he's back in the world, moving); arrival not claimed. Wilson as I1 lost — never recovered.</div>
+<div class="fc-receipt">Arc: I1→F1→T3→R1-D · T3 Rule honored · the film earns its ending by refusing to name the destination · canonical R1-D specimen</div>
+</div>
+</div>
+
+<h2>Unified SLA Governance Scanner — three domains, one grammar</h2>
+<p>Music · Design · Film — same grammar, domain-specific questions. The cross-domain architecture is visible in the interface: the same badge system and grammar vocabulary regardless of which domain is scanned.</p>
+
+<div class="u-scanner">
+  <div class="u-head">
+    <div class="u-title">SLA Governance Scanner · v0.1 · Unified</div>
+    <div class="domain-tabs">
+      <button class="dtab active" onclick="switchDomain('music',this)">Music</button>
+      <button class="dtab" onclick="switchDomain('design',this)">Design</button>
+      <button class="dtab" onclick="switchDomain('film',this)">Film</button>
+    </div>
+  </div>
+  <div class="u-input"><input id="us-subject" placeholder="Enter the work to scan…" /></div>
+
+  <!-- MUSIC QUESTIONS -->
+  <div class="qs-panel active" id="panel-music">
+    <div class="uq"><span class="uqn">Q1</span><span class="uqt">Does the verse/main section contain genuine T3 content? (collapse, helplessness, dysfunction — in lyrics OR musical feeling)</span><div class="uqb"><button class="yn" id="mq1y" onclick="setUQ('m',1,true)">Yes</button><button class="yn" id="mq1n" onclick="setUQ('m',1,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q2</span><span class="uqt">Does the verse production reinforce T3? (minor key, unresolved harmony, compressed/dark mix)</span><div class="uqb"><button class="yn" id="mq2y" onclick="setUQ('m',2,true)">Yes</button><button class="yn" id="mq2n" onclick="setUQ('m',2,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q3</span><span class="uqt">Does the chorus CLAIM resolution or arrival? (euphoric major key, "I'm stronger/fixed/free," triumphant shift)</span><div class="uqb"><button class="yn" id="mq3y" onclick="setUQ('m',3,true)">Yes</button><button class="yn" id="mq3n" onclick="setUQ('m',3,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q4</span><span class="uqt">Is there genuine development between T3 and the claim? (a bridge or section that actually works through the collapse)</span><div class="uqb"><button class="yn" id="mq4y" onclick="setUQ('m',4,true)">Yes</button><button class="yn" id="mq4n" onclick="setUQ('m',4,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q5</span><span class="uqt">Does the piece use DIRECTIONAL rather than arrival language? ("coming," "trying," "beginning" — movement without claiming completion)</span><div class="uqb"><button class="yn" id="mq5y" onclick="setUQ('m',5,true)">Yes</button><button class="yn" id="mq5n" onclick="setUQ('m',5,false)">No</button></div></div>
+  </div>
+
+  <!-- DESIGN QUESTIONS -->
+  <div class="qs-panel" id="panel-design">
+    <div class="uq"><span class="uqn">Q1</span><span class="uqt">Is there genuine structural T3 in the design? (hierarchy dysfunction, identity collapse, WCAG failure — not merely "outdated aesthetic")</span><div class="uqb"><button class="yn" id="dq1y" onclick="setUQ('d',1,true)">Yes</button><button class="yn" id="dq1n" onclick="setUQ('d',1,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q2</span><span class="uqt">Does the primary identity anchor function as I1 — activating REMEMBER across substrates, CVD conditions, and scale contexts?</span><div class="uqb"><button class="yn" id="dq2y" onclick="setUQ('d',2,true)">Yes</button><button class="yn" id="dq2n" onclick="setUQ('d',2,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q3</span><span class="uqt">Does the design claim to resolve or modernize the structural T3? (rebrand, redesign, refresh)</span><div class="uqb"><button class="yn" id="dq3y" onclick="setUQ('d',3,true)">Yes</button><button class="yn" id="dq3n" onclick="setUQ('d',3,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q4</span><span class="uqt">Is there a genuine structural change supporting that claim? (information architecture rebuilt, not just visual surface updated)</span><div class="uqb"><button class="yn" id="dq4y" onclick="setUQ('d',4,true)">Yes</button><button class="yn" id="dq4n" onclick="setUQ('d',4,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q5</span><span class="uqt">Does the design use directional language? ("evolving," "phase 1," "working toward" — rather than "solved," "new era")</span><div class="uqb"><button class="yn" id="dq5y" onclick="setUQ('d',5,true)">Yes</button><button class="yn" id="dq5n" onclick="setUQ('d',5,false)">No</button></div></div>
+  </div>
+
+  <!-- FILM QUESTIONS -->
+  <div class="qs-panel" id="panel-film">
+    <div class="uq"><span class="uqn">Q1</span><span class="uqt">Is the story world in genuine T3? (systematic dysfunction, collapsed relationships, institutional failure — not just individual conflict)</span><div class="uqb"><button class="yn" id="fq1y" onclick="setUQ('f',1,true)">Yes</button><button class="yn" id="fq1n" onclick="setUQ('f',1,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q2</span><span class="uqt">Do all four cinematic streams (image, edit, sound, performance) confirm the same structural state — or does one stream claim a different state from the others?</span><div class="uqb"><button class="yn" id="fq2y" onclick="setUQ('f',2,true)">Aligned</button><button class="yn" id="fq2n" onclick="setUQ('f',2,false)">Conflict</button></div></div>
+    <div class="uq"><span class="uqn">Q3</span><span class="uqt">Does the ending claim that the story world's T3 has been resolved? (uplifting finale, systemic redemption, structural transformation implied)</span><div class="uqb"><button class="yn" id="fq3y" onclick="setUQ('f',3,true)">Yes</button><button class="yn" id="fq3n" onclick="setUQ('f',3,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q4</span><span class="uqt">Is there a genuine R1 process shown? (the character works through their collapse — the return process is shown, not implied by montage or score)</span><div class="uqb"><button class="yn" id="fq4y" onclick="setUQ('f',4,true)">Yes</button><button class="yn" id="fq4n" onclick="setUQ('f',4,false)">No</button></div></div>
+    <div class="uq"><span class="uqn">Q5</span><span class="uqt">Does the film use directional language in the ending? (the character moving toward something, beginning something — not arriving or completing)</span><div class="uqb"><button class="yn" id="fq5y" onclick="setUQ('f',5,true)">Yes</button><button class="yn" id="fq5n" onclick="setUQ('f',5,false)">No</button></div></div>
+  </div>
+
+  <div class="u-ctrl">
+    <button class="u-run" id="u-run-btn" onclick="runUnified()" disabled>Run scan</button>
+    <button class="u-rst" onclick="resetUnified()">Reset</button>
+    <span class="u-prog" id="u-prog">0 / 5 answered</span>
+  </div>
+  <div class="u-out" id="u-out">
+    <div class="u-subj" id="u-subj"></div>
+    <div class="u-domain-tag" id="u-dtag"></div>
+    <div class="u-badge" id="u-badge"></div>
+    <span class="u-gram" id="u-gram"></span>
+    <div class="u-det" id="u-det"></div>
+    <div class="u-dir" id="u-dir" style="margin-top:.5rem"></div>
+  </div>
+</div>
+
+<script>
+let currentDomain = 'music';
+const answers = {m:{}, d:{}, f:{}};
+
+function switchDomain(d, btn) {
+  currentDomain = d;
+  document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.qs-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+d).classList.add('active');
+  updateProgress();
+  document.getElementById('u-out').classList.remove('vis');
+}
+
+function setUQ(domain, n, v) {
+  answers[domain][n] = v;
+  const pfx = domain === 'm' ? 'mq' : domain === 'd' ? 'dq' : 'fq';
+  ['y','n'].forEach(s => document.getElementById(pfx+n+s).classList.remove('sy','sn'));
+  document.getElementById(pfx+n+(v?'y':'n')).classList.add(v?'sy':'sn');
+  updateProgress();
+  document.getElementById('u-out').classList.remove('vis');
+}
+
+function updateProgress() {
+  const count = Object.keys(answers[currentDomain]).length;
+  document.getElementById('u-prog').textContent = count + ' / 5 answered';
+  document.getElementById('u-run-btn').disabled = count < 5;
+}
+
+function resetUnified() {
+  ['m','d','f'].forEach(d => {
+    answers[d] = {};
+    const pfx = d==='m'?'mq':d==='d'?'dq':'fq';
+    for(let i=1;i<=5;i++){
+      const y=document.getElementById(pfx+i+'y'), n=document.getElementById(pfx+i+'n');
+      if(y){y.classList.remove('sy','sn');}
+      if(n){n.classList.remove('sy','sn');}
+    }
+  });
+  document.getElementById('us-subject').value='';
+  document.getElementById('u-prog').textContent='0 / 5 answered';
+  document.getElementById('u-run-btn').disabled=true;
+  document.getElementById('u-out').classList.remove('vis');
+}
+
+function computeResult(domain, a) {
+  const labels = {m:'Music',d:'Design',f:'Film'};
+  const lbl = labels[domain];
+  const q1=a[1],q2=a[2],q3=a[3],q4=a[4],q5=a[5];
+
+  if(!q1) {
+    return {type:'F1 / I1 — structurally coherent',badge:'bok',gram:'No T3 detected · structure sound',det:'No genuine T3 present in the '+lbl.toLowerCase()+' domain scan. The work is in coherent state. Any changes or evolution should be additive (R1-D framing) rather than restorative.',dir:'Structurally clean. Do not manufacture a T3 narrative to justify intervention.',dc:'dok'};
+  }
+  if(!q3) return {type:'T3 acknowledged · no resolution claimed',badge:'bb',gram:'T3 present · T3 Rule honored · no false claim',det:'The '+lbl.toLowerCase()+' work contains genuine T3 and does not claim to resolve it. The most honest structural position available.',dir:'Honest. Diagnose the R1 type (A/B/D) before proposing any resolution.',dc:'db'};
+  if(q4) {
+    if(q5) return {type:'R1-D — directional',badge:'bd',gram:'T3 present · genuine process shown · directional claim',det:'The work enters T3, shows a genuine return process, and claims direction rather than arrival. <strong>R1-D: the most structurally honest resolution in the '+lbl.toLowerCase()+' domain.</strong>',dir:'Honest and sustainable. R1-D maintains the return process open. Resist pressure to upgrade the claim to R1 unless the structural work is verifiably complete.',dc:'dd'};
+    return {type:'R1 contested — run confusion check',badge:'bb',gram:'T3 present · process shown · arrival claimed · verify',det:'Structural process shown and resolution claimed. <strong>Run the confusion check:</strong> remove the resolution layer (the uplifting score, the new visual surface, the upbeat ending). Does the T3 return? If yes: the resolution was Type C with genuine process as cover.',dir:'Check whether the resolution carries the full weight of the development, or whether it shortcuts it.',dc:'db'};
+  }
+  return {type:'TYPE C ✕ — false repair',badge:'bc',gram:'T3 present · no structural process · resolution claimed · SLA-T3-002',det:'Genuine T3. Resolution claimed. <strong>No structural return process shown.</strong> The work decorates T3 with resolution signals (major key, uplifting imagery, positive framing) without addressing the structural source. <strong>The T3 will resurface or remain legible underneath the claim.</strong>',dir:'False repair. In '+lbl.toLowerCase()+': name the Type C pattern. In clinical contexts: avoid. In analytical contexts: flag SLA-T3-002.',dc:'dc'};
+}
+
+function runUnified() {
+  const subj = document.getElementById('us-subject').value || 'untitled';
+  const r = computeResult(currentDomain, answers[currentDomain]);
+  const labels = {m:'Music',d:'Design',f:'Film'};
+  document.getElementById('u-subj').textContent = subj;
+  document.getElementById('u-dtag').textContent = 'Domain: ' + labels[currentDomain] + ' · SLA-T3-002 confusion check protocol';
+  const badge = document.getElementById('u-badge');
+  badge.className = 'u-badge ' + ({bc:'bc',bd:'bd',bb:'bb',bok:'bok'}[r.badge]||'bb');
+  badge.textContent = r.type;
+  document.getElementById('u-gram').textContent = r.gram;
+  document.getElementById('u-det').innerHTML = r.det;
+  const dir = document.getElementById('u-dir');
+  dir.className = 'u-dir ' + r.dc;
+  dir.textContent = r.dir;
+  document.getElementById('u-out').classList.add('vis');
+}
+</script>
+
+<h2>MirrorSolveRT — this pass</h2>
+
+<div class="mr">
+<span class="mbadge mbt">THREAT V11</span>
+<div class="mc">
+<div class="mt_">Film adds a new complexity: four simultaneous signal streams, any of which can carry a different primitive from the others</div>
+<div class="mb_">Text, music, and design each have one primary signal stream (prose, sonic, visual). Film has four simultaneously: image, editing rhythm, diegetic sound, and performance. The most structurally complex Type C films are those where <strong>the score claims F1 while the image confirms T3</strong> (It's a Wonderful Life is contested precisely because of this). The unified scanner currently asks domain-level questions; it doesn't ask which stream is making which claim. <strong>Strategy: add a stream-conflict question (Q2 in the film protocol) that specifically asks whether all four streams are in agreement.</strong> Stream conflict = S1 at the minimum; if the conflict is unacknowledged, it may be T3.</div>
+</div>
+</div>
+
+<div class="mr">
+<span class="mbadge mbu">UPGRADE V15</span>
+<div class="mc">
+<div class="mt_">The complete chapbook is the session's most important single deliverable — it's the only thing the author can physically hold</div>
+<div class="mb_">Every other output in this session is analytical, theoretical, or instrumental. The chapbook is the work itself, formatted and ready. <strong>The three editions (standard, governed, limited) should be produced in this order:</strong> (1) standard edition — all six pieces, clean typography, no apparatus; (2) governed edition — scan receipt leaf added, hash pending authorial confirmations; (3) limited edition — after DAVAR confirmation, hand-numbered, receipt embossed. The standard edition can go to a literary journal submission immediately. The governed edition follows authorial confirmations. The limited edition is the final artifact.</div>
+</div>
+</div>
+
+<div class="mr">
+<span class="mbadge mbu">UPGRADE V16</span>
+<div class="mc">
+<div class="mt_">The corpus is now large enough to identify the grammar's statistical distribution — what R1 type is most common, by domain and by era</div>
+<div class="mb_">We have scanned: 13+ music specimens (canon), 6 film specimens, 5+ design specimens, 4 code specimens. <strong>The emerging pattern: Type C is the most commercially prevalent R1 type across all domains.</strong> Fix You (music), Twitter→X (design), the Distributed Monolith (code), uplifting-ending films (cinema) — all Type C. R1-D is the most artistically respected type across all domains. R1 confirmed is the rarest. R1-A is the most clinically significant. <strong>The upgrade: produce a formal corpus distribution analysis</strong> — not just qualitative (Type C is common) but quantitative (Type C appears in X% of commercially successful music, Y% of major rebrands, Z% of major rewrites). This is the academic paper's empirical section.</div>
+</div>
+</div>
+
+<div class="mr">
+<span class="mbadge mbu">UPGRADE V17</span>
+<div class="mc">
+<div class="mt_">The "11:02" web experience — all three domains rendered simultaneously in a browser</div>
+<div class="mb_">The collection exists in three confirmed encodings: text (the chapbook), music (the album spec), and visual design (the color system). <strong>The upgrade: a single web experience that presents all three simultaneously.</strong> As you read "Pulled Too Late," the corresponding album track plays, and the section's color grammar fills the background. The amber of "Walking" plays under the final section. The gray of "Infrastructure" plays under Section IX's silence. This would be the first work in the ELE canon to present a three-domain simultaneous experience — and the most compelling demonstration the framework has produced.</div>
+</div>
+</div>
+
+</body>
+</html>

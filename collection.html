@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>11:02 — A Collection</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+:root{
+  --c0:#1a9e78;--c2:#3b9e1a;--c3:#c44040;--c4:#c4704a;--c5:#666460;--c6:#b87514;
+  --paper:#faf8f3;--dark:#18161280;--ink:#1a1814;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* NAV DOTS */
+.nav-dots{position:fixed;top:50%;right:1.25rem;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .3s;border:none}
+.dot.active{transform:scale(1.5);background:var(--dot-color,#fff)}
+.dot:hover{background:rgba(255,255,255,.6)}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;position:relative}
+.cover-title{font-family:'IBM Plex Mono',monospace;font-size:clamp(3rem,12vw,7rem);font-weight:500;color:var(--paper);letter-spacing:.03em;line-height:1;margin-bottom:1.5rem}
+.cover-rule{width:40px;height:1px;background:rgba(255,255,255,.25);margin:0 auto 1.5rem}
+.cover-sub{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.75rem}
+.cover-author{font-family:'Libre Baskerville',serif;font-size:.95rem;font-style:italic;color:rgba(255,255,255,.4)}
+.scroll-hint{position:absolute;bottom:2rem;font-size:.65rem;font-family:'IBM Plex Mono',monospace;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.7}}
+
+/* DIVIDERS */
+.divider{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;transition:background .6s}
+.div-num{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:rgba(255,255,255,.5);position:absolute;top:2.5rem;left:2.5rem;letter-spacing:.1em}
+.div-title{font-family:'Libre Baskerville',serif;font-style:italic;font-size:clamp(1.5rem,5vw,3rem);color:rgba(255,255,255,.92);text-align:center;max-width:500px;line-height:1.3}
+.div-r1{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.4);position:absolute;bottom:2.5rem;right:2.5rem;letter-spacing:.08em}
+.div-arc{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.3);text-align:center;margin-top:.75rem;letter-spacing:.06em}
+
+/* PIECE */
+.piece{background:var(--paper);color:var(--ink);padding:5rem 0}
+.piece-inner{max-width:540px;margin:0 auto;padding:0 2rem}
+.prose{font-family:'Libre Baskerville',serif;font-size:1rem;line-height:1.95;color:var(--ink)}
+.prose p{margin-bottom:.9rem}
+.prose p:last-child{margin-bottom:0}
+.em{text-align:center;color:#c8c4bc;font-size:.75rem;margin:1.1rem 0;display:block;letter-spacing:.08em}
+.sb{margin:1.75rem 0}
+.sn{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:#b8b4ae;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+.st{font-size:.82rem;font-style:italic;color:#6b6760}
+.phf{padding-left:1.1rem;border-left:1px solid #c8c4bc;margin:.85rem 0;font-style:italic;color:#6b6760;font-size:.92rem}
+
+/* THE TIMESTAMP — always identical */
+time.ts{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.95em;letter-spacing:.04em;position:relative;cursor:help}
+time.ts::after{content:attr(data-note);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#1a1814;color:#e2dfd8;font-size:.65rem;padding:3px 8px;border-radius:3px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;font-style:normal;font-weight:400;letter-spacing:0}
+time.ts:hover::after{opacity:1}
+
+/* SECTION IX — void */
+.void-section{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0c0b0a}
+.void-ts{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:1.2rem;color:#e2dfd8;letter-spacing:.05em}
+
+/* WALKING FINALE */
+.walk-section{background:var(--paper);min-height:85vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 5rem}
+.walk-inner{max-width:540px;margin:0 auto;padding:0 2rem}
+.walk-inner .prose{padding-bottom:1rem}
+
+/* BACK MATTER */
+.back{background:#0c0b0a;padding:5rem 0}
+.back-inner{max-width:540px;margin:0 auto;padding:0 2rem}
+.an-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#5a5652;margin-bottom:1.25rem}
+.an-body p{font-family:'Libre Baskerville',serif;font-size:.88rem;line-height:1.88;color:#7a7670;margin-bottom:.7rem}
+.an-body p:last-child{margin-bottom:0}
+.an-body strong{color:#e2dfd8}
+.an-body em{font-style:italic}
+.rp-rule{width:100%;height:.5px;background:#2a2825;margin:2.5rem 0 1rem}
+.rp-row{display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:.5px solid #1c1a18;font-family:'IBM Plex Mono',monospace;font-size:.63rem}
+.rp-row span:first-child{color:#5a5652}.rp-row span:last-child{color:#7a7670}
+.rp-close{font-size:.65rem;color:#5a5652;font-family:'IBM Plex Mono',monospace;margin-top:.75rem;line-height:1.6;font-style:italic}
+
+/* PREFACE OVERLAY */
+.preface{background:#0c0b0a;padding:6rem 0}
+.preface-inner{max-width:480px;margin:0 auto;padding:0 2rem;text-align:center}
+.preface-inner p{font-family:'Libre Baskerville',serif;font-size:.88rem;line-height:1.9;color:#7a7670;margin-bottom:.65rem}
+.preface-inner p:last-child{margin-bottom:0}
+.preface-inner time.ts{font-family:'IBM Plex Mono',monospace;color:#9a9690}
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<div class="nav-dots" id="nav-dots">
+  <button class="dot active" style="--dot-color:var(--c0)" onclick="scrollTo('#div-0')" title="The Week Before"></button>
+  <button class="dot" style="--dot-color:var(--c2)" onclick="scrollTo('#div-2')" title="Just Before"></button>
+  <button class="dot" style="--dot-color:var(--c3)" onclick="scrollTo('#div-3')" title="Pulled Too Late"></button>
+  <button class="dot" style="--dot-color:var(--c4)" onclick="scrollTo('#div-4')" title="Fine"></button>
+  <button class="dot" style="--dot-color:var(--c5)" onclick="scrollTo('#div-5')" title="Infrastructure"></button>
+  <button class="dot" style="--dot-color:var(--c6)" onclick="scrollTo('#div-6')" title="Walking"></button>
+</div>
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-title">11:02</div>
+  <div class="cover-rule"></div>
+  <div class="cover-sub">A Collection</div>
+  <div class="cover-author">Ellari</div>
+  <div class="scroll-hint">↓ scroll</div>
+</section>
+
+<!-- PREFACE -->
+<section class="preface">
+  <div class="preface-inner">
+    <p>Three of these pieces share a morning.</p>
+    <p>Two of those three share an outcome.</p>
+    <p>One describes the conditions that make all the others possible.</p>
+    <p>The timestamp <time class="ts" data-note="fixed — same form every instance">11:02</time> appears differently in each piece.<br>You will understand what it means before you can name why.</p>
+  </div>
+</section>
+
+<!-- 0: THE WEEK BEFORE -->
+<div class="divider" id="div-0" style="background:var(--c0)" data-piece="0">
+  <span class="div-num">0.</span>
+  <div>
+    <div class="div-title">The Week Before</div>
+    <div class="div-arc">F1 + I1 · baseline</div>
+  </div>
+  <span class="div-r1">shoes as just shoes</span>
+</div>
+<section class="piece" data-piece="0">
+<div class="piece-inner">
+<div class="prose">
+<p>Thursday. Love is making coffee.</p>
+<p>The baby is in the high chair, practicing the word <em>more.</em><br>More. More. More.<br>She gets it right on the fourth try.<br>Love laughs — just once.<br>It sounds like relief.</p>
+<span class="em">—</span>
+<p>Will is somewhere with his phone.<br>It's fine.<br>He'll be back in a minute.<br>He always says that.</p>
+<span class="em">—</span>
+<p>The boy is at the kitchen table.<br>Quietly.<br>He has always done his homework there.<br>No one has ever asked him why.</p>
+<span class="em">—</span>
+<p>The shoes are in the closet.</p>
+<p>Just shoes.</p>
+<span class="em">—</span>
+<p>Before bed, he sets an alert on his phone.<br>Yellow. Soft.<br><em>Just in case — be early today.</em></p>
+<p>He puts the phone down.<br>He is already thinking about something else.</p>
+</div>
+</div>
+</section>
+
+<!-- ii: JUST BEFORE -->
+<div class="divider" id="div-2" style="background:var(--c2)" data-piece="2">
+  <span class="div-num">ii.</span>
+  <div>
+    <div class="div-title">Just Before</div>
+    <div class="div-arc">◇ not sealed · same morning</div>
+  </div>
+  <span class="div-r1">168 seconds · different outcome</span>
+</div>
+<section class="piece" data-piece="2">
+<div class="piece-inner">
+<div class="prose">
+<p>The calendar alert goes off at 9:32.<br>He looks at it this time.</p>
+<p>He sees the photo.<br>She's asleep on the couch, wearing the slip-ons.<br>He opens it.</p>
+<p>He is already late.<br>He brushes his teeth faster.</p>
+<span class="em">—</span>
+<p>She calls at 10:42.<br>Her voice is light. Heartbreakingly careful.</p>
+<p>He says: I know.<br>He says: I'm sorry.<br>He says: I'll be there soon.</p>
+<p>He doesn't hang up.<br>They say what they need to say.<br>It's not much.<br>It's enough.</p>
+<span class="em">—</span>
+<p>The shoes are on the porch.<br>He sees them.<br>He picks them up.</p>
+<p>He puts them by the door where she'll find them.<br>He is seven minutes late to his car.</p>
+<span class="em">—</span>
+<p>He doesn't know it was seven minutes.<br>He'll never know it was seven minutes.</p>
+<span class="em">—</span>
+<p>At <time class="ts" data-note="◇ not sealed — same morning, different outcome">11:02</time>,<br>he is in a meeting.<br>He thinks: I should text her.<br>He texts her.</p>
+<p>She responds in eleven seconds.<br>A photo.<br>She found the shoes.</p>
+<span class="em">—</span>
+<p>The alert is still set for tomorrow.<br>9:32. Just in case.</p>
+<p>That's the window.<br>That's always the window.</p>
+</div>
+</div>
+</section>
+
+<!-- iii: PULLED TOO LATE -->
+<div class="divider" id="div-3" style="background:var(--c3)" data-piece="3">
+  <span class="div-num">iii.</span>
+  <div>
+    <div class="div-title">Pulled Too Late</div>
+    <div class="div-arc">F1 → D1 → S1 → T1 → L2 → T3</div>
+  </div>
+  <span class="div-r1">R1-B · ⏱ every second that failed to save</span>
+</div>
+<section class="piece" data-piece="3">
+<div class="piece-inner">
+<div class="prose">
+<div class="sb"><span class="sn">I.</span><span class="st">The Ritual Ignored</span></div>
+<p>The calendar alert goes off at 9:32 AM.<br>Yellow. Soft. Set three weeks ago.<br><em>Just in case — be early today.</em></p>
+<p>Will is brushing his teeth.<br>The buzz blends into the bristles, the running faucet, the quiet ache behind his molar.<br>It doesn't register.</p>
+<p>He swipes the notification away.<br>Behind it, a photo — she's asleep, wearing the slip-ons.<br>He doesn't open it. He doesn't see it.</p>
+<p>A second message. Financial. Urgent.<br>He opens that one. 12 seconds.</p>
+<p>Down the hall, the little girl loops the wrong laces.<br>She ties them anyway.</p>
+<p>He never looks at her.<br>He will never forget this moment.<br>Because he didn't notice it at all.</p>
+
+<div class="sb"><span class="sn">II.</span><span class="st">The Lightness That Breaks You</span></div>
+<p>His love calls at 10:42 AM.</p>
+<p>Her voice is light. Heartbreakingly careful.</p>
+<p>"Every time you call me, I gotta hear more noise."</p>
+<p>She barely registers it. Her face collapses. Then, softly:<br>"I just wanted to tell you about today."</p>
+<span class="em">—</span>
+<p>He doesn't respond. He hangs up.</p>
+<span class="em">—</span>
+<div class="phf">"I just wanted you to know she was—"<br>[static]</div>
+<p>He plays it again. Every time, she almost gets there.<br>Every time, it cuts before the word.</p>
+
+<div class="sb"><span class="sn">III.</span><span class="st">Everything Right There</span></div>
+<p>Outside, on the porch, someone had remembered<br>to put the extra set of slip-ons.</p>
+<p>They were literally right there.</p>
+<p>He didn't.<br>She didn't.<br>And he wouldn't.</p>
+<span class="em">—</span>
+<p>The cameras captured it all. 10:59:12.</p>
+<p>168 seconds.</p>
+<span class="em">—</span>
+<p>A shot is fired as the moment slipped to <time class="ts" data-note="◇ sealed — threshold crossed">11:02</time>.</p>
+
+<div class="sb"><span class="sn">IV.</span><span class="st"><time class="ts" data-note="the sealed threshold — section title">11:02</time></span></div>
+<p>She slipped in Mommy's arms.</p>
+<p>Not dramatically. Just… heavier.</p>
+<p>Something was on her hand.</p>
+<span class="em">—</span>
+<p>When the screen lit up, it was <time class="ts" data-note="the grammar changes state here">11:02</time>.</p>
+<p>And she was still holding her baby.<br>Only now she knew that wasn't the only thing she was holding.</p>
+
+<div class="sb"><span class="sn">IV.5.</span><span class="st">Transmission</span></div>
+<p>The phone rings at 11:14.</p>
+<p>Twelve words.<br>He heard them all.<br>He heard none of them.</p>
+<p>He sat down on the floor.<br>Not on purpose.<br>The floor just caught him.</p>
+
+<div class="sb"><span class="sn">V.</span><span class="st">Quiet and Still</span></div>
+<p>It's quiet.<br>Not soft — just still.<br>That's how shame feels: quiet and still.</p>
+<div class="phf">"I just wa—"</div>
+<p>He plays it again. And again. And again.</p>
+<span class="em">—</span>
+<p><time class="ts" data-note="T3 — it never changes">11:02</time>.</p>
+<p>It never changes. It never will.</p>
+
+<div class="sb"><span class="sn">VIII.</span><span class="st">Already Saved</span></div>
+<div class="phf">[breath]<br>[silence]</div>
+<p>No error. No word. Just the breath before.</p>
+<span class="em">—</span>
+<p>He throws the phone. It doesn't break.</p>
+<span class="em">—</span>
+<p>He does.</p>
+<p>He did.</p>
+<span class="em">—</span>
+<p>He goes to save it.<br>It says: <em>Already saved.</em></p>
+</div>
+</div>
+</section>
+
+<!-- SECTION IX: VOID -->
+<div class="void-section" id="section-ix">
+  <div class="void-ts"><time class="ts" data-note="Return — R1 formally marked absent">11:02</time></div>
+</div>
+
+<!-- WALKING -->
+<div class="divider" id="div-3b" style="background:#1a1814;min-height:30vh">
+  <span class="div-num">X.</span>
+</div>
+<section class="piece" data-piece="3" style="min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end">
+<div class="piece-inner" style="padding-bottom:5rem">
+<div class="prose">
+<p>Somewhere, the boy is walking.</p>
+<p>He doesn't know where yet.</p>
+<p>But he's walking.</p>
+</div>
+</div>
+</section>
+
+<!-- iv: FINE -->
+<div class="divider" id="div-4" style="background:var(--c4)" data-piece="4">
+  <span class="div-num">iv.</span>
+  <div>
+    <div class="div-title">Fine</div>
+    <div class="div-arc">T3 + F1 claimed</div>
+  </div>
+  <span class="div-r1">R1-C · three months later</span>
+</div>
+<section class="piece" data-piece="4">
+<div class="piece-inner">
+<div class="prose">
+<p>He is back at work on Monday.<br>He answers emails.<br>He says the thing about Q3.</p>
+<span class="em">—</span>
+<p>Someone asks.<br>He says fine.<br>They nod.<br>They already knew that.</p>
+<span class="em">—</span>
+<p>The coffee goes in the mug.<br>The mug goes on the desk.<br>The desk is where it always was.</p>
+<p>He drives home the same way.<br>He always drives home this way.<br>It's the most efficient route.<br>He checked.</p>
+<span class="em">—</span>
+<p>It's been three months.<br>People have stopped asking.<br>That's fine.<br>He didn't know what to say anyway.</p>
+<span class="em">—</span>
+<p>On Sunday, he sets an alert.<br>It buzzes at 9:32.<br>He swipes it away without looking.</p>
+<span class="em">—</span>
+<p>He is fine.</p>
+<p>He is fine.</p>
+<p>He goes to bed.</p>
+<p>He is fine.</p>
+</div>
+</div>
+</section>
+
+<!-- v: INFRASTRUCTURE -->
+<div class="divider" id="div-5" style="background:var(--c5)" data-piece="5">
+  <span class="div-num">v.</span>
+  <div>
+    <div class="div-title">Infrastructure</div>
+    <div class="div-arc">⬡ F1 + T3 structural · ongoing</div>
+  </div>
+  <span class="div-r1">R1-A · as you read this</span>
+</div>
+<section class="piece" data-piece="5">
+<div class="piece-inner">
+<div class="prose">
+<p>Before the call goes out, there is a system.<br>It is designed to work.<br>Most of the time, it works.</p>
+<p>Average response time: 4.2 minutes.<br>This was not average.</p>
+<span class="em">—</span>
+<p>The woman who answers the line<br>has answered 47 calls this week.<br>She is not numb.<br>She is just that tired.</p>
+<p>She followed protocol.<br>Protocol was followed.</p>
+<span class="em">—</span>
+<p>Somewhere in the city, a committee<br>reviews response times quarterly.<br>The next review is in September.</p>
+<span class="em">—</span>
+<p>The system is not broken.<br>That is the problem.</p>
+<p>A broken system can be fixed.<br>A system working as designed<br>just keeps working.</p>
+<span class="em">—</span>
+<p><time class="ts" data-note="data point — clean data, sound future decisions">11:02</time> is a data point.<br>The data will inform future decisions.<br>The future decisions will be sound.</p>
+<span class="em">—</span>
+<p>The system is still running.<br>Right now.<br>As you read this.<br>The system is running.</p>
+</div>
+</div>
+</section>
+
+<!-- vi: WALKING (FINAL) -->
+<div class="divider" id="div-6" style="background:var(--c6)" data-piece="6">
+  <span class="div-num">vi.</span>
+  <div>
+    <div class="div-title">Walking</div>
+    <div class="div-arc">R1 → initiated</div>
+  </div>
+  <span class="div-r1">R1-D · undated</span>
+</div>
+<section class="piece" data-piece="6" style="min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end">
+<div class="piece-inner" style="padding-bottom:6rem">
+<div class="prose">
+<p>Somewhere, the boy is walking.</p>
+<p>He doesn't know where yet.</p>
+<p>But he's walking.</p>
+</div>
+</div>
+</section>
+
+<!-- BACK MATTER -->
+<section class="back">
+<div class="back-inner">
+<div class="an-label">Author's Note</div>
+<div class="an-body">
+<p>These pieces were written in a specific order. <strong>Pulled Too Late came first.</strong> The others followed as I understood what it was doing structurally — not what it meant, but what it was made of.</p>
+<p>The analysis in the governed edition is not my explanation. It is a map of what the pieces already contained. The cut word in the voicemail was always <em>safe.</em> The typographic lock on <strong><time class="ts" data-note="always this form">11:02</time></strong> was always the right choice. The boy was always the only character for whom return remained possible.</p>
+<p>The analysis named what the writing already knew.</p>
+<p><em>The system is still running.</em></p>
+</div>
+<div class="rp-rule"></div>
+<div class="rp-row"><span>Scan receipt</span><span>SLA-TEXT-001 · DAVAR candidate</span></div>
+<div class="rp-row"><span>Grammar arc</span><span>F1 → T3 → T3</span></div>
+<div class="rp-row"><span>R1 taxonomy</span><span>A / B / C / D — all present</span></div>
+<div class="rp-row"><span>T3 Rule</span><span>HONORED throughout</span></div>
+<div class="rp-row"><span>Cross-domain</span><span>Text + music + visual confirmed</span></div>
+<div class="rp-close">The scan cannot diagnose the characters. The grammar cannot replace clinical or legal judgment. notAllowedToProve: cannot determine authorial intent; cannot claim the grammar proves causation.</div>
+</div>
+</section>
+
+<script>
+// Scroll-driven dot highlighting
+const dividers = document.querySelectorAll('.divider[data-piece]');
+const dots = document.querySelectorAll('.dot');
+const pieces = [0,2,3,4,5,6];
+
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx=pieces.indexOf(+e.target.dataset.piece);
+      dots.forEach((d,i)=>{
+        d.classList.toggle('active', i===idx);
+      });
+    }
+  });
+},{threshold:.4});
+
+dividers.forEach(d=>obs.observe(d));
+
+// Smooth scroll to section
+function scrollTo(id){
+  document.querySelector(id)?.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SLA Framework · Visual Report</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{
+  --bg:#0c0b0a; --s1:#141311; --s2:#1c1a18;
+  --brd:#2a2825; --brd2:#3a3733;
+  --t1:#e2dfd8; --t2:#9a9690; --t3:#5a5652; --t4:#3a3733;
+  --coh:#1a9e78; --fail:#c44040; --neut:#7a71d4; --rep:#b87514; --gray:#666460;
+  --c0:#1a9e78; --c2:#3b9e1a; --c3:#c44040; --c4:#c4704a; --c5:#666460; --c6:#b87514;
+  --paper:#faf8f3; --ink:#1a1814;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;overflow-x:hidden}
+
+/* ── LAYOUT ── */
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+section{padding:5rem 0;position:relative}
+section:nth-child(odd){background:var(--bg)}
+section:nth-child(even){background:var(--s1)}
+
+/* ── COVER ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:var(--bg);padding:0;border-bottom:.5px solid var(--brd)}
+.cover-inner{padding:0 2rem;max-width:900px;margin:0 auto;width:100%}
+.cover-kicker{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:1.5rem}
+.cover-title{font-family:'Libre Baskerville',serif;font-size:clamp(2.2rem,6vw,4.5rem);font-weight:700;color:var(--t1);line-height:1.05;letter-spacing:-.02em;margin-bottom:1rem}
+.cover-title span{color:var(--coh)}
+.cover-sub{font-family:'Libre Baskerville',serif;font-size:1rem;font-style:italic;color:var(--t2);max-width:520px;line-height:1.7;margin-bottom:2.5rem}
+.cover-meta{display:flex;gap:2rem;flex-wrap:wrap}
+.cm{border-top:.5px solid var(--brd);padding-top:.75rem}
+.cm-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:.2rem}
+.cm-val{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--t2)}
+.cover-scroll{position:absolute;bottom:2.5rem;left:2rem;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* ── SECTION HEADER ── */
+.sec-label{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem}
+.sec-num{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);letter-spacing:.08em}
+.sec-title{font-family:'Libre Baskerville',serif;font-size:1.9rem;font-weight:700;color:var(--t1);letter-spacing:-.01em}
+.sec-lead{font-size:.92rem;color:var(--t2);max-width:640px;line-height:1.78;margin-bottom:2.5rem}
+.sec-lead strong{color:var(--t1)}
+
+/* ── AXIOM CARDS ── */
+.axiom-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:2rem}
+@media(max-width:640px){.axiom-row{grid-template-columns:1fr}}
+.ax{border-radius:10px;overflow:hidden;background:var(--s2)}
+.ax-top{padding:.9rem 1rem .5rem;border-bottom:.5px solid var(--brd)}
+.ax-n{font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:600;line-height:1;margin-bottom:.2rem}
+.ax-name{font-size:.78rem;font-weight:600;color:var(--t1);letter-spacing:.03em}
+.ax-body{padding:.75rem 1rem;font-size:.77rem;color:var(--t2);line-height:1.7}
+.ax-body strong{color:var(--t1)}
+.ax-formal{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);margin-top:.5rem;line-height:1.5}
+.ax-1 .ax-top{border-left:3px solid var(--coh)}.ax-1 .ax-n{color:var(--coh)}
+.ax-2 .ax-top{border-left:3px solid var(--fail)}.ax-2 .ax-n{color:var(--fail)}
+.ax-3 .ax-top{border-left:3px solid var(--rep)}.ax-3 .ax-n{color:var(--rep)}
+
+/* ── T3 RULE DIAGRAM ── */
+.diagram-wrap{background:var(--s2);border:.5px solid var(--brd);border-radius:10px;overflow:hidden;margin-bottom:2rem}
+.dw-head{padding:.6rem 1rem;border-bottom:.5px solid var(--brd)}
+.dw-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+.dw-svg{display:block;width:100%;max-width:680px;margin:0 auto;padding:1rem 0}
+
+/* ── R1 TAXONOMY ── */
+.r1-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:2rem}
+@media(max-width:500px){.r1-grid{grid-template-columns:1fr}}
+.r1c{border-radius:10px;overflow:hidden;background:var(--s2)}
+.r1c-top{padding:.7rem .9rem;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:.5px solid var(--brd)}
+.r1c-left .r1-type{font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:600;margin-bottom:.1rem}
+.r1c-left .r1-name{font-size:.88rem;font-weight:600;color:var(--t1)}
+.r1c-pct{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:600;line-height:1}
+.r1c-body{padding:.7rem .9rem;font-size:.75rem;color:var(--t2);line-height:1.65}
+.r1c-body strong{color:var(--t1)}
+.r1c-spec{font-size:.65rem;font-style:italic;color:var(--t3);margin-top:.35rem;border-top:.5px solid var(--brd);padding-top:.35rem}
+.r1a .r1c-top{border-left:3px solid var(--gray)}.r1a .r1-type,.r1a .r1c-pct{color:var(--gray)}
+.r1b .r1c-top{border-left:3px solid var(--neut)}.r1b .r1-type,.r1b .r1c-pct{color:var(--neut)}
+.r1c_x .r1c-top{border-left:3px solid var(--fail)}.r1c_x .r1-type,.r1c_x .r1c-pct{color:var(--fail)}
+.r1d .r1c-top{border-left:3px solid var(--rep)}.r1d .r1-type,.r1d .r1c-pct{color:var(--rep)}
+
+/* ── COLLECTION ARC ── */
+.coll-arc{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:2rem}
+@media(max-width:600px){.coll-arc{grid-template-columns:repeat(3,1fr)}}
+.ca{border-radius:8px;overflow:hidden;min-height:90px;display:flex;flex-direction:column;justify-content:flex-end;padding:.65rem .6rem;position:relative}
+.ca-num{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:rgba(255,255,255,.5);margin-bottom:.2rem}
+.ca-title{font-family:'Libre Baskerville',serif;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.92);line-height:1.2;margin-bottom:.15rem}
+.ca-r1{font-family:'IBM Plex Mono',monospace;font-size:.52rem;color:rgba(255,255,255,.45)}
+.ca-0{background:var(--c0)}.ca-2{background:var(--c2)}.ca-3{background:var(--c3)}
+.ca-4{background:var(--c4)}.ca-5{background:var(--c5)}.ca-6{background:var(--c6)}
+
+/* ── CROSS-DOMAIN VISUAL ── */
+.cross-wrap{background:var(--s2);border:.5px solid var(--brd);border-radius:10px;overflow:hidden;margin-bottom:2rem}
+.cross-svg-wrap{display:flex;justify-content:center;padding:1.5rem 1rem}
+
+/* ── DOMAIN CARDS ── */
+.domain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:2rem}
+@media(max-width:700px){.domain-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.domain-grid{grid-template-columns:1fr 1fr}}
+.dc{background:var(--s2);border:.5px solid var(--brd);border-radius:8px;padding:.6rem .75rem}
+.dc-n{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t3);margin-bottom:.1rem}
+.dc-name{font-size:.78rem;font-weight:600;color:var(--t1);margin-bottom:.2rem;line-height:1.2}
+.dc-tc{font-size:.65rem;color:var(--fail);line-height:1.35;margin-bottom:.15rem}
+.dc-rd{font-size:.65rem;color:var(--rep);line-height:1.35}
+
+/* ── CORPUS CHART ── */
+.corpus-chart{background:var(--s2);border:.5px solid var(--brd);border-radius:10px;overflow:hidden;margin-bottom:2rem;padding:1.25rem 1.4rem}
+.chart-row{margin-bottom:1.1rem}
+.chart-row:last-child{margin-bottom:0}
+.chart-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.45rem}
+.chart-label{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500}
+.chart-sub{font-size:.68rem;color:var(--t3);font-style:italic}
+.chart-pct{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--t2)}
+.chart-track{height:18px;background:var(--bg);border-radius:4px;overflow:hidden}
+.chart-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:6px}
+.chart-fill span{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.7);font-weight:500}
+.cf-c{background:var(--fail)}.cf-d{background:var(--rep)}.cf-a{background:var(--gray)}.cf-b{background:var(--neut)}
+
+/* ── COMPARISON ── */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:2rem}
+@media(max-width:520px){.compare{grid-template-columns:1fr}}
+.cmp{border-radius:10px;overflow:hidden}
+.cmp-head{padding:.65rem .9rem;border-bottom:.5px solid rgba(255,255,255,.08)}
+.cmp-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.15rem}
+.cmp-title{font-size:.88rem;font-weight:600}
+.cmp-body{padding:.65rem .9rem;font-size:.75rem;line-height:1.65}
+.cmp-body strong{font-weight:600}
+.cmp-tc{background:var(--s2);border:.5px solid rgba(196,64,64,.35)}
+.cmp-tc .cmp-head{background:rgba(196,64,64,.12)}.cmp-tc .cmp-label{color:var(--fail)}.cmp-tc .cmp-title{color:var(--fail)}.cmp-tc .cmp-body{color:var(--t2)}
+.cmp-rd{background:var(--s2);border:.5px solid rgba(184,117,20,.35)}
+.cmp-rd .cmp-head{background:rgba(184,117,20,.1)}.cmp-rd .cmp-label{color:var(--rep)}.cmp-rd .cmp-title{color:var(--rep)}.cmp-rd .cmp-body{color:var(--t2)}
+
+/* ── TOOLS ── */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2rem}
+@media(max-width:500px){.tools-grid{grid-template-columns:1fr}}
+.tool{background:var(--s2);border:.5px solid var(--brd);border-radius:10px;overflow:hidden}
+.tool-head{padding:.65rem .9rem;border-bottom:.5px solid var(--brd);display:flex;justify-content:space-between;align-items:center}
+.tool-name{font-size:.85rem;font-weight:600;color:var(--t1)}
+.tool-badge{font-family:'IBM Plex Mono',monospace;font-size:.58rem;padding:2px 7px;border-radius:3px;background:var(--chc, rgba(26,158,120,.12));color:var(--coh)}
+.tool-body{padding:.65rem .9rem;font-size:.75rem;color:var(--t2);line-height:1.6}
+.tool-domains{display:flex;flex-wrap:wrap;gap:4px;margin-top:.5rem}
+.tdp{font-family:'IBM Plex Mono',monospace;font-size:.58rem;padding:2px 6px;border-radius:3px;background:var(--s1);color:var(--t3)}
+
+/* ── RECEIPT ── */
+.receipt{border:.5px solid var(--coh);border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
+.rct-head{background:rgba(26,158,120,.1);padding:.9rem 1.25rem;border-bottom:.5px solid var(--coh)}
+.rct-id{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--coh);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.rct-title{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;color:var(--t1)}
+.rct-rows{padding:.5rem 0}
+.rct-row{display:grid;grid-template-columns:180px 1fr;border-bottom:.5px solid var(--brd);padding:.3rem 1.25rem;font-size:.72rem}
+.rct-row:last-child{border-bottom:none}
+.rct-row span:first-child{color:var(--t3);font-family:'IBM Plex Mono',monospace;font-size:.63rem}
+.rct-row span:last-child{color:var(--t2)}
+.rct-row.highlight span:last-child{color:var(--coh)}
+.rct-cant{padding:.6rem 1.25rem;font-size:.68rem;color:var(--t3);font-style:italic;border-top:.5px solid var(--brd);line-height:1.55;background:rgba(102,100,96,.05)}
+
+/* ── FINDINGS ── */
+.finding{display:grid;grid-template-columns:3rem 1fr;gap:0;border-bottom:.5px solid var(--brd);padding:.7rem 0}
+.finding:last-child{border-bottom:none}
+.f-n{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;color:var(--t4);padding-top:.1rem}
+.f-body .f-title{font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem}
+.f-body .f-detail{font-size:.77rem;color:var(--t2);line-height:1.65}
+.f-body .f-detail strong{color:var(--t1)}
+
+@media print{
+  @page{size:A4;margin:15mm}
+  section{break-inside:avoid}
+  .axiom-row,.r1-grid,.coll-arc{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ COVER ═══ -->
+<section class="cover">
+<div class="cover-inner">
+  <div class="cover-kicker">SLA Framework · Visual Report · 2026</div>
+  <h1 class="cover-title">Shape Language<br><span>Alphabet</span></h1>
+  <div class="cover-sub">A medium-agnostic grammar for structural coherence and collapse — derived from a lyric essay, confirmed across twelve domains, receipted.</div>
+  <div class="cover-meta">
+    <div class="cm"><div class="cm-label">Anchor specimen</div><div class="cm-val">Pulled Too Late</div></div>
+    <div class="cm"><div class="cm-label">Domains mapped</div><div class="cm-val">12 (+ 1 ecology)</div></div>
+    <div class="cm"><div class="cm-label">Specimens scanned</div><div class="cm-val">46+</div></div>
+    <div class="cm"><div class="cm-label">Status</div><div class="cm-val">R1-D · ongoing</div></div>
+    <div class="cm"><div class="cm-label">Receipt</div><div class="cm-val">SLA-SESSION-001</div></div>
+  </div>
+</div>
+<div class="cover-scroll">↓ scroll</div>
+</section>
+
+<!-- ═══════════════════════════════════ 01 — GRAMMAR ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">The Grammar</h2>
+  </div>
+  <p class="sec-lead">Three axioms generate the entire framework. They contain no reference to any specific domain — which is why the same grammar appears in music, software architecture, film, and relationships without modification.</p>
+
+  <div class="axiom-row">
+    <div class="ax ax-1">
+      <div class="ax-top"><div class="ax-n">I</div><div class="ax-name">Coherence Axiom</div></div>
+      <div class="ax-body">Any meaning-producing system is in one of three states: <strong>coherent, destabilized, or collapsed.</strong> The 10 L1 primitives specify these states and transitions. R1 is a process, not a state.
+      <div class="ax-formal">States: {F1, L2…D1, T3} · R1 = process · not domain-specific</div></div>
+    </div>
+    <div class="ax ax-2">
+      <div class="ax-top"><div class="ax-n">II</div><div class="ax-name">The T3 Rule</div></div>
+      <div class="ax-body">A collapsed system cannot transition directly to coherence. Bypassing the return process produces <strong>Type C</strong>: the appearance of coherence without its structural conditions. Type C degrades — it resurfaces as T3.
+      <div class="ax-formal">T3 → F1 BLOCKED · bypass(T3, R1) → Type C · Type C → T3</div></div>
+    </div>
+    <div class="ax ax-3">
+      <div class="ax-top"><div class="ax-n">III</div><div class="ax-name">R1-D Principle</div></div>
+      <div class="ax-body">Movement toward coherence (R1-D) is categorically more valuable than <em>claimed</em> coherence (Type C). R1-D keeps the return process alive. Type C closes it by claiming completion.
+      <div class="ax-formal">R1-D > Type C · R1-D ≠ R1 achieved · R1-D maintains generativity</div></div>
+    </div>
+  </div>
+
+  <!-- T3 Rule Diagram -->
+  <div class="diagram-wrap">
+    <div class="dw-head"><div class="dw-label">The T3 Rule — three paths from collapse</div></div>
+    <div class="dw-svg">
+      <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;display:block;margin:0 auto">
+        <defs>
+          <marker id="aG" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#1a9e78"/></marker>
+          <marker id="aR" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#c44040"/></marker>
+          <marker id="aO" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#b87514"/></marker>
+        </defs>
+
+        <!-- NODE: T3 -->
+        <rect x="20" y="78" width="72" height="36" rx="6" fill="rgba(196,64,64,.15)" stroke="#c44040" stroke-width="1"/>
+        <text x="56" y="101" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" font-weight="600" fill="#c44040">T3</text>
+
+        <!-- NODE: F1 (top) -->
+        <rect x="540" y="20" width="72" height="36" rx="6" fill="rgba(26,158,120,.12)" stroke="#1a9e78" stroke-width="1"/>
+        <text x="576" y="43" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" font-weight="600" fill="#1a9e78">F1</text>
+
+        <!-- BLOCKED path: T3 → F1 (dashed red) -->
+        <line x1="92" y1="72" x2="530" y2="38" stroke="#c44040" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#aR)" opacity=".5"/>
+        <!-- BLOCKED X -->
+        <text x="310" y="48" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="16" font-weight="600" fill="#c44040">✕</text>
+        <text x="310" y="63" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#5a5652">BLOCKED</text>
+
+        <!-- VALID path via R1 -->
+        <rect x="270" y="78" width="72" height="36" rx="6" fill="rgba(122,113,212,.1)" stroke="#7a71d4" stroke-width="1"/>
+        <text x="306" y="97" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a71d4">R1</text>
+        <text x="306" y="108" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#7a71d4">process</text>
+        <line x1="92" y1="96" x2="267" y2="96" stroke="#1a9e78" stroke-width="1.5" marker-end="url(#aG)"/>
+        <line x1="342" y1="90" x2="535" y2="47" stroke="#1a9e78" stroke-width="1.5" marker-end="url(#aG)"/>
+        <text x="175" y="90" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#1a9e78">VALID</text>
+
+        <!-- TYPE C path -->
+        <rect x="270" y="148" width="72" height="36" rx="6" fill="rgba(196,64,64,.1)" stroke="rgba(196,64,64,.4)" stroke-width="1"/>
+        <text x="306" y="167" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#c44040" font-weight="600">Type C</text>
+        <text x="306" y="178" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#c44040">✕</text>
+        <line x1="92" y1="114" x2="267" y2="155" stroke="#b87514" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#aO)"/>
+        <text x="148" y="145" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="7" fill="#b87514">bypass</text>
+        <!-- curved return to T3 -->
+        <path d="M342,166 Q450,195 380,130 Q360,115 150,118 Q110,118 92,114" fill="none" stroke="#c44040" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#aR)" opacity=".5"/>
+        <text x="430" y="192" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="7" fill="#5a5652">resurfaces as T3</text>
+
+        <!-- Legend -->
+        <line x1="20" y1="190" x2="44" y2="190" stroke="#1a9e78" stroke-width="1.5"/>
+        <text x="48" y="193" font-family="IBM Plex Mono,monospace" font-size="7" fill="#5a5652">valid</text>
+        <line x1="76" y1="190" x2="100" y2="190" stroke="#c44040" stroke-width="1" stroke-dasharray="3,2" opacity=".6"/>
+        <text x="104" y="193" font-family="IBM Plex Mono,monospace" font-size="7" fill="#5a5652">blocked</text>
+        <line x1="136" y1="190" x2="160" y2="190" stroke="#b87514" stroke-width="1.2" stroke-dasharray="2,2"/>
+        <text x="164" y="193" font-family="IBM Plex Mono,monospace" font-size="7" fill="#5a5652">bypass (Type C)</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 02 — R1 TAXONOMY ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">02</span><h2 class="sec-title">The Return Arc</h2></div>
+  <p class="sec-lead">Not all paths from T3 are the same. Four subtypes determine the clinical, analytical, and creative response. <strong>Type C is the most commercially prevalent; R1-D is the most honest from a T3 state; confirmed R1 is the rarest.</strong></p>
+
+  <div class="r1-grid">
+    <div class="r1c r1a">
+      <div class="r1c-top">
+        <div class="r1c-left"><div class="r1-type">R1-A</div><div class="r1-name">Unavailable</div></div>
+        <div class="r1c-pct">17%</div>
+      </div>
+      <div class="r1c-body">Structural conditions for return don't exist. The T3 source cannot be addressed within the system's current resources or scope. Clinical posture: witness, not repair.<div class="r1c-spec">Canonical: "Infrastructure" (system working as designed) · Strange Fruit (Billie Holiday) · Local coral gardening with global T3 source</div></div>
+    </div>
+    <div class="r1c r1b">
+      <div class="r1c-top">
+        <div class="r1c-left"><div class="r1-type">R1-B</div><div class="r1-name">Available, not taken</div></div>
+        <div class="r1c-pct">9%</div>
+      </div>
+      <div class="r1c-body">Return is structurally possible. The conditions exist. The path hasn't been initiated. AI alignment in 2026: interpretability research is available; not deployed at scale.<div class="r1c-spec">Canonical: "Pulled Too Late" (the boy = R1 carrier; path not taken) · Replication crisis in psychology · Plate tectonics pre-Wegener</div></div>
+    </div>
+    <div class="r1c r1c_x">
+      <div class="r1c-top">
+        <div class="r1c-left"><div class="r1-type" style="font-weight:700">R1-C ✕</div><div class="r1-name">False repair</div></div>
+        <div class="r1c-pct">43%</div>
+      </div>
+      <div class="r1c-body"><strong>The most dangerous type. Most commercially prevalent.</strong> Claims resolution without structural process. The vacation that doesn't fix the relationship. The rebrand that doesn't fix the brand. The T3 resurfaces. Predictably.<div class="r1c-spec">Canonical: "Fix You" · Tropicana 2009 · Distributed monolith · "He is fine." · "Capabilities lead to alignment"</div></div>
+    </div>
+    <div class="r1c r1d">
+      <div class="r1c-top">
+        <div class="r1c-left"><div class="r1-type">R1-D</div><div class="r1-name">Directional</div></div>
+        <div class="r1c-pct">30%</div>
+      </div>
+      <div class="r1c-body">Movement shown without arrival claimed. The most honest and therapeutically valuable type. <strong>Keeps the return process alive.</strong> Not consolation — the only structurally honest exit from T3 that doesn't foreclose genuine repair.<div class="r1c-spec">Canonical: A Love Supreme Psalm · Manchester by the Sea · Strangler fig pattern · "Walking" · Constitutional AI</div></div>
+    </div>
+  </div>
+  <p style="font-size:.78rem;color:var(--t3);font-style:italic">Percentages from corpus of 46 specimens across 11 domains. Purposive sample — not a random sample of all cultural production.</p>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 03 — COLLECTION ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">03</span><h2 class="sec-title">The Collection</h2></div>
+  <p class="sec-lead">Six pieces sharing three structural positions across the R1 taxonomy. <strong>Recommended reading order is the order below.</strong> "Just Before" (ii) is structurally more important than "Pulled Too Late" (iii) — it makes the ◇ contingent rather than fated.</p>
+
+  <div class="coll-arc">
+    <div class="ca ca-0"><div class="ca-num">0.</div><div class="ca-title">The Week Before</div><div class="ca-r1">F1 + I1</div></div>
+    <div class="ca ca-2"><div class="ca-num">ii.</div><div class="ca-title">Just Before</div><div class="ca-r1">◇ not sealed</div></div>
+    <div class="ca ca-3"><div class="ca-num">iii.</div><div class="ca-title">Pulled Too Late</div><div class="ca-r1">R1-B anchor</div></div>
+    <div class="ca ca-4"><div class="ca-num">iv.</div><div class="ca-title">Fine</div><div class="ca-r1">R1-C ✕</div></div>
+    <div class="ca ca-5"><div class="ca-num">v.</div><div class="ca-title">Infrastructure</div><div class="ca-r1">R1-A</div></div>
+    <div class="ca ca-6"><div class="ca-num">vi.</div><div class="ca-title">Walking</div><div class="ca-r1">R1-D</div></div>
+  </div>
+
+  <div class="compare">
+    <div class="cmp cmp-tc">
+      <div class="cmp-head"><div class="cmp-label">Type C · R1-C · iv.</div><div class="cmp-title">"Fine"</div></div>
+      <div class="cmp-body" style="color:var(--t2)">The prose structure IS Type C. Ordered sentences claim F1 (routine, coherence). Content confirms T3. The triple "He is fine" is the structural tell: <strong>the more often a state is asserted, the less certain it is.</strong></div>
+    </div>
+    <div class="cmp cmp-rd">
+      <div class="cmp-head"><div class="cmp-label">R1-D · vi.</div><div class="cmp-title">"Walking"</div></div>
+      <div class="cmp-body" style="color:var(--t2)">Three sentences. Twelve words. No destination. The most structurally precise ending in the corpus: direction without arrival, movement without claim. <strong>"He doesn't know where yet. But he's walking."</strong></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 04 — CROSS-DOMAIN ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">04</span><h2 class="sec-title">Cross-Domain Evidence</h2></div>
+  <p class="sec-lead">The grammar arc F1→D1→S1→T1→L2→T3 was derived independently from the text, the music, and the visual design of the same work — with no reference between analyses. All three returned the same arc. <strong>SLA-CROSS-001: the first confirmed three-domain receipt in the corpus.</strong></p>
+
+  <div class="cross-wrap">
+    <div class="cross-svg-wrap">
+      <svg viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px">
+        <!-- Three overlapping ellipses -->
+        <ellipse cx="180" cy="110" rx="110" ry="75" fill="rgba(196,64,64,.12)" stroke="#c44040" stroke-width="1"/>
+        <ellipse cx="300" cy="110" rx="110" ry="75" fill="rgba(122,113,212,.1)" stroke="#7a71d4" stroke-width="1"/>
+        <ellipse cx="240" cy="80" rx="110" ry="75" fill="rgba(26,158,120,.1)" stroke="#1a9e78" stroke-width="1"/>
+
+        <!-- Labels -->
+        <text x="112" y="148" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#c44040" font-weight="600">Text</text>
+        <text x="112" y="162" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#c44040">Pulled Too Late</text>
+
+        <text x="368" y="148" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#7a71d4" font-weight="600">Music</text>
+        <text x="368" y="162" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#7a71d4">11:02 album</text>
+
+        <text x="240" y="28" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#1a9e78" font-weight="600">Visual</text>
+        <text x="240" y="42" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#1a9e78">color system</text>
+
+        <!-- Center: receipt -->
+        <text x="240" y="105" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#e2dfd8" font-weight="600">SLA-CROSS</text>
+        <text x="240" y="117" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#e2dfd8" font-weight="600">-001</text>
+        <text x="240" y="130" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="7.5" fill="#9a9690">same arc</text>
+        <text x="240" y="142" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="7.5" fill="#9a9690">3 analyses</text>
+
+        <!-- Grammar arc below -->
+        <text x="240" y="215" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a5652">F1 → D1 → S1 → T1 → L2 → T3</text>
+        <text x="240" y="229" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#3a3733">confirmed independently in all three domains</text>
+      </svg>
+    </div>
+  </div>
+
+  <div style="background:var(--s2);border:.5px solid var(--brd);border-radius:8px;padding:1rem 1.25rem">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);margin-bottom:.4rem">THE GOVERNING INSIGHT</div>
+    <p style="font-family:'Libre Baskerville',serif;font-size:.92rem;color:var(--t2);line-height:1.82;font-style:italic;margin:0">The SLA analysis did not impose meaning on "Pulled Too Late." It named what the piece already knew. The cut word was always "safe." The typographic lock on <span style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--t2)">11:02</span> was always right. The boy was always the R1 carrier. Three axioms generate the entire grammar. The grammar is medium-agnostic.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 05 — 12 DOMAINS ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">05</span><h2 class="sec-title">Twelve Domains</h2></div>
+  <p class="sec-lead">The grammar applies to any domain that produces meaning over time. Each extension was derived from the same three axioms. <strong>The cross-domain consistency is evidence that the grammar describes something structural, not domain-specific.</strong></p>
+
+  <div class="domain-grid">
+    <div class="dc"><div class="dc-n">01</div><div class="dc-name">Text / Narrative</div><div class="dc-tc">T3: voicemail loop degrading</div><div class="dc-rd">R1-D: the boy walking</div></div>
+    <div class="dc"><div class="dc-n">02</div><div class="dc-name">Music</div><div class="dc-tc">T3: Tristan Prelude (method)</div><div class="dc-rd">R1-D: A Love Supreme Psalm</div></div>
+    <div class="dc"><div class="dc-n">03</div><div class="dc-name">Visual Design</div><div class="dc-tc">T3: Twitter→X (I1 destroyed)</div><div class="dc-rd">R1-D: Apple 1997 return</div></div>
+    <div class="dc"><div class="dc-n">04</div><div class="dc-name">Typography</div><div class="dc-tc">T3: competing weights, no hierarchy</div><div class="dc-rd">R1-D: strangler fig migration</div></div>
+    <div class="dc"><div class="dc-n">05</div><div class="dc-name">Motion / Animation</div><div class="dc-tc">T3: vestibular-triggering</div><div class="dc-rd">R1-D: shared element transitions</div></div>
+    <div class="dc"><div class="dc-n">06</div><div class="dc-name">Spatial / Built</div><div class="dc-tc">T3: hospital wayfinding failure</div><div class="dc-rd">R1-D: courtyard as S3</div></div>
+    <div class="dc"><div class="dc-n">07</div><div class="dc-name">Code / Software</div><div class="dc-tc">T3: distributed monolith</div><div class="dc-rd">R1-D: strangler fig pattern</div></div>
+    <div class="dc"><div class="dc-n">08</div><div class="dc-name">Film / Cinema</div><div class="dc-tc">T3: La La Land finale</div><div class="dc-rd">R1-D: Manchester by the Sea</div></div>
+    <div class="dc"><div class="dc-n">09</div><div class="dc-name">Relational / Social</div><div class="dc-tc">T3: same fight, no resolution</div><div class="dc-rd">R1-D: "I don't know, but I'm trying"</div></div>
+    <div class="dc"><div class="dc-n">10</div><div class="dc-name">Scientific Paradigms</div><div class="dc-tc">T3: replication crisis</div><div class="dc-rd">R1-D: Wegener pre-mechanism</div></div>
+    <div class="dc"><div class="dc-n">11</div><div class="dc-name">AI / Alignment</div><div class="dc-tc">T3: RLHF → approval not values</div><div class="dc-rd">R1-D: Constitutional AI</div></div>
+    <div class="dc"><div class="dc-n">12</div><div class="dc-name">Language / Linguistics</div><div class="dc-tc">T3: doublespeak (Orwell 1946)</div><div class="dc-rd">R1-D: neologism that names the gap</div></div>
+  </div>
+  <p style="font-size:.72rem;color:var(--t3);font-style:italic">13th domain: Ecology / Natural Systems — added this session. Further domains (medicine, pedagogy, diplomacy, athletics) remain unmapped but follow the same three axioms.</p>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 06 — CORPUS ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">06</span><h2 class="sec-title">What the Corpus Shows</h2></div>
+  <p class="sec-lead">46 specimens scanned across 11 domains. The distribution is consistent: <strong>Type C is commercially dominant in every optimization-pressured domain.</strong> This is a structural prediction from the T3 Rule, confirmed independently across music, design, code, film, and science.</p>
+
+  <div class="corpus-chart" id="corpus-chart">
+    <div class="chart-row">
+      <div class="chart-meta"><span class="chart-label" style="color:var(--fail)">R1-C ✕ — False Repair</span><span class="chart-sub">commercially dominant · Type C</span><span class="chart-pct">43%</span></div>
+      <div class="chart-track"><div class="chart-fill cf-c" data-w="43"><span>Fix You · Tropicana · Distributed Monolith</span></div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-meta"><span class="chart-label" style="color:var(--rep)">R1-D — Directional</span><span class="chart-sub">artistically respected · most honest from T3</span><span class="chart-pct">30%</span></div>
+      <div class="chart-track"><div class="chart-fill cf-d" data-w="30"><span>A Love Supreme · Manchester · Walking</span></div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-meta"><span class="chart-label" style="color:var(--gray)">R1-A — Unavailable</span><span class="chart-sub">clinically most significant</span><span class="chart-pct">17%</span></div>
+      <div class="chart-track"><div class="chart-fill cf-a" data-w="17"><span>Infrastructure · Strange Fruit</span></div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-meta"><span class="chart-label" style="color:var(--neut)">R1-B — Available, not taken</span><span class="chart-sub">therapy / reform entry point</span><span class="chart-pct">9%</span></div>
+      <div class="chart-track"><div class="chart-fill cf-b" data-w="9"><span>Pulled Too Late · Replication Crisis</span></div></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:1.5rem">
+    <div class="finding"><span class="f-n">01</span><div class="f-body"><div class="f-title">Type C is structurally predicted</div><div class="f-detail">The T3 Rule predicts this: bypassing R1 is <strong>faster, cheaper, and produces a convincing surface.</strong> Every commercially optimized domain has independently arrived at the same error.</div></div></div>
+    <div class="finding"><span class="f-n">02</span><div class="f-body"><div class="f-title">Film has the highest R1-D rate</div><div class="f-detail">Film: ~67% R1-D. Design: ~55% Type C. Auteur culture protects honest endings. <strong>R1-D requires structural protection from optimization pressure.</strong></div></div></div>
+    <div class="finding"><span class="f-n">03</span><div class="f-body"><div class="f-title">Confirmed R1 is extremely rare</div><div class="f-detail">No domain produces confirmed R1 as its dominant pattern. <strong>R1 requires structural conditions genuinely difficult to achieve at commercial scale.</strong> This is evidence for, not against, the T3 Rule.</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 07 — TOOLS ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">07</span><h2 class="sec-title">Tools Built</h2></div>
+  <p class="sec-lead">Four interactive governance scanners apply the grammar across domains. Each returns a receipt: R1 type, grammar arc, confusion check, clinical directive. The scanners teach the grammar by using it.</p>
+
+  <div class="tools-grid">
+    <div class="tool">
+      <div class="tool-head"><span class="tool-name">Music Pop Scanner</span><span class="tool-badge">working</span></div>
+      <div class="tool-body">5 questions. Determines whether a song is honoring or violating the T3 Rule. Detects Type C (Fix You pattern) vs. R1-D (A Love Supreme pattern). Issues grammar receipt with confusion check.
+        <div class="tool-domains"><span class="tdp">Music</span><span class="tdp">Lyrics</span><span class="tdp">Production</span></div>
+      </div>
+    </div>
+    <div class="tool">
+      <div class="tool-head"><span class="tool-name">Design Scanner</span><span class="tool-badge">working</span></div>
+      <div class="tool-body">5 questions for any rebrand, redesign, or refresh. Detects the False Repair pattern (Tropicana, Twitter→X) and distinguishes from genuine R1-D (Apple 1997). Issues structural governance receipt.
+        <div class="tool-domains"><span class="tdp">Visual</span><span class="tdp">Branding</span><span class="tdp">Rebrands</span></div>
+      </div>
+    </div>
+    <div class="tool">
+      <div class="tool-head"><span class="tool-name">Unified Scanner</span><span class="tool-badge">working</span></div>
+      <div class="tool-body">Three domains, one interface. Music / Design / Film. Same badge system, same grammar vocabulary across all three. The cross-domain nature of the grammar becomes visible in a single tool.
+        <div class="tool-domains"><span class="tdp">Music</span><span class="tdp">Design</span><span class="tdp">Film</span></div>
+      </div>
+    </div>
+    <div class="tool">
+      <div class="tool-head"><span class="tool-name">SLA Learn</span><span class="tool-badge">interactive</span></div>
+      <div class="tool-body">5-step guided introduction. From "you already know this grammar" → three axioms → canonical specimens → R1 taxonomy → practice scan. Designed for first contact with the framework.
+        <div class="tool-domains"><span class="tdp">All domains</span><span class="tdp">Entry point</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════ 08 — RECEIPT ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">08</span><h2 class="sec-title">Session Receipt</h2></div>
+  <p class="sec-lead">Every analytical claim in this report is bounded by explicit governance. The grammar describes structure — it cannot diagnose people, replace clinical judgment, or claim authority it hasn't earned.</p>
+
+  <div class="receipt">
+    <div class="rct-head">
+      <div class="rct-id">SLA-SESSION-001 · Candidate · May 11 2026</div>
+      <div class="rct-title">The "Pulled Too Late" Analytical Session</div>
+    </div>
+    <div class="rct-rows">
+      <div class="rct-row"><span>Starting specimen</span><span>"Pulled Too Late" — lyric essay, eight sections</span></div>
+      <div class="rct-row highlight"><span>Cross-domain receipt</span><span>SLA-CROSS-001 confirmed — text + music + visual, same arc, independent analyses</span></div>
+      <div class="rct-row"><span>Total specimens</span><span>46+ across 11 domains</span></div>
+      <div class="rct-row"><span>Domains extended</span><span>Text · Music · Visual · Typography · Motion · Spatial · Code · Film · Relational · Scientific · AI · Linguistics · Ecology (13)</span></div>
+      <div class="rct-row"><span>Grammar arc</span><span>F1 (initial scan) → P1 (each domain implied next) → S3 (3 axioms) → R1-D (ongoing)</span></div>
+      <div class="rct-row"><span>T3 Rule status</span><span>HONORED — no Type C claims made in this report</span></div>
+      <div class="rct-row"><span>DAVAR status</span><span>Candidate — pending 3 authorial confirmations</span></div>
+      <div class="rct-row"><span>Session grammar</span><span>R1-D · direction shown · arrival not claimed</span></div>
+    </div>
+    <div class="rct-cant">notAllowedToProve: cannot claim the grammar is universal; corpus is purposive, not random; cannot diagnose specific people, companies, or systems; cannot claim the framework is complete; cannot claim the session's analysis substitutes for authorial confirmation, peer review, or clinical judgment. A beautiful system is not automatically a true system.</div>
+  </div>
+</div>
+</section>
+
+<script>
+// Animate corpus bars when scrolled into view
+const chart = document.getElementById('corpus-chart');
+const fills = chart.querySelectorAll('.chart-fill');
+const obs = new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting){
+    fills.forEach(f => {
+      const w = f.dataset.w;
+      setTimeout(()=>{ f.style.width = w + '%'; }, 100);
+    });
+    obs.disconnect();
+  }
+}, {threshold:.3});
+obs.observe(chart);
+</script>
+</body>
+</html>
