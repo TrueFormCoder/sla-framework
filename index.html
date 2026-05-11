@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:title" content="SLA Framework · Visual Report">
+<meta property="og:description" content="A medium-agnostic grammar for structural coherence and collapse — derived from a lyric essay, confirmed across twelve domains, receipted.">
+<meta property="og:url" content="https://sla-framework.vercel.app">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SLA Framework · Visual Report">
+<meta name="twitter:description" content="Three axioms. Twelve domains. One grammar. T3 → R1 → F1.">
 <title>SLA Framework · Visual Report</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
@@ -17,6 +24,21 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;overflow-x:hidden}
+
+
+/* ── NAV ── */
+.top-nav{position:sticky;top:0;z-index:100;background:rgba(12,11,10,.92);backdrop-filter:blur(8px);border-bottom:.5px solid var(--brd);padding:.6rem 0}
+.nav-inner{max-width:900px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--t2);letter-spacing:.06em;text-decoration:none}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--t3);text-decoration:none;letter-spacing:.06em;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-links a.active{color:var(--coh)}
+/* ── TOOL LINK ── */
+a.tool{display:block;text-decoration:none;color:inherit;transition:border-color .15s}
+a.tool:hover{border-color:var(--coh)}
+/* ── CHART ROW spacing ── */
+.chart-row{margin-bottom:1.4rem}
 
 /* ── LAYOUT ── */
 .container{max-width:900px;margin:0 auto;padding:0 2rem}
@@ -114,8 +136,8 @@ section:nth-child(even){background:var(--s1)}
 .chart-sub{font-size:.68rem;color:var(--t3);font-style:italic}
 .chart-pct{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--t2)}
 .chart-track{height:18px;background:var(--bg);border-radius:4px;overflow:hidden}
-.chart-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:6px}
-.chart-fill span{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.7);font-weight:500}
+.chart-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.chart-spec{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);margin-top:.3rem;line-height:1.4;letter-spacing:.01em}
 .cf-c{background:var(--fail)}.cf-d{background:var(--rep)}.cf-a{background:var(--gray)}.cf-b{background:var(--neut)}
 
 /* ── COMPARISON ── */
@@ -172,6 +194,17 @@ section:nth-child(even){background:var(--s1)}
 </style>
 </head>
 <body>
+<nav class="top-nav">
+<div class="nav-inner">
+  <a href="/" class="nav-brand">SLA Framework</a>
+  <div class="nav-links">
+    <a href="/" class="active">Report</a>
+    <a href="/learn">Learn</a>
+    <a href="/collection">Collection</a>
+    <a href="/scanner">Scanner</a>
+  </div>
+</div>
+</nav>
 
 <!-- ═══════════════════════════════════ COVER ═══ -->
 <section class="cover">
@@ -418,19 +451,19 @@ section:nth-child(even){background:var(--s1)}
   <div class="corpus-chart" id="corpus-chart">
     <div class="chart-row">
       <div class="chart-meta"><span class="chart-label" style="color:var(--fail)">R1-C ✕ — False Repair</span><span class="chart-sub">commercially dominant · Type C</span><span class="chart-pct">43%</span></div>
-      <div class="chart-track"><div class="chart-fill cf-c" data-w="43"><span>Fix You · Tropicana · Distributed Monolith</span></div></div>
+      <div class="chart-track"><div class="chart-fill cf-c" data-w="43"></div></div><div class="chart-spec">Fix You &nbsp;·&nbsp; Tropicana 2009 &nbsp;·&nbsp; Distributed Monolith &nbsp;·&nbsp; "He is fine." &nbsp;·&nbsp; "Capabilities → alignment"</div>
     </div>
     <div class="chart-row">
       <div class="chart-meta"><span class="chart-label" style="color:var(--rep)">R1-D — Directional</span><span class="chart-sub">artistically respected · most honest from T3</span><span class="chart-pct">30%</span></div>
-      <div class="chart-track"><div class="chart-fill cf-d" data-w="30"><span>A Love Supreme · Manchester · Walking</span></div></div>
+      <div class="chart-track"><div class="chart-fill cf-d" data-w="30"></div></div><div class="chart-spec">A Love Supreme Psalm &nbsp;·&nbsp; Manchester by the Sea &nbsp;·&nbsp; "Walking" &nbsp;·&nbsp; Strangler fig &nbsp;·&nbsp; Constitutional AI</div>
     </div>
     <div class="chart-row">
       <div class="chart-meta"><span class="chart-label" style="color:var(--gray)">R1-A — Unavailable</span><span class="chart-sub">clinically most significant</span><span class="chart-pct">17%</span></div>
-      <div class="chart-track"><div class="chart-fill cf-a" data-w="17"><span>Infrastructure · Strange Fruit</span></div></div>
+      <div class="chart-track"><div class="chart-fill cf-a" data-w="17"></div></div><div class="chart-spec">Infrastructure &nbsp;·&nbsp; Strange Fruit &nbsp;·&nbsp; Coral gardening (global T3 source) &nbsp;·&nbsp; Hospital wayfinding collapse</div>
     </div>
     <div class="chart-row">
       <div class="chart-meta"><span class="chart-label" style="color:var(--neut)">R1-B — Available, not taken</span><span class="chart-sub">therapy / reform entry point</span><span class="chart-pct">9%</span></div>
-      <div class="chart-track"><div class="chart-fill cf-b" data-w="9"><span>Pulled Too Late · Replication Crisis</span></div></div>
+      <div class="chart-track"><div class="chart-fill cf-b" data-w="9"></div></div><div class="chart-spec">Pulled Too Late &nbsp;·&nbsp; Replication crisis &nbsp;·&nbsp; AI alignment field &nbsp;·&nbsp; Plate tectonics (pre-Wegener)</div>
     </div>
   </div>
 
@@ -449,25 +482,25 @@ section:nth-child(even){background:var(--s1)}
   <p class="sec-lead">Four interactive governance scanners apply the grammar across domains. Each returns a receipt: R1 type, grammar arc, confusion check, clinical directive. The scanners teach the grammar by using it.</p>
 
   <div class="tools-grid">
-    <div class="tool">
+    <a href="/scanner" class="tool">
       <div class="tool-head"><span class="tool-name">Music Pop Scanner</span><span class="tool-badge">working</span></div>
       <div class="tool-body">5 questions. Determines whether a song is honoring or violating the T3 Rule. Detects Type C (Fix You pattern) vs. R1-D (A Love Supreme pattern). Issues grammar receipt with confusion check.
         <div class="tool-domains"><span class="tdp">Music</span><span class="tdp">Lyrics</span><span class="tdp">Production</span></div>
       </div>
     </div>
-    <div class="tool">
+    <a href="/scanner" class="tool">
       <div class="tool-head"><span class="tool-name">Design Scanner</span><span class="tool-badge">working</span></div>
       <div class="tool-body">5 questions for any rebrand, redesign, or refresh. Detects the False Repair pattern (Tropicana, Twitter→X) and distinguishes from genuine R1-D (Apple 1997). Issues structural governance receipt.
         <div class="tool-domains"><span class="tdp">Visual</span><span class="tdp">Branding</span><span class="tdp">Rebrands</span></div>
       </div>
     </div>
-    <div class="tool">
+    <a href="/scanner" class="tool">
       <div class="tool-head"><span class="tool-name">Unified Scanner</span><span class="tool-badge">working</span></div>
       <div class="tool-body">Three domains, one interface. Music / Design / Film. Same badge system, same grammar vocabulary across all three. The cross-domain nature of the grammar becomes visible in a single tool.
         <div class="tool-domains"><span class="tdp">Music</span><span class="tdp">Design</span><span class="tdp">Film</span></div>
       </div>
     </div>
-    <div class="tool">
+    <a href="/learn" class="tool">
       <div class="tool-head"><span class="tool-name">SLA Learn</span><span class="tool-badge">interactive</span></div>
       <div class="tool-body">5-step guided introduction. From "you already know this grammar" → three axioms → canonical specimens → R1 taxonomy → practice scan. Designed for first contact with the framework.
         <div class="tool-domains"><span class="tdp">All domains</span><span class="tdp">Entry point</span></div>
@@ -518,5 +551,82 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:.3});
 obs.observe(chart);
 </script>
+
+<!-- ═══════════════════════════════════ 09 — MIRRORSOLVERT ═══ -->
+<section>
+<div class="container">
+  <div class="sec-label"><span class="sec-num">09</span><h2 class="sec-title">MirrorSolveRT</h2></div>
+  <p class="sec-lead">Threats, weaknesses, and gaps in the framework — with strategies to neutralize each. The grammar applies to itself. A governed framework must be able to scan its own T3.</p>
+
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:2rem">
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--fail);padding:.25rem .5rem;background:var(--chf);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">T SCOPE</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">The corpus is purposive, not random — the 43% Type C finding cannot be generalized</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">46 specimens were selected for analytical interest, not statistical representativeness. Publishing "43% of cultural output is Type C" from this corpus would be Type C: claiming empirical authority the methodology doesn't support. <strong>Strategy:</strong> always state "purposive corpus" in the same sentence as the distribution figures. The claim is about the analyzed corpus, not all cultural production. The pattern is suggestive; the methodology for a definitive claim requires random sampling across each domain.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--fail);padding:.25rem .5rem;background:var(--chf);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">T ENTRY</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">The framework's scope (12 domains, 46 specimens, 9 HTML artifacts) has no clear entry point for newcomers</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">A framework that impresses without generating practice is Type C at the institutional level. <strong>Strategy:</strong> the <a href="/learn" style="color:var(--coh);text-decoration:none">/learn page</a> is the entry point — one 5-step experience that teaches the grammar through examples before any theory. The report comes second. The scanners come third. The domain extensions are for practitioners already inside the framework. The public-facing sequence must be enforced: Learn → Report → Scan → Extend.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--fail);padding:.25rem .5rem;background:var(--chf);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">T WEAP</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">The relational and clinical grammar can be weaponized in abusive dynamics</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">The T3 Rule says a partner in T3 cannot "just get over it" without a genuine repair process. An abusive partner could use this to require the harmed person to "demonstrate R1 progress." <strong>Strategy:</strong> the notAllowedToProve for the relational domain must explicitly state: the grammar cannot adjudicate fault; cannot require anyone to demonstrate their recovery to a partner who caused the T3; cannot be used to delay accountability. The framework describes structural conditions — it does not name who is responsible for them.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--coh);padding:.25rem .5rem;background:var(--chc);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">U NAV</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">Cross-page navigation — the four pages are siloed without it</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">Deployed: sticky nav header now links Report / Learn / Collection / Scanner across all pages. The reader who finishes the report can go directly to the interactive experience or the scanners without returning to a separate URL. <strong>Impact:</strong> reduces exit rate between pages; the four artifacts become a coherent site rather than four separate files.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--coh);padding:.25rem .5rem;background:var(--chc);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">U SOCIAL</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">OG / Twitter meta tags — social shares were rendering blank</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">Deployed: OpenGraph and Twitter Card meta tags added to all pages. When shared on LinkedIn, Twitter, iMessage, or Slack, the preview now shows the title, description, and URL correctly. <strong>Next step:</strong> add an OG image (1200×630px) showing the T3 Rule diagram or the collection arc — visual previews increase click-through rates ~3× over text-only previews.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--coh);padding:.25rem .5rem;background:var(--chc);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">U CANON</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">The three authorial confirmations are the only remaining gate between candidate and governed status</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">Everything in this report — the cross-domain receipt, the chapbook editions, the ELE Canon entry — traces to three decisions by one person: typographic lock on <span style="font-family:'IBM Plex Mono',monospace">11:02</span>, cut word "safe" in the voicemail, Section IX Variant A. These are authorial decisions, not analytical ones. <strong>The upgrade:</strong> present each decision as finished text (not as a question), side-by-side. The author decides by reading. When all three are confirmed, DAVAR status unlocks and the governed edition can be printed.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;border-bottom:.5px solid var(--brd);padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--rep);padding:.25rem .5rem;background:var(--chr);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">U OG IMG</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">Social preview image — highest-leverage single asset missing from the site</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">A single 1200×630px OG image showing the T3 Rule diagram (dark background, the three paths — blocked, valid, bypass) would make every share of this URL visually recognizable. The grammar's core claim in one image. <strong>Build path:</strong> generate as SVG → export as PNG → host on Vercel as <code style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;background:var(--s2);padding:1px 4px;border-radius:2px">/og.png</code> → add to all pages. Takes one pass.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3.5rem 1fr;padding:.85rem 0;gap:.5rem">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;color:var(--rep);padding:.25rem .5rem;background:var(--chr);border-radius:3px;height:fit-content;letter-spacing:.04em;white-space:nowrap">U AUDIO</div>
+      <div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--t1);margin-bottom:.2rem">The web experience audio layer — the most powerful demonstration remaining</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.65">The <a href="/collection" style="color:var(--coh);text-decoration:none">/collection</a> experience presents text + color grammar simultaneously. Adding ambient audio per piece (teal for The Week Before, Shepard descent for Pulled Too Late, silence for Section IX, walking bass for Walking) produces the only three-domain simultaneous experience in the ELE corpus. <strong>The grammar as experience, not as analysis.</strong> That conversion — reading about T3 vs. feeling the color shift while the bass descends — is worth more than any further documentation pass.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
 </body>
 </html>
