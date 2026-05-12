@@ -1,0 +1,229 @@
+{
+  "ledger_id": "ELLARI-CANONLEDGER-001",
+  "version": "0.1",
+  "iso": "2026-05-11",
+  "owner": "Ellari · Ellari Ventures LLC",
+  "orcid": "0009-0009-7943-1498",
+  "public_url": "https://canonledger.io",
+  "receipt_anchor": "https://sealforge.io/v/sf_acc_00MOOFCI2P09LYBYRTTXCJDJST",
+  "governing_rules": [
+    "No entry without all seven required fields",
+    "No silent edits — every change is logged with ISO timestamp",
+    "No thread may silently supersede another thread's controlling artifact",
+    "Status terms require SealForge receipts before public use",
+    "Health and sensory claims require E-tier receipt (E1 minimum, E5 for clinical)",
+    "Ellari holds final release authority — public_release_allowed must be true",
+    "Registry memory is the most structured version, not the most beautiful version"
+  ],
+  "entries": [
+    {
+      "canon_id": "SLA-AXIOMATIC-001",
+      "title": "Three Axioms — Level 0 Grammar",
+      "version": "0.1",
+      "status": "internally_mapped",
+      "claim_boundary": "The three axioms govern all SLA structural claims. They are not empirical claims — they are definitional constraints on what SLA counts as a structural state.",
+      "allowed_to_prove": [
+        "Coherence Axiom: systems occupy coherent, destabilized, or collapsed states",
+        "T3 Rule: T3→F1 blocked; bypass = Type C",
+        "R1-D Principle: R1-D > Type C"
+      ],
+      "not_allowed_to_prove": [
+        "Universality of these axioms across all possible structural systems",
+        "Clinical application without E-tier evidence chain"
+      ],
+      "source_thread": "VANTA",
+      "public_release_allowed": true,
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "SLA-EXT-R1-001",
+      "title": "R1 Availability Taxonomy — A/B/C/D",
+      "version": "0.1",
+      "status": "candidate",
+      "claim_boundary": "The R1 taxonomy distinguishes four structural states of return availability. Each is formally distinct with different governing implications.",
+      "allowed_to_prove": [
+        "R1-A: structurally unavailable return — the system conditions preclude return process",
+        "R1-B: available return missed within the structural window",
+        "R1-C: false repair — the appearance of F1 without return process",
+        "R1-D: directional movement — forward without arrival claim"
+      ],
+      "not_allowed_to_prove": [
+        "Value judgment about which R1 state is preferable",
+        "Clinical prescription for moving between R1 states"
+      ],
+      "source_thread": "VANTA",
+      "public_release_allowed": true,
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "SLA-CROSS-001",
+      "title": "First Three-Domain Alignment — Text + Music + Visual",
+      "version": "0.1",
+      "status": "internally_receipted",
+      "claim_boundary": "Pulled Too Late returns the same SLA grammar arc when analyzed as literary text, as musical structure, and as visual composition. Not a claim of equivalence across domains — a claim of structural alignment within this corpus.",
+      "allowed_to_prove": [
+        "Corpus-aligned structural grammar across three domains for this specimen",
+        "T3 entry point, voicemail degradation arc, and R1-B taxonomy consistent across media"
+      ],
+      "not_allowed_to_prove": [
+        "Universal cross-domain alignment",
+        "That the grammar was intended by the author across domains"
+      ],
+      "source_thread": "Shared",
+      "public_release_allowed": true,
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "SLA-TEXT-001",
+      "title": "Pulled Too Late · Primary Scan Receipt",
+      "version": "0.1",
+      "status": "internally_receipted_candidate",
+      "claim_boundary": "Cross-domain structural alignment within corpus. Not a claim of equivalence with real events. Not a clinical reading.",
+      "allowed_to_prove": [
+        "The SLA grammar arc F1→T3→blocked_R1 is present in the text",
+        "168-second window constitutes R1-B structural condition"
+      ],
+      "not_allowed_to_prove": [
+        "Identity of real individuals",
+        "Authorial intent beyond documented author's note",
+        "Clinical or psychological assessment of characters"
+      ],
+      "source_thread": "Ellari",
+      "public_release_allowed": true,
+      "public_release_gate": "authorial_confirmation_required",
+      "authorial_confirmations_pending": [
+        "typographic_lock_11:02",
+        "cut_word_safe",
+        "section_ix_variant"
+      ],
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "SLA-SENSORY-001",
+      "title": "Sensory Modulation Grammar",
+      "version": "0.2",
+      "status": "candidate",
+      "claim_boundary": "Evidence-gated sensory grammar across 8 domains. E1–E5 tier system. CLINICAL HARDGATE — not for public release until E3+ expert review.",
+      "allowed_to_prove": [],
+      "not_allowed_to_prove": [
+        "Clinical efficacy",
+        "Therapeutic benefit",
+        "Sensory regulation outcomes without E3+ receipt"
+      ],
+      "source_thread": "VANTA",
+      "public_release_allowed": false,
+      "hardgate": "clinical",
+      "hardgate_note": "Requires expert review before ANY public claim. E5 required for therapeutic claim.",
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "SLA-KUHN-001",
+      "title": "What Kuhn Described — A Formal Grammar for Scientific Revolution",
+      "version": "0.2",
+      "status": "candidate",
+      "claim_boundary": "Cross-domain structural alignment between SLA and Kuhn's Structure of Scientific Revolutions. P1/T3 distinction as central contribution. Not a claim of equivalence with Kuhn's work or replacement for peer review.",
+      "allowed_to_prove": [
+        "Kuhn's phenomenological description of scientific revolution maps to SLA's formal P1/T3 distinction with structural precision",
+        "Normal science period = F1+I1 holding",
+        "Anomaly = T1 entry",
+        "Crisis = T3",
+        "Paradigm shift = T3→◇ (incommensurability = T3→F1 blocked)",
+        "Revolution = R1 (new paradigm, not F1 restored)"
+      ],
+      "not_allowed_to_prove": [
+        "Universality",
+        "That Kuhn intended the SLA grammar",
+        "Replacement for academic philosophy of science peer review",
+        "Clinical application"
+      ],
+      "source_thread": "Shared",
+      "public_release_allowed": true,
+      "sealforge_pending": true,
+      "sealforge_note": "Seal required before PhilSci-Archive submission. SHA-256 of final .docx needed.",
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "SLA-MUSIC-001",
+      "title": "Collapse Music Notation — Framework Registry Entry",
+      "version": "0.1",
+      "status": "candidate",
+      "claim_boundary": "CMN is a formal notation extension demonstrating cross-tradition structural alignment across six specimens. Not a claim of universality. Not a claim of therapeutic efficacy.",
+      "allowed_to_prove": [
+        "T3→F1 block appears independently in Hindustani classical law (rasa bhanga) and Western classical composition (Shostakovich letter evidence)",
+        "The SLA grammar accounts for all five specimen arcs without modification",
+        "CMN provides a formal notation system for structural states in music"
+      ],
+      "not_allowed_to_prove": [
+        "Universality — six specimens, three traditions",
+        "That therapeutic benefit follows from governed listening",
+        "That the grammar was known to any tradition before SLA named it"
+      ],
+      "source_thread": "Claude",
+      "public_release_allowed": true,
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "1102-CHAP-001",
+      "title": "11:02 — A Collection · Release State",
+      "version": "0.4",
+      "status": "candidate",
+      "claim_boundary": "Six-piece literary collection demonstrating the full R1 taxonomy. Authorial confirmations required before seal.",
+      "allowed_to_prove": [
+        "The collection demonstrates all four R1 subtypes in sequence",
+        "Track iv (Fine) is structurally distinct from Track 0 (The Week Before) despite surface similarity",
+        "Track vi (Walking) ends in R1-D — directional movement without arrival"
+      ],
+      "not_allowed_to_prove": [
+        "Identity of real individuals",
+        "Authorial intent beyond the documented author's note",
+        "Therapeutic or clinical benefit"
+      ],
+      "source_thread": "Ellari",
+      "public_release_allowed": true,
+      "public_release_gate": "authorial_confirmation_required",
+      "authorial_confirmations_pending": [
+        "typographic_lock_11:02",
+        "cut_word_safe",
+        "section_ix_variant"
+      ],
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    },
+    {
+      "canon_id": "CANONMEM-001",
+      "title": "Canon Memory Protocol — Governance Axiom",
+      "version": "0.1",
+      "status": "sealed_candidate",
+      "claim_boundary": "The canon is not what anyone remembers. The canon is what the registry says when you read it.",
+      "allowed_to_prove": [
+        "The registry is the authoritative source for all governed claims",
+        "Memory without receipt becomes mythology"
+      ],
+      "not_allowed_to_prove": [],
+      "source_thread": "Shared",
+      "public_release_allowed": true,
+      "canonical_lines": [
+        "The registry is not what you remember. The registry is what it says when you read it.",
+        "A canon without memory becomes mythology. A canon with memory becomes infrastructure."
+      ],
+      "sealforge_id": null,
+      "sha256": null,
+      "iso": "2026-05-11"
+    }
+  ]
+}

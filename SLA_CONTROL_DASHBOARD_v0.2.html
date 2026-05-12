@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLA Control Packet v0.2</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:wght@400;500&family=Crimson+Pro:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8860B;
+    --gold-dim: rgba(184,134,11,0.08);
+    --gold-border: rgba(184,134,11,0.2);
+    --bg: #06050a;
+    --bg2: #0d0b16;
+    --bg3: #151220;
+    --ink: #e2ddd6;
+    --ink-2: #9d99a8;
+    --ink-3: #4a4558;
+    --green: #3a9e6a;
+    --amber: #c08840;
+    --red: #c04848;
+    --brand: #534AB7;
+    --r: 3px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    min-height: 100vh;
+    padding: 40px 0 80px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── HEADER ── */
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .tag::before { content: '◈'; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 400; margin-bottom: 8px; }
+  .subtitle { font-size: 16px; color: var(--ink-2); margin-bottom: 24px; }
+  .hdr-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+  .meta-item { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--ink-3); }
+  .meta-item span { color: var(--ink-2); }
+
+  /* ── STATUS LEGEND ── */
+  .legend {
+    display: flex; gap: 20px; margin-bottom: 28px;
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--ink-3);
+    border-radius: var(--r);
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--ink-2); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .legend-item.passed .legend-dot { background: var(--green); }
+  .legend-item.ready .legend-dot { background: var(--amber); }
+  .legend-item.blocked .legend-dot { background: var(--red); opacity: 0.6; }
+  .legend-item.false .legend-dot { background: var(--ink-3); }
+
+  /* ── SOURCE INDICATOR ── */
+  .source-indicator {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .source-indicator.live { color: var(--green); }
+  .source-indicator.hardcoded { color: var(--amber); }
+
+  /* ── PROGRESS ── */
+  .progress-wrap { margin-bottom: 28px; }
+  .progress-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .progress-text { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-2); }
+  .progress-bar { height: 3px; background: var(--ink-3); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); transition: width 0.6s ease; }
+  .progress-fill.partial { background: var(--amber); }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 48px; }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-3); opacity: 0.3; }
+  .divider { border: none; border-top: 1px solid var(--ink-3); margin: 32px 0; opacity: 0.4; }
+
+  /* ── GATE GRID ── */
+  .gate-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  .gate-item {
+    background: var(--bg2); border: 1px solid var(--ink-3); border-radius: var(--r);
+    padding: 14px 16px; display: flex; gap: 10px; border-left: 2px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .gate-item:hover { border-color: var(--ink-2); }
+  .gate-item.status-passed { border-left-color: var(--green); }
+  .gate-item.status-ready { border-left-color: var(--amber); }
+  .gate-item.status-blocked { border-left-color: var(--red); opacity: 0.7; }
+  .gate-item.status-false { border-left-color: var(--ink-3); }
+  .gate-icon { font-family: 'IBM Plex Mono', monospace; font-size: 11px; width: 16px; flex-shrink: 0; margin-top: 2px; }
+  .gate-icon.passed { color: var(--green); }
+  .gate-icon.ready { color: var(--amber); }
+  .gate-icon.blocked { color: var(--red); }
+  .gate-icon.false { color: var(--ink-3); }
+  .gate-body { flex: 1; min-width: 0; }
+  .gate-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .gate-desc { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .gate-blocked-by { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--amber); margin-top: 5px; }
+  .gate-badge {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+    letter-spacing: 0.1em; padding: 2px 6px; border-radius: 2px; margin-top: 5px;
+    border: 1px solid;
+  }
+  .gate-badge.PASSED { color: var(--green); border-color: rgba(58,158,106,0.3); background: rgba(58,158,106,0.08); }
+  .gate-badge.READY { color: var(--amber); border-color: rgba(192,136,64,0.3); background: rgba(192,136,64,0.08); }
+  .gate-badge.BLOCKED { color: var(--red); border-color: rgba(192,72,72,0.3); }
+  .gate-badge.PENDING { color: var(--ink-3); border-color: var(--ink-3); }
+
+  /* ── ARTIFACT TABLE ── */
+  .artifact-list { display: flex; flex-direction: column; gap: 2px; }
+  .artifact-row {
+    display: grid; grid-template-columns: 220px 1fr 80px; gap: 12px; padding: 10px 14px;
+    background: var(--bg2); border: 1px solid transparent; border-radius: var(--r);
+    align-items: center; transition: border-color 0.15s;
+  }
+  .artifact-row:hover { border-color: var(--ink-3); }
+  .artifact-row.header { background: transparent; border: none; padding-bottom: 6px; }
+  .artifact-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .artifact-desc { font-size: 13px; color: var(--ink-2); }
+  .artifact-status { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-align: right; }
+  .artifact-status.ready { color: var(--green); }
+  .artifact-status.pending { color: var(--ink-3); }
+  .artifact-status.parked { color: var(--amber); }
+  .col-hdr { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-3); }
+
+  /* ── INVARIANTS ── */
+  .invariants { background: var(--bg2); border: 1px solid var(--ink-3); border-left: 2px solid var(--brand); border-radius: var(--r); padding: 18px 22px; }
+  .invariant-item { display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--ink-3); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+  .invariant-item:last-child { border-bottom: none; }
+  .invariant-key { color: var(--brand); min-width: 220px; flex-shrink: 0; }
+  .invariant-val { color: var(--ink-2); }
+
+  /* ── PARKED ── */
+  .parked-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .parked-item { background: var(--bg2); border: 1px solid var(--ink-3); border-left: 2px solid var(--amber); border-radius: var(--r); padding: 14px; }
+  .parked-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--amber); margin-bottom: 6px; }
+  .parked-desc { font-size: 13px; color: var(--ink-2); line-height: 1.5; margin-bottom: 8px; }
+  .parked-gate { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); line-height: 1.6; }
+
+  /* ── LOADING ── */
+  .gate-loading { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-3); padding: 20px 0; }
+
+  /* ── FOOTER ── */
+  .footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--ink-3); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .footer-law { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--ink-3); max-width: 600px; line-height: 1.6; }
+  .footer-badge { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--brand); background: rgba(83,74,183,0.08); border: 1px solid rgba(83,74,183,0.2); border-radius: 3px; padding: 4px 10px; }
+
+  @media (max-width: 600px) {
+    .artifact-row { grid-template-columns: 1fr 60px; }
+    .artifact-desc { display: none; }
+    .parked-grid { grid-template-columns: 1fr; }
+    .legend { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="tag">SLA · Shape Language Alphabet</div>
+  <h1>Control Packet v0.2</h1>
+  <p class="subtitle">Hardening patch. Semantic custody layer. Does not seal, publicize, or promote.</p>
+  <div class="hdr-meta">
+    <div class="meta-item">ISO <span>2026-05-12T00:00:00-05:00</span></div>
+    <div class="meta-item">Author <span>Ellari</span></div>
+    <div class="meta-item">Status <span>Candidate — Not sealed — Not public</span></div>
+    <div class="meta-item">Registry <span>SLA v2.2 · 5+42=47</span></div>
+  </div>
+
+  <!-- STATUS LEGEND -->
+  <div class="legend">
+    <div class="legend-item passed"><div class="legend-dot"></div> PASSED — repo confirmed + CI check passed</div>
+    <div class="legend-item ready"><div class="legend-dot"></div> READY — file exists in control packet; repo push pending</div>
+    <div class="legend-item false"><div class="legend-dot"></div> PENDING — work required</div>
+    <div class="legend-item blocked"><div class="legend-dot"></div> BLOCKED — depends on earlier gate</div>
+  </div>
+
+  <!-- GATE SOURCE INDICATOR -->
+  <div class="source-indicator" id="sourceIndicator">loading gate JSON...</div>
+
+  <!-- GATE SECTION -->
+  <div class="section">
+    <div class="section-label">v1.6 Promotion Gate</div>
+    <div class="progress-wrap">
+      <div class="progress-row">
+        <span class="progress-text">Gate progress (PASSED only)</span>
+        <span class="progress-text" id="gatePassedCount">—</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="gatePassedBar" style="width:0%"></div></div>
+      <div class="progress-row" style="margin-top:8px">
+        <span class="progress-text" style="color:var(--amber)">Ready (READY + PASSED)</span>
+        <span class="progress-text" id="gateReadyCount">—</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill partial" id="gateReadyBar" style="width:0%"></div></div>
+    </div>
+    <div class="gate-grid" id="gateGrid"><div class="gate-loading">Loading gate state from JSON...</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ARTIFACTS -->
+  <div class="section">
+    <div class="section-label">Artifact Manifest</div>
+    <div class="artifact-list">
+      <div class="artifact-row header">
+        <span class="col-hdr">File</span>
+        <span class="col-hdr">Purpose</span>
+        <span class="col-hdr" style="text-align:right">Status</span>
+      </div>
+      <div id="artifacts"></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- INVARIANTS -->
+  <div class="section">
+    <div class="section-label">Locked Invariants</div>
+    <div class="invariants" id="invariants"></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PARKED -->
+  <div class="section">
+    <div class="section-label">Parked — Do Not Activate</div>
+    <div class="parked-grid" id="parked"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-law">No SLA surface owns the registry. Every SLA surface reads the registry. · Generated ≠ Passed · Ready ≠ Promoted · Candidate ≠ Sealed · Structural bridge ≠ Cultural authority · C2 reserved ≠ C2 active</div>
+    <div class="footer-badge">◈ ELEOS · PROD-042</div>
+  </div>
+
+</div>
+
+<script>
+// ── GATE STATE ────────────────────────────────────────────────────────────────
+// readyState: workspace-level readiness (file generated/exists in control packet)
+// required: formal gate state (only true after repo push + CI verification)
+// The dashboard renders both. PASSED only updates the formal gate.
+
+const READY_STATE = {
+  issuecodeRegistryCreated: true,  // file exists in control packet + vault
+  receiptNormalizerExists: true,   // normalizer + validator generated
+  typecheck: false,
+  interactiveReceiptRenders: false,
+  fixturesPass: false,
+  d1MigrationReviewed: false,
+  appendixEMatchesContract: false,
+  appendixFMatchesIssueCodes: false,
+  noInlineTransitionTable: false,
+  noPublicReleaseLanguage: false,
+};
+
+// Attempt to load formal gate JSON. If unavailable, display READY state with notice.
+async function loadGateState() {
+  const sourceEl = document.getElementById('sourceIndicator');
+  try {
+    // In production, this fetches SLA_V1_6_PROMOTION_GATE_v0.1.json from the same origin
+    // For local use, falls back to workspace READY state with a warning
+    const resp = await fetch('./SLA_V1_6_PROMOTION_GATE_v0.1.json', { cache: 'no-cache' });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const gate = await resp.json();
+    sourceEl.textContent = '◈ Gate state: loaded from SLA_V1_6_PROMOTION_GATE_v0.1.json (authoritative)';
+    sourceEl.classList.add('live');
+    return { gate: gate.required, source: 'json', readyState: READY_STATE };
+  } catch {
+    sourceEl.textContent = '◐ Gate state: JSON not found — showing workspace READY state (preview only; not authoritative)';
+    sourceEl.classList.add('hardcoded');
+    // Return workspace state — these are READY, not PASSED
+    const previewState: Record<string, { passed: boolean; description: string; blockedBy: string | null }> = {};
+    for (const [k, v] of Object.entries(READY_STATE)) {
+      previewState[k] = {
+        passed: false,  // formal gate always false until repo push
+        description: `Preview state — repo evidence pending`,
+        blockedBy: null,
+      };
+    }
+    return { gate: previewState, source: 'workspace', readyState: READY_STATE };
+  }
+}
+
+function getGateStatus(key: string, passed: boolean, ready: boolean, blockedBy: string | null): 'PASSED' | 'READY' | 'BLOCKED' | 'PENDING' {
+  if (passed) return 'PASSED';
+  if (ready) return 'READY';
+  if (blockedBy) return 'BLOCKED';
+  return 'PENDING';
+}
+
+function statusIcon(s: string) {
+  if (s === 'PASSED') return '✓';
+  if (s === 'READY')  return '◐';
+  if (s === 'BLOCKED') return '⊘';
+  return '○';
+}
+
+const GATE_LABELS: Record<string, string> = {
+  issuecodeRegistryCreated:   'Issue code registry',
+  receiptNormalizerExists:    'Receipt normalizer + validator',
+  typecheck:                  'Type check',
+  interactiveReceiptRenders:  'v1.6 UI renders',
+  fixturesPass:               'Fixtures pass',
+  d1MigrationReviewed:        'D1 migration reviewed',
+  appendixEMatchesContract:   'Appendix E aligned',
+  appendixFMatchesIssueCodes: 'Appendix F aligned',
+  noInlineTransitionTable:    'No inline TRANS',
+  noPublicReleaseLanguage:    'Authority language clean',
+};
+
+async function renderGate() {
+  const { gate, source, readyState } = await loadGateState();
+  const grid = document.getElementById('gateGrid');
+  grid.innerHTML = '';
+
+  let passedCount = 0;
+  let readyCount = 0;
+  const total = Object.keys(gate).length;
+
+  for (const [key, item] of Object.entries(gate)) {
+    const isReady = readyState[key] === true;
+    const isPassed = item.passed === true;
+    const status = getGateStatus(key, isPassed, isReady, item.blockedBy || null);
+
+    if (isPassed) passedCount++;
+    if (isPassed || isReady) readyCount++;
+
+    const div = document.createElement('div');
+    div.className = `gate-item status-${status.toLowerCase()}`;
+    div.innerHTML = `
+      <span class="gate-icon ${status.toLowerCase()}">${statusIcon(status)}</span>
+      <div class="gate-body">
+        <div class="gate-name">${GATE_LABELS[key] || key}</div>
+        <div class="gate-desc">${item.description || ''}</div>
+        ${item.blockedBy ? `<div class="gate-blocked-by">blocked by: ${item.blockedBy}</div>` : ''}
+        <span class="gate-badge ${status}">${status}${status === 'READY' && source === 'workspace' ? ' (preview)' : ''}</span>
+      </div>`;
+    grid.appendChild(div);
+  }
+
+  document.getElementById('gatePassedCount').textContent = `${passedCount} / ${total}`;
+  document.getElementById('gatePassedBar').style.width = `${(passedCount / total) * 100}%`;
+  document.getElementById('gateReadyCount').textContent = `${readyCount} / ${total}`;
+  document.getElementById('gateReadyBar').style.width = `${(readyCount / total) * 100}%`;
+}
+
+// ── ARTIFACTS ─────────────────────────────────────────────────────────────────
+const ARTIFACTS = [
+  { name: 'slaRegistry.metadata', desc: 'Canonical 5+42=47 count + primitive set. CI + validator import from here.', status: 'ready' },
+  { name: 'SLA_ISSUE_CODE_REGISTRY v0.1', desc: 'Canonical namespace — all issue codes.', status: 'ready' },
+  { name: 'normalizeToSLAScanReceipt', desc: 'Form + fixture DTO → canonical SLAScanReceipt.', status: 'ready' },
+  { name: 'SLA_FIXTURE_ADAPTER_PATCH v0.1', desc: 'Extends fixture DTO with all missing fields + adapter tests.', status: 'ready' },
+  { name: 'validateScanReceipt', desc: 'Runs issue-code checks. Needs v0.2 registry-lookup patch.', status: 'ready' },
+  { name: 'sla-ci-v0.2', desc: 'Patched CI: count from metadata, C2 regex fix, parked fixture exclusion.', status: 'ready' },
+  { name: 'SLA_V1_6_PROMOTION_GATE v0.1', desc: 'Gate object. Formal source of truth for PASSED state.', status: 'ready' },
+  { name: 'SLA_V0_4_CHANGELOG_RULES v0.1', desc: 'What v0.4 can/cannot change.', status: 'ready' },
+  { name: 'C2_PARKED_FIXTURE_POLICY v0.1', desc: 'Fixture directory structure + C2Gate activation policy.', status: 'ready' },
+  { name: 'IFA_CULTURAL_REVIEW_DOCKET v0.1', desc: 'Safe review path before oracle activation.', status: 'ready' },
+  { name: 'C2_SLA_Primitive_Card v0.1', desc: 'Cascade Arrow definition + fixtures (parked).', status: 'ready' },
+  { name: 'slaScanContract.v1.6', desc: 'v1.6 CANDIDATE contract — not in production.', status: 'ready' },
+  { name: 'sla_receipts_migration v0.1', desc: 'D1 table for sla_receipts with artifact_id + status fields.', status: 'ready' },
+  { name: 'sla-receipts-worker', desc: 'Hono endpoint POST/GET /sla/receipts/ on sigwell-ops-api.', status: 'ready' },
+  { name: 'what-shape-is-this.html', desc: 'Public demo — Claude API scanner with ELEOS design tokens.', status: 'ready' },
+  { name: 'slaScanContract.v1.4 — harmonize', desc: 'Replace old SLA-FLOOR-003 with SLA-TRANS-000.', status: 'pending' },
+  { name: 'fixtures/v1.6/active/*.json', desc: 'Active fixture suite (not C2_SLA).', status: 'pending' },
+  { name: 'fixtures/parked-c2/*.json', desc: 'C2_SLA fixture suite (parked).', status: 'pending' },
+  { name: 'SLA_BOOK_V0_4 binder', desc: 'Receipt-backed internal candidate.', status: 'pending' },
+  { name: 'IFA_ODU_REGISTRY v0.1', desc: '16 primary Odù with SLA mappings.', status: 'parked' },
+];
+
+const artContainer = document.getElementById('artifacts');
+ARTIFACTS.forEach(a => {
+  const div = document.createElement('div');
+  div.className = 'artifact-row';
+  div.innerHTML = `
+    <span class="artifact-name">${a.name}</span>
+    <span class="artifact-desc">${a.desc}</span>
+    <span class="artifact-status ${a.status}">${a.status === 'ready' ? '✓ READY' : a.status === 'pending' ? '○ PENDING' : '◐ PARKED'}</span>`;
+  artContainer.appendChild(div);
+});
+
+// ── INVARIANTS ────────────────────────────────────────────────────────────────
+const INVARIANTS = [
+  { key: '5+42=47', val: 'LOCKED — 5 node geometry families + 42 shape primitives. Count via slaRegistry.metadata.' },
+  { key: '5 ≠ 10', val: '5 = node geometry FAMILIES (Level 0). 10 = node type SYMBOLS in scan.node. Not the same.' },
+  { key: 'T3 → F1 direct', val: 'Always invalid. Exit via T3 (stall), R1 (return), or P4 (expand) only.' },
+  { key: 'UNMAPPED ≠ TERMINAL', val: 'Unmapped requires investigation. Never terminate on UNMAPPED.' },
+  { key: 'C2 → prior_state', val: 'Always blocked. C2_IRREVERSIBILITY_RULE.' },
+  { key: 'v0.4 = custody', val: '"Receipt-backed internal candidate only." No new doctrine. No sealing.' },
+  { key: 'SLA-FLOOR-003', val: '"Primitive not in registry" — checked via slaRegistry.metadata.isActivePrimitive().' },
+  { key: 'SLA-TRANS-000', val: '"Transition logic missing" — the old SLA-FLOOR-003 meaning, correctly routed.' },
+  { key: 'Registry law', val: 'No SLA surface owns the registry. Every SLA surface READS the registry.' },
+  { key: 'C2_SLA', val: 'PARKED — isActivePrimitive("C2_SLA") = false. Fails SLA-FLOOR-003 correctly.' },
+];
+
+const invContainer = document.getElementById('invariants');
+INVARIANTS.forEach(inv => {
+  const div = document.createElement('div');
+  div.className = 'invariant-item';
+  div.innerHTML = `<span class="invariant-key">${inv.key}</span><span class="invariant-val">${inv.val}</span>`;
+  invContainer.appendChild(div);
+});
+
+// ── PARKED ────────────────────────────────────────────────────────────────────
+const PARKED = [
+  { name: 'C2Gate', desc: 'Primitive-specific irreversibility enforcement. Extends stable spine — not during harmonization.', gate: 'After: issue-code registry + normalizer + v1.6 fixtures + UI TRANS removal + Appendix E/F + v0.4 binder' },
+  { name: 'PROTO-SLA-WIRE', desc: 'Runtime implementation. Dormant until full gate clears.', gate: 'After: all 10 promotion gate fields = true + v0.4 binder' },
+  { name: 'Ifá ODU Registry', desc: '16 Odù with SLA mappings. Pending cultural review Gate 1 + exactSourceVerified ese citations.', gate: 'After: cultural review docket gates 1-4 pass + v1.6 gate passes' },
+  { name: 'Ifá runtime types', desc: 'ifa-source-family, ifa-canonical-ese, oracle use lane. Extension queue after v1.6.', gate: 'After: v1.6 promotion gate passes + cultural review' },
+];
+
+const parkedEl = document.getElementById('parked');
+PARKED.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'parked-item';
+  div.innerHTML = `<div class="parked-name">${p.name}</div><div class="parked-desc">${p.desc}</div><div class="parked-gate">${p.gate}</div>`;
+  parkedEl.appendChild(div);
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderGate();
+</script>
+</body>
+</html>

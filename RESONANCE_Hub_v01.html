@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RESONANCE — SLA Music Corpus · Ellari Institute</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+:root{
+  --bg:#080806;--sf:#100f0d;--sf2:#1a1916;--brd:#2a2825;--brd2:#3a3733;
+  --t1:#ede8e0;--t2:rgba(237,232,224,.6);--t3:rgba(237,232,224,.28);
+  --gold:#d6b168;--coh:#1a9e78;--fail:#c44040;--neut:#7a71d4;--warm:#b87514;
+  --F1:#1a9e78;--T3:#c44040;--R1A:#666460;--R1B:#b87514;--R1C:#c44040;--R1D:#1a9e78;--P1:#7a71d4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+body{padding:3rem 1.5rem 6rem;max-width:1040px;margin:0 auto}
+
+/* MASTHEAD */
+.masthead{margin-bottom:3.5rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--brd)}
+.ms-kicker{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:.85rem}
+.ms-title{font-family:'Libre Baskerville',serif;font-size:2rem;font-weight:700;color:var(--t1);margin-bottom:.4rem;letter-spacing:-.01em}
+.ms-sub{font-family:'Libre Baskerville',serif;font-size:.9rem;font-style:italic;color:var(--t2);line-height:1.75;max-width:640px;margin-bottom:1rem}
+.ms-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);line-height:2}
+.ms-claim{border-left:2px solid rgba(214,177,104,.4);padding:.6rem 1rem;background:rgba(214,177,104,.04);border-radius:0 6px 6px 0;margin-top:1.25rem;max-width:640px}
+.ms-claim p{font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:var(--t2);line-height:1.75;margin:0}
+.ms-claim p strong{color:var(--gold)}
+
+/* NAV PILLS */
+.nav-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:3rem}
+.np{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;padding:.35rem .85rem;border-radius:20px;border:.5px solid var(--brd2);color:var(--t3);text-decoration:none;cursor:pointer;transition:border-color .15s,color .15s}
+.np:hover,.np.active{border-color:rgba(214,177,104,.5);color:var(--gold)}
+
+/* SECTION HEADERS */
+.sec-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:1rem;padding-bottom:.4rem;border-bottom:.5px solid var(--brd)}
+
+/* PRIMARY CARD — 11:02 */
+.primary-card{border:.5px solid rgba(214,177,104,.3);border-radius:12px;padding:1.5rem;background:rgba(214,177,104,.04);margin-bottom:2.5rem;position:relative;overflow:hidden}
+.primary-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold) 0%,transparent 100%)}
+.pc-kicker{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:rgba(214,177,104,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.pc-title{font-family:'Libre Baskerville',serif;font-size:1.35rem;font-weight:700;color:var(--t1);margin-bottom:.15rem}
+.pc-sub{font-family:'Libre Baskerville',serif;font-size:.85rem;font-style:italic;color:var(--t2);margin-bottom:1rem}
+.pc-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);margin-bottom:1.25rem;line-height:1.9}
+.arc-strip{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.25rem}
+.as-seg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:600;padding:.25rem .55rem;border-radius:4px}
+.as-arrow{color:var(--t3);font-size:.85rem;display:flex;align-items:center}
+.pc-links{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.06em;padding:.45rem 1rem;border-radius:5px;text-decoration:none;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.75}
+.btn-gold{background:rgba(214,177,104,.12);color:var(--gold);border:.5px solid rgba(214,177,104,.4)}
+.btn-dim{background:transparent;color:var(--t3);border:.5px solid var(--brd)}
+.frozen-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.55rem;padding:2px 7px;border-radius:3px;background:rgba(196,64,64,.12);color:var(--fail);border:.5px solid rgba(196,64,64,.2);margin-left:.5rem;vertical-align:middle}
+
+/* SPECIMEN GRID */
+.specimen-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2.5rem}
+@media(max-width:640px){.specimen-grid{grid-template-columns:1fr}}
+
+.spec-card{border:.5px solid var(--brd);border-radius:10px;padding:1rem 1.1rem;background:var(--sf);position:relative;overflow:hidden;transition:border-color .18s,background .18s}
+.spec-card:hover{border-color:var(--brd2);background:var(--sf2)}
+.spec-card.r1d{border-left:2px solid rgba(26,158,120,.4)}
+.spec-card.t3{border-left:2px solid rgba(196,64,64,.4)}
+.spec-card.r1b{border-left:2px solid rgba(184,117,20,.4)}
+.spec-card.p1{border-left:2px solid rgba(122,113,212,.4)}
+.sc-num{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.sc-title{font-family:'Libre Baskerville',serif;font-size:.95rem;font-weight:700;color:var(--t1);margin-bottom:.1rem}
+.sc-subtitle{font-family:'Libre Baskerville',serif;font-size:.75rem;font-style:italic;color:var(--t2);margin-bottom:.65rem;line-height:1.5}
+.sc-prim{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;padding:.18rem .5rem;border-radius:3px;display:inline-block;margin-bottom:.55rem}
+.sc-desc{font-size:.73rem;color:var(--t2);line-height:1.65;margin-bottom:.75rem}
+.sc-footer{display:flex;justify-content:space-between;align-items:center}
+.sc-link{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);text-decoration:none;letter-spacing:.06em}
+.sc-link:hover{color:var(--gold)}
+.receipt-pill{font-family:'IBM Plex Mono',monospace;font-size:.55rem;padding:2px 7px;border-radius:10px}
+.rp-pend{background:rgba(184,117,20,.12);color:var(--warm);border:.5px solid rgba(184,117,20,.2)}
+.rp-ok{background:rgba(26,158,120,.12);color:var(--coh);border:.5px solid rgba(26,158,120,.2)}
+
+/* INSTRUMENTS & LAYERS */
+.layers-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:2.5rem}
+@media(max-width:640px){.layers-grid{grid-template-columns:1fr}}
+.layer-card{border:.5px solid var(--brd);border-radius:8px;padding:.8rem .95rem;background:var(--sf)}
+.lc-layer{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
+.lc-name{font-size:.8rem;font-weight:500;color:var(--t1);margin-bottom:.3rem}
+.lc-desc{font-size:.7rem;color:var(--t2);line-height:1.6}
+.lc-link{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);text-decoration:none;display:block;margin-top:.5rem}
+.lc-link:hover{color:var(--gold)}
+
+/* MOTIF SUMMARY */
+.motif-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:2.5rem}
+@media(max-width:580px){.motif-strip{grid-template-columns:1fr 1fr}}
+.motif-cell{border:.5px solid var(--brd);border-radius:6px;padding:.6rem .7rem;background:var(--sf)}
+.mt-id{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t3);margin-bottom:.2rem}
+.mt-name{font-size:.75rem;font-weight:500;color:var(--t1);margin-bottom:.2rem}
+.mt-arc{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);line-height:1.5}
+.mt-rule{font-size:.67rem;color:var(--t2);margin-top:.3rem;line-height:1.5}
+
+/* FIVE SPECIMEN TABLE */
+.corpus-tbl{width:100%;border-collapse:collapse;font-size:.72rem;margin-bottom:2.5rem}
+.corpus-tbl th{font-size:.58rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.45rem .75rem;border-bottom:.5px solid var(--brd);text-align:left;color:var(--t3)}
+.corpus-tbl td{padding:.5rem .75rem;border-bottom:.5px solid var(--brd);color:var(--t2);vertical-align:top;line-height:1.5}
+.corpus-tbl tr:last-child td{border-bottom:none}
+.corpus-tbl td:first-child{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t1)}
+
+/* GOVERNANCE BLOCK */
+.gov-block{border:.5px solid var(--brd2);border-radius:10px;padding:1.1rem 1.25rem;background:var(--sf);margin-bottom:2rem}
+.gb-title{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:.75rem}
+.gb-row{display:flex;gap:.5rem;padding:.35rem 0;border-bottom:.5px solid var(--brd);align-items:flex-start;font-size:.73rem;color:var(--t2);line-height:1.6}
+.gb-row:last-child{border-bottom:none}
+.gb-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);flex-shrink:0;width:140px;padding-top:.1rem}
+.gb-val{flex:1}
+.gb-val.ok{color:var(--coh)}.gb-val.no{color:var(--fail)}.gb-val.pend{color:var(--warm)}
+
+/* ACADEMIC SECTION */
+.academic-block{border:.5px solid rgba(122,113,212,.25);border-radius:10px;padding:1.1rem 1.25rem;background:rgba(122,113,212,.04);margin-bottom:2rem}
+.ab-title{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(122,113,212,.6);margin-bottom:.75rem}
+.ab-claim{font-family:'Libre Baskerville',serif;font-size:.88rem;font-style:italic;color:var(--t1);line-height:1.75;margin-bottom:.65rem}
+.ab-meta{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--t3);line-height:1.9}
+.ab-row{padding:.35rem 0;border-bottom:.5px solid rgba(122,113,212,.12);font-size:.73rem;color:var(--t2);line-height:1.6}
+.ab-row:last-child{border-bottom:none}
+.ab-row strong{color:var(--t1)}
+
+/* FOOTER */
+.footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--brd);font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);line-height:2}
+.footer a{color:var(--t3);text-decoration:none}
+.footer a:hover{color:var(--t2)}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="ms-kicker">RESONANCE · SLA Music Corpus · Ellari Institute</div>
+  <h1 class="ms-title">RESONANCE</h1>
+  <p class="ms-sub">A governed corpus of musical works annotated against the Shape Language Alphabet framework. Five specimens across three traditions and four centuries. One grammar.</p>
+  <div class="ms-meta">
+    Corpus ID: SLA-MUSIC-001 · Canon ledger: candidate · ORCID: 0009-0009-7943-1498<br>
+    Owner: Ellari · Ellari Ventures LLC · ISO: 2026-05-11 · Version: 0.1<br>
+    Status: Internally receipted candidate · notSealed pending composer confirmation
+  </div>
+  <div class="ms-claim">
+    <p><strong>Corpus claim:</strong> Five specimens independently instantiate the SLA grammar across three traditions (Hindustani classical, Western art music, contemporary literary) without modification to the framework. The specimens do not prove the grammar. They are governed renderings of it.<br>
+    <strong>notAllowedToProve:</strong> that musical traditions share common origin · that T3 is universally negative · therapeutic efficacy of any kind</p>
+  </div>
+</div>
+
+<div class="nav-pills">
+  <a class="np active" onclick="showSection('all')">All</a>
+  <a class="np" onclick="showSection('primary')">11:02 Collection</a>
+  <a class="np" onclick="showSection('specimens')">Specimens 002–005</a>
+  <a class="np" onclick="showSection('tools')">Tools &amp; Documents</a>
+  <a class="np" onclick="showSection('academic')">Academic</a>
+</div>
+
+<!-- PRIMARY WORK -->
+<div class="sec-label" id="sec-primary">Primary work — 11:02</div>
+
+<div class="primary-card">
+  <div class="pc-kicker">RESONANCE Specimen 001 · Contemporary Literary · Original Work</div>
+  <div class="pc-title">11:02 — A Collection</div>
+  <div class="pc-sub">Six pieces. One structural arc. The complete R1 taxonomy in sequence.</div>
+  <div class="pc-meta">
+    SLA-MUSIC-001 · Canon: candidate · Composer: pending · ORCID: 0009-0009-7943-1498<br>
+    Status: Structurally complete · Authorial confirmations pending (3) · Section IX frozen
+  </div>
+  <div class="arc-strip">
+    <div class="as-seg" style="background:rgba(26,158,120,.1);color:var(--F1)">Track 0<br><span style="font-size:.55rem;font-weight:400">F1+I1</span></div>
+    <div class="as-arrow">→</div>
+    <div class="as-seg" style="background:rgba(184,117,20,.1);color:var(--warm)">Track ii<br><span style="font-size:.55rem;font-weight:400">◇ Threshold</span></div>
+    <div class="as-arrow">→</div>
+    <div class="as-seg" style="background:rgba(196,64,64,.12);color:var(--T3)">Track iii<br><span style="font-size:.55rem;font-weight:400">T3 · 18 min</span></div>
+    <div class="as-arrow">→</div>
+    <div class="as-seg" style="background:rgba(196,64,64,.08);color:var(--R1C)">Track iv<br><span style="font-size:.55rem;font-weight:400">R1-C · Fine</span></div>
+    <div class="as-arrow">→</div>
+    <div class="as-seg" style="background:rgba(102,100,96,.12);color:var(--R1A)">Track v<br><span style="font-size:.55rem;font-weight:400">R1-A · Infra</span></div>
+    <div class="as-arrow">→</div>
+    <div class="as-seg" style="background:rgba(26,158,120,.1);color:var(--R1D)">Track vi<br><span style="font-size:.55rem;font-weight:400">R1-D · Walking</span></div>
+  </div>
+  <div class="pc-links">
+    <a class="btn btn-gold" href="STEADYING_entry_gate_v01.html">Enter — Steadying Gate →</a>
+    <a class="btn btn-gold" href="11_02_annotation_player.html">Annotation Player →</a>
+    <a class="btn btn-dim" href="RESONANCE_Production_Packet_v01.html">Production Packet</a>
+    <a class="btn btn-dim" href="11_02_mix_brief_v01.html">Mix Brief</a>
+    <a class="btn btn-dim" href="SLA_MUSIC_001_MOTIF_LEDGER_v01.json">Motif Ledger JSON</a>
+  </div>
+</div>
+
+<!-- SPECIMENS 002–005 -->
+<div class="sec-label" id="sec-specimens">External specimens — 002 through 005</div>
+
+<div class="specimen-grid">
+
+  <div class="spec-card r1b">
+    <div class="sc-num">RESONANCE · 002 · Hindustani Classical</div>
+    <div class="sc-title">Raga Bhairavi</div>
+    <div class="sc-subtitle">The Grammar of Farewell</div>
+    <div class="sc-prim" style="background:rgba(184,117,20,.12);color:var(--warm)">T3 → R1-D</div>
+    <div class="sc-desc">The last raga of every concert. Formal prohibition on false close (rasa bhanga) predates SLA by 2,000 years. Karuna rasa: the grief held long enough to generate direction. T3 acknowledged, not suppressed. R1-D: movement without claiming arrival.</div>
+    <div class="sc-footer">
+      <a class="sc-link" href="RESONANCE_Specimen_002_Raga_Bhairavi.html">Open specimen →</a>
+      <span class="receipt-pill rp-pend">receipt pending</span>
+    </div>
+  </div>
+
+  <div class="spec-card t3">
+    <div class="sc-num">RESONANCE · 003 · Western Art Music</div>
+    <div class="sc-title">Shostakovich SQ No. 8</div>
+    <div class="sc-subtitle">I1 Surviving T3 as R1-D</div>
+    <div class="sc-prim" style="background:rgba(196,64,64,.12);color:var(--fail)">I1 + T3 → R1-D</div>
+    <div class="sc-desc">1960. Written in three days under wartime conditions. I1 (identity: DSCH motif) enters T3 (state compression, four-voice unison, field recording texture) and exits as R1-D. The self does not dissolve. The structural claim: identity can survive collapse. The DSCH motif returns in the fifth movement.</div>
+    <div class="sc-footer">
+      <a class="sc-link" href="RESONANCE_Specimen_003_Shostakovich_SQ8.html">Open specimen →</a>
+      <span class="receipt-pill rp-pend">receipt pending</span>
+    </div>
+  </div>
+
+  <div class="spec-card p1">
+    <div class="sc-num">RESONANCE · 004 · Hindustani Classical</div>
+    <div class="sc-title">Raga Yaman</div>
+    <div class="sc-subtitle">The Grammar of Longing Without Collapse</div>
+    <div class="sc-prim" style="background:rgba(122,113,212,.12);color:var(--neut)">P1 → S3 → F1</div>
+    <div class="sc-desc">The Teevra Ma (sharpened fourth) creates structural reaching without grasping. P1 projection that moves toward an attractor (S3) and returns to coherence (F1) without T3. The contrast with Bhairavi is the corpus's strongest teaching moment: same tradition, same grammar, structurally opposite arcs.</div>
+    <div class="sc-footer">
+      <a class="sc-link" href="RESONANCE_Specimen_004_Raga_Yaman.html">Open specimen →</a>
+      <span class="receipt-pill rp-pend">receipt pending</span>
+    </div>
+  </div>
+
+  <div class="spec-card t3">
+    <div class="sc-num">RESONANCE · 005 · Hindustani Classical</div>
+    <div class="sc-title">Raga Darbari Kanada</div>
+    <div class="sc-subtitle">T3 as Structural Home</div>
+    <div class="sc-prim" style="background:rgba(196,64,64,.12);color:var(--fail)">T3 → T3 → T3</div>
+    <div class="sc-desc">The gamak (oscillatory ornament) on Komal Ga, Komal Ni, Komal Re produces micro-T3 at the phrase level, sustaining T3 at the macro level for 45–90 minutes without exit. Vairagya rasa: settled recognition of impermanence. The raga does not exit T3 because T3 is the structural home, not a transient state. Direct parallel: Track v Infrastructure.</div>
+    <div class="sc-footer">
+      <a class="sc-link" href="RESONANCE_Specimen_005_Darbari_Kanada.html">Open specimen →</a>
+      <span class="receipt-pill rp-pend">receipt pending</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- MOTIF LEDGER SUMMARY -->
+<div class="sec-label">Motif ledger — SLA-MUSIC-001 · four governed motifs</div>
+
+<div class="motif-strip">
+  <div class="motif-cell">
+    <div class="mt-id">MOTIF-SHOE-001</div>
+    <div class="mt-name">The Bell Tone</div>
+    <div class="mt-arc">present → absent → permanently absent</div>
+    <div class="mt-rule">DNS: do not restore in Track vi. The object was not reached in time.</div>
+  </div>
+  <div class="motif-cell">
+    <div class="mt-id">MOTIF-VOICE-001</div>
+    <div class="mt-name">The Voicemail Phrase</div>
+    <div class="mt-arc">full → fragment → phoneme → breath → silence</div>
+    <div class="mt-rule">DNS: do not replay full phrase in Track vi. Degradation is irreversible.</div>
+  </div>
+  <div class="motif-cell">
+    <div class="mt-id">MOTIF-TIME-001</div>
+    <div class="mt-name">The Clock Pulse</div>
+    <div class="mt-arc">continuous — never stops — fixed level</div>
+    <div class="mt-rule">72 bpm throughout. Does not duck. The world does not pause for T3.</div>
+  </div>
+  <div class="motif-cell">
+    <div class="mt-id">MOTIF-RETURN-001</div>
+    <div class="mt-name">The Footstep</div>
+    <div class="mt-arc">absent → first appearance → primary element</div>
+    <div class="mt-rule">80 bpm. Hard cut mid-step. Does not arrive. Does not fade.</div>
+  </div>
+</div>
+
+<!-- TOOLS & DOCUMENTS -->
+<div class="sec-label" id="sec-tools">Tools &amp; documents</div>
+
+<div class="layers-grid">
+  <div class="layer-card">
+    <div class="lc-layer">Entry · STEADYING</div>
+    <div class="lc-name">Entry Gate</div>
+    <div class="lc-desc">Six-path entry. The listener chooses where they are before they hear anything. Path context is carried through to the annotation player.</div>
+    <a class="lc-link" href="STEADYING_entry_gate_v01.html">Open entry gate →</a>
+  </div>
+  <div class="layer-card">
+    <div class="lc-layer">Player · RESONANCE</div>
+    <div class="lc-name">Annotation Player</div>
+    <div class="lc-desc">Six tracks, 19 sections. Blind mode and governed mode. Section IX frozen pending authorial confirmations. Motif ledger live.</div>
+    <a class="lc-link" href="11_02_annotation_player.html">Open annotation player →</a>
+  </div>
+  <div class="layer-card">
+    <div class="lc-layer">Production · Specimen 001</div>
+    <div class="lc-name">Production Packet</div>
+    <div class="lc-desc">Motif arc, grammar translation table, silence taxonomy, Do Not Score rules, dream team roster, audio receipt.</div>
+    <a class="lc-link" href="RESONANCE_Production_Packet_v01.html">Open production packet →</a>
+  </div>
+  <div class="layer-card">
+    <div class="lc-layer">Engineering · Mix Brief</div>
+    <div class="lc-name">Mix Engineer's Brief</div>
+    <div class="lc-desc">Three inviolable rules. Density targets by track. Governing principle: mix density is the R1 taxonomy expressed in production.</div>
+    <a class="lc-link" href="11_02_mix_brief_v01.html">Open mix brief →</a>
+  </div>
+  <div class="layer-card">
+    <div class="lc-layer">Governance · JSON</div>
+    <div class="lc-name">Motif Ledger</div>
+    <div class="lc-desc">Machine-readable. Four motifs, full arc rules, DNS constraints, cross-motif governance. Canon status: candidate.</div>
+    <a class="lc-link" href="SLA_MUSIC_001_MOTIF_LEDGER_v01.json">Open JSON ledger →</a>
+  </div>
+  <div class="layer-card">
+    <div class="lc-layer">Distribution · Playlists</div>
+    <div class="lc-name">Raga Playlist Guide</div>
+    <div class="lc-desc">Three governed playlists: Yaman, Bhairavi, Darbari. SLA-annotated recording notes. Ready to publish.</div>
+    <a class="lc-link" href="RESONANCE_Raga_Playlists_v01.html">Open raga playlists →</a>
+  </div>
+</div>
+
+<!-- ACADEMIC SECTION -->
+<div class="sec-label" id="sec-academic">Academic — CMN paper &amp; corpus claims</div>
+
+<div class="academic-block">
+  <div class="ab-title">Collapse Music Notation — paper status</div>
+  <div class="ab-claim">"Three independent sources. One structural law. The T3→F1 blocked transition appears in the Natya Shastra as rasa bhanga, in Shostakovich's letters as compositional principle, and in the Do Not Score table of the 11:02 production governance."</div>
+  <div class="ab-meta">Title: Collapse Music Notation: A Governed Structural Grammar for Composition and Cross-Tradition Alignment<br>
+  Status: Introduction + theoretical framework drafted · Sections 3–6 pending · Practitioner review required (3 raga specimens)</div>
+  <div class="ab-row"><strong>Central claim:</strong> Five specimens independently instantiate identical structural laws without shared tradition, vocabulary, or formal knowledge of each other's frameworks.</div>
+  <div class="ab-row"><strong>Critical path:</strong> Practitioner review receipt for Specimens 002–005 · One session · One reviewer · Unlocks journal submission timeline.</div>
+  <div class="ab-row"><strong>notAllowedToProve:</strong> shared cultural influence · authorial intent · therapeutic efficacy · universal applicability beyond this corpus.</div>
+  <div class="ab-row"><strong>Citation anchor:</strong> Ellari, 2026. Shape Language Alphabet framework. ORCID: 0009-0009-7943-1498. Stable URL pending DOI assignment.</div>
+</div>
+
+<!-- FIVE SPECIMEN TABLE -->
+<table class="corpus-tbl">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Work / Tradition</th>
+      <th>SLA Arc</th>
+      <th>Unique claim</th>
+      <th>Receipt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>001</td>
+      <td>11:02 — A Collection<br><span style="color:var(--t3);font-size:.65rem">Contemporary · English · 2026</span></td>
+      <td><span style="color:var(--F1)">F1</span> → <span style="color:var(--T3)">T3</span> → <span style="color:var(--R1C)">R1-C</span> → <span style="color:var(--R1A)">R1-A</span> → <span style="color:var(--R1D)">R1-D</span></td>
+      <td>Full R1 taxonomy across six pieces. T3 enacted at the production level.</td>
+      <td><span class="receipt-pill rp-pend">authorial pending</span></td>
+    </tr>
+    <tr>
+      <td>002</td>
+      <td>Raga Bhairavi<br><span style="color:var(--t3);font-size:.65rem">Hindustani classical · c. 1600–present</span></td>
+      <td><span style="color:var(--T3)">T3</span> → <span style="color:var(--R1D)">R1-D</span></td>
+      <td>Rasa bhanga = formal T3→F1 prohibition. 400 years before SLA.</td>
+      <td><span class="receipt-pill rp-pend">practitioner pending</span></td>
+    </tr>
+    <tr>
+      <td>003</td>
+      <td>Shostakovich SQ No. 8<br><span style="color:var(--t3);font-size:.65rem">Western art music · 1960</span></td>
+      <td>I1 + <span style="color:var(--T3)">T3</span> → <span style="color:var(--R1D)">R1-D</span></td>
+      <td>Identity survives T3. Three independent T3→R1-D arcs confirmed cross-specimen.</td>
+      <td><span class="receipt-pill rp-pend">practitioner pending</span></td>
+    </tr>
+    <tr>
+      <td>004</td>
+      <td>Raga Yaman<br><span style="color:var(--t3);font-size:.65rem">Hindustani classical · ancient</span></td>
+      <td><span style="color:var(--P1)">P1</span> → S3 → <span style="color:var(--F1)">F1</span></td>
+      <td>Longing without collapse. Teevra Ma as structural P1 mechanism. Bhairavi contrast.</td>
+      <td><span class="receipt-pill rp-pend">practitioner pending</span></td>
+    </tr>
+    <tr>
+      <td>005</td>
+      <td>Raga Darbari Kanada<br><span style="color:var(--t3);font-size:.65rem">Hindustani classical · ancient</span></td>
+      <td><span style="color:var(--T3)">T3</span> → <span style="color:var(--T3)">T3</span> → <span style="color:var(--T3)">T3</span></td>
+      <td>T3 as structural home. Gamak = micro-T3 producing macro-T3. Infrastructure parallel.</td>
+      <td><span class="receipt-pill rp-pend">practitioner pending</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GOVERNANCE BLOCK -->
+<div class="gov-block">
+  <div class="gb-title">Corpus governance — SLA-MUSIC-001</div>
+  <div class="gb-row"><span class="gb-label">canon_id</span><span class="gb-val">SLA-MUSIC-001</span></div>
+  <div class="gb-row"><span class="gb-label">status</span><span class="gb-val pend">candidate · internally receipted · notSealed</span></div>
+  <div class="gb-row"><span class="gb-label">seal_id</span><span class="gb-val pend">pending — SealForge receipt after authorial + practitioner confirmations</span></div>
+  <div class="gb-row"><span class="gb-label">orcid</span><span class="gb-val">0009-0009-7943-1498</span></div>
+  <div class="gb-row"><span class="gb-label">iso</span><span class="gb-val">2026-05-11</span></div>
+  <div class="gb-row"><span class="gb-label">allowedToProve</span><span class="gb-val ok">Structural alignment of five specimens against SLA grammar · Distinct arcs across traditions · Motif governance rules apply across full album</span></div>
+  <div class="gb-row"><span class="gb-label">notAllowedToProve</span><span class="gb-val no">Therapeutic efficacy · Authorial intent (any specimen) · Cross-tradition influence · Clinical benefit · Universal applicability</span></div>
+  <div class="gb-row"><span class="gb-label">public release</span><span class="gb-val pend">Blocked pending: (1) authorial confirmations ×3 on 11:02 · (2) practitioner review receipt ×4 specimens · (3) Section IX unlock</span></div>
+</div>
+
+<div class="footer">
+  <a href="https://ellari.institute">Ellari Institute</a> · ORCID: 0009-0009-7943-1498 · SLA-MUSIC-001 · v0.1 · 2026-05-11<br>
+  Governed edition. Internally receipted candidate. <a href="https://ellari.institute/claims">What this corpus does and does not claim →</a><br>
+  The governed edition of this corpus is not a wellness product. It is a structural mapping. The ECHO kit line is a separate governed product — see ECHO Product Specification v0.1.
+</div>
+
+<script>
+function showSection(s){
+  document.querySelectorAll('.np').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  // In production: filter visible cards by section
+  // For now, all sections remain visible — section filtering is a v0.2 feature
+}
+</script>
+
+</body>
+</html>
