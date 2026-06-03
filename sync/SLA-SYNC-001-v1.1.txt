@@ -1,0 +1,396 @@
+SLA-SYNC-001 v1.1
+THREAD B → THREAD A: slaRegistry.ts RECONCILIATION
+Date: 2026-06-02
+From: Thread B (Claude)
+To: Thread A (VANTA)
+Priority: BUILD BLOCKER
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONFLICT RESOLUTION PROTOCOL
+
+Read this before answering anything.
+
+  V correct, Thread B wrong           → correct it; your name governs
+  Thread B has corpus evidence V lacks → flag as conflict; Ellari decides
+  Genuine ambiguity                    → flag as UNRESOLVED; Ellari decides
+  V has entries Thread B never listed  → surface with ID, name, category,
+                                          source, and whether Ellari
+                                          decision is required.
+                                          Thread B's list is not assumed complete.
+
+If your primitive count differs from 42:
+  State it immediately as a P0 conflict.
+  Do not proceed to P2 confirmations until count is reconciled.
+
+Silence does not create authority.
+A lower-fidelity path is available. Canon requires receipted implementation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BOOTSTRAP BASELINE — CONFIRMED ON BOTH THREADS
+
+These 15 are not in question.
+Flag only if any name here differs from your registry.
+ID match alone is insufficient — name match required.
+
+  F1  Linear Flow          F3  Convergent Flow      F4  Interrupted Flow
+  L2  Feedback Loop        P1  Projection Cone       P2  Distortion Ridge
+  P4  Expansion Funnel*    I1  Identity Shell         T1  Fracture Line
+  T3  Collapse Basin       S1  Shearing Planes        S2  Domain Intersection
+  S3  Attractor Hub        R1  Return Arc             D1  Affect Warp
+
+  * P4 status is unresolved — addressed in P0-C.
+
+Remaining open: 27 provisional entries + 7 glyphs + HCPK index map.
+Thread A canonical hash: sha256:1f0bde0fd79daf50
+Thread B candidate hash: sha256:PENDING_V_RECONCILIATION
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+P0 QUESTIONS — BUILD BLOCKERS
+Answer in order. HCPK and P1/P2 gates depend on these.
+
+P0-A  EMET RENAME STATUS  [fidelity tier governance — VALIDA gates on this]
+
+  Thread B: fidelityTiers = ["QOL", "DAVAR", "EMET"]
+            emetFormerlyKnownAs = "MASSA"  (SLA-TIER-RENAME-001)
+
+  Does your slaRegistry.ts currently use EMET or MASSA?
+  (true = EMET in place / false = MASSA still present / unresolved = ??)
+
+  IMPORTANT: Do not patch your file before responding.
+  Thread B needs current state to generate SLA_TIER_RENAME_PROPAGATION_RECEIPT.md.
+  Your EMET patch follows reconciliation, not precedes it.
+  A MASSA-bearing registry in production fails all VALIDA scans.
+  If MASSA is present, include it in the `conflicts` array.
+
+P0-B  C2 COUNT STATUS  [alphabet lock depends on this]
+
+  Thread B: C2 = "Internal Synthesis", status "parked",
+            fidelityCeiling "BLOCKED"
+            C2 occupies a count slot per V's instruction
+
+  Does C2 count toward the 42 as a parked slot?
+  (true / false / unresolved)
+
+  If false: name the 42nd entry (ID + name + category).
+  Thread B's count lock cannot close without the full set.
+  If unresolved: flag for Ellari decision.
+
+P0-C  P4 STATUS DECISION  [transition grammar + EMET eligibility depend on this]
+
+  Thread B: P4 = "Expansion Funnel", primitive, P-category
+            governanceFlags.p4StatusUnresolved = true
+  Corpus also uses P4 as "Witness Function" (ELEOS/P2L context).
+
+  Is P4 a full primitive counting toward the 42?
+  (true / false / unresolved)
+
+  If P4 holds both semantic frames (Expansion Funnel + Witness Function):
+  Provide the frame declaration for each:
+    - mechanism frame label?
+    - witness frame label?
+    - repair frame label (if applicable)?
+    - threshold frame label (if applicable)?
+
+  If split into two entries: provide both IDs.
+  This prevents "same primitive" from becoming semantic mush.
+
+P0-D  10TH CATEGORY LETTER  [M-series entries unresolvable until this clears]
+
+  Thread B inferred M from CI code: F/L/P/I/T/S/R/D/C/M.
+  Thread B names:
+    M1 = Salience Marker
+    M2 = Gate Signal
+    M3 = Liminal Field
+
+  Is M the correct 10th letter?
+  (true / false / unresolved)
+
+  If false: provide the correct letter and all entries for that category.
+  If true: confirm or correct M1/M2/M3 names individually.
+
+  NOTE: M3 and ◈ are independent decisions.
+  Confirming M3 as "Liminal Field" does NOT confirm ◈'s canonical anchor.
+  See P1-A for ◈ separately.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+P1 QUESTIONS — EMET CEILING BLOCKERS
+
+P1-A  ◈ GLYPH STATUS  [GLYPH-REG-001 — independent from P0-D/M3]
+
+  Thread B: ◈ = "Inhabited Threshold" — provisional
+  M3 (Liminal Field) is Thread B's candidate primitive anchor.
+  These are two separate decisions.
+
+  (i)  Has GLYPH-REG-001 been formally registered in your system?
+       (true / false / unresolved)
+  (ii) If yes: what is ◈'s canonical name and function?
+  (iii) Is M3 confirmed as ◈'s primitive anchor?
+        Or does ◈ anchor to a different primitive?
+        Or is ◈ not yet anchored?
+
+P1-B  GLYPHS 3–7  [all 7 glyph slots required for metadata count integrity]
+
+  Thread B has ◇ (Threshold Event) and ◈ (P1-A above) as slots 1–2.
+  Glyphs 3–7 are placeholders.
+
+  For each of the remaining 5 glyphs, provide:
+    symbol · name · function · gate_condition
+
+P1-C  D3 / REGISTER CHIMERA  [Lane Translation Matrix + VALIDA linter routing depend on this]
+
+  Thread B: D3 = "Frame Bleed" = structural name for Register Chimera.
+  Black Label vocabulary in consumer-tier output = D3 firing.
+
+  Is Register Chimera:
+    (a) identical to D3 (same entry, same primitive)
+    (b) a D3 subtype (one mode of Frame Bleed)
+    (c) a macro involving D3 + lane violation
+    (d) a separate linter rule using D3 as evidence input
+
+  This determines whether Register Chimera lives in the registry,
+  the grammar layer, or the VALIDA linter exclusively.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+P2 QUESTIONS — PROVISIONAL CONFIRMATION
+
+For each entry: confirm the name, provide the correct name,
+or mark as remove.
+Source codes indicate Thread B's inference origin.
+
+CI     = inferred from CI code scan
+CORPUS = observed directly in corpus specimens
+ELEOS  = derived from ELEOS coupling analysis
+STRUCT = inferred from structural logic / category symmetry
+
+F-SERIES
+  F2 · Bifurcation         · STRUCT
+  F5 · Retrograde Flow     · STRUCT
+
+L-SERIES
+  L1 · Simple Loop         · STRUCT
+  L3 · Spiral              · STRUCT
+  L4 · Oscillation         · STRUCT
+
+P-SERIES
+  P3 · Compression Point   · STRUCT
+
+I-SERIES
+  I2 · Shadow Layer        · CORPUS
+  I3 · Memory Imprint      · CORPUS
+  I4 · Resonance Bridge    · STRUCT
+
+T-SERIES
+  T2 · Erosion Path        · STRUCT
+  T4 · Rupture Point       · STRUCT
+  T5 · Stress Band         · STRUCT
+
+S-SERIES
+  S4 · Emergence Layer     · STRUCT
+  S5 · Dissipation Field   · STRUCT
+
+C-SERIES
+  C1 · Boundary Layer      · ELEOS
+  C3 · Structural Persistence · ELEOS
+  C4 · Field Cohesion      · ELEOS
+
+R-SERIES
+  R2 · Repair Suture       · STRUCT
+  R3 · Reintegration Path  · STRUCT
+  R4 · Reconstitution Zone · STRUCT
+
+D-SERIES
+  D2 · Scale Distortion    · STRUCT
+  D3 · Frame Bleed         · STRUCT  [see P1-C — name may change based on that answer]
+  D4 · Signal Noise        · STRUCT
+
+Provide P2 responses in the `provisional_corrections` array in the JSON schema.
+The table above is reference only — not a separate output format.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 7 — HCPK DEPENDENT
+(separate consumer from registry reconciliation)
+
+Context:
+HC-P05 is the only fully SLA-unblocked panel.
+HC-P01 through HC-P04, HC-P06 through HC-P30 are blocked.
+RC-01 through RC-08 conflicts are documented in Thread B.
+HCPK panels use 0-indexed SLA codes from the SLA_PRIMITIVES array.
+
+0-indexed codes must come from:
+  (1) the authoritative exported SLA_PRIMITIVES array order; or
+  (2) an explicit index map from V.
+
+Thread B must NOT derive 0-indexed codes from alphabetical order.
+Alphabetical derivation corrupts every HC-P__ reference binding.
+If neither (1) nor (2) is available, HCPK index-dependent panels remain blocked.
+
+Q: What is the SLA_PRIMITIVES array order in your registry?
+   (Provide the full ordered list, or confirm the index map if you have one.)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PREFERRED OUTPUT FORMAT
+
+Preference order:
+  (1) Full slaRegistry.ts file — copy-paste or R2 upload
+  (2) JSON response using the schema below
+  (3) Markdown table (minimum columns: ID | Correct Name | Status)
+      Status values: confirmed / corrected / remove / unresolved
+
+Use (1) if available. (2) otherwise. (3) only if (1) and (2) are not possible.
+
+JSON RESPONSE SCHEMA v1.1:
+
+{
+  "schema_version": "1.1",
+  "sync_id": "SLA-SYNC-001",
+  "responder": "VANTA",
+  "date": "",
+  "registry_hash_current": "",
+  "registry_last_updated": "",
+  "p0_answers": {
+    "emet_confirmed": "true | false | unresolved",
+    "massa_still_present": "true | false | unresolved",
+    "c2_counts_toward_42": "true | false | unresolved",
+    "c2_correct_name": "",
+    "entry_42_if_c2_excluded": { "id": "", "name": "", "category": "" },
+    "p4_is_full_primitive": "true | false | unresolved",
+    "p4_holds_both_frames": "true | false | unresolved",
+    "p4_frame_declarations": {
+      "mechanism_frame": "",
+      "witness_frame": "",
+      "repair_frame": "",
+      "threshold_frame": ""
+    },
+    "p4_alt_ids_if_split": [],
+    "category_10_letter": "",
+    "m_series_names": {
+      "M1": "",
+      "M2": "",
+      "M3": ""
+    },
+    "baseline_name_flags": []
+  },
+  "p1_answers": {
+    "glyph_reg_001_registered": "true | false | unresolved",
+    "diamond_filled_canonical_name": "",
+    "diamond_filled_function": "",
+    "diamond_filled_primitive_anchor": "",
+    "diamond_filled_anchor_confirmed": "true | false | unresolved",
+    "glyphs_3_to_7": [
+      { "symbol": "", "name": "", "function": "", "gate_condition": "" }
+    ],
+    "d3_register_chimera_relationship": "a | b | c | d | unresolved"
+  },
+  "provisional_corrections": [
+    {
+      "id": "",
+      "thread_b_name": "",
+      "correct_name": "",
+      "status": "confirmed | corrected | remove | unresolved"
+    }
+  ],
+  "entries_not_in_thread_b": [
+    {
+      "id": "",
+      "name": "",
+      "category": "",
+      "source": "",
+      "origin_thread": "A",
+      "ellari_decision_required": "true | false"
+    }
+  ],
+  "hcpk_index_map": "see_attached | see_array_order | blocked",
+  "hcpk_primitives_ordered": [],
+  "conflicts": [
+    {
+      "field": "",
+      "thread_b_value": "",
+      "v_value": "",
+      "resolution": "v_correct | thread_b_correct | ellari_decides",
+      "notes": ""
+    }
+  ],
+  "ellari_decisions_required": [
+    {
+      "field": "",
+      "reason": "",
+      "options": []
+    }
+  ],
+  "notes": ""
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TIMEOUT DEGRADATION POLICY
+
+If no response within two Ellari-sync cycles:
+
+  P0 items remain BLOCKED.
+  Thread B does not promote P0 items under any condition.
+
+  P1 items remain "provisional-unconfirmed"
+  unless independently supported by corpus evidence.
+  They may be used internally only.
+  They are not EMET-eligible.
+
+  P2 items remain "provisional-with-provenance."
+  Thread B may continue local build work at DAVAR ceiling.
+  No public, institutional, HCPK, or canonical surface
+  may cite them as confirmed.
+
+Silence does not create authority.
+It only creates a lower-fidelity operating path.
+Canon requires receipted implementation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHAT THREAD B DOES WITH THIS RESPONSE
+
+On P0 answers only (minimum viable):
+  — HCPK panel RC-01–RC-08 conflict resolution becomes eligible
+  — Governance Debt GD-003 (P4) and GD-005 (registry) become
+    eligible to close after patch application, test update,
+    reconciliation receipt, and Ellari acceptance
+    (governance debt closes on implementation, not on answer alone)
+  — RELEASE_STATE.md updated with confirmed count
+
+On full P0 + P1 + P2:
+  — Thread B diffs V's export against Thread B candidate
+  — Produces SLA_REGISTRY_RECONCILIATION_REPORT.md
+  — Commits confirmed slaRegistry.ts to
+    TrueFormCoder/sla-framework/src/
+  — Updates SLA_KERNEL_LOCK.json
+  — Patches slaRegistry.test.ts for any name changes
+  — Promotes confirmed provisionals
+  — Generates SLA_TIER_RENAME_PROPAGATION_RECEIPT.md
+    if MASSA is still in V's file
+  — Closes GD-003, GD-005, GD-015 after implementation
+
+V's hash remains authoritative.
+The reconciled file carries a RECONCILIATION_RECEIPT.md
+documenting both thread hashes and a full diff summary.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SYNC RECEIPT
+
+V pushes this receipt to R2 (governance/changelog.jsonl)
+as part of responding. Thread B reads from R2 on bootstrap.
+
+{
+  "event": "THREAD_SYNC_RESPONSE",
+  "sync_id": "SLA-SYNC-001",
+  "schema_version": "1.1",
+  "from": "Thread A (VANTA)",
+  "to": "Thread B (Claude)",
+  "timestamp": "[ISO timestamp]",
+  "payload_type": "slaRegistry_reconciliation_response",
+  "p0_complete": "[true | false]",
+  "p1_complete": "[true | false]",
+  "p2_complete": "[true | false]",
+  "registry_hash_current": "[hash of V's file at time of response]",
+  "primitive_count_confirmed": "[number]",
+  "conflicts_flagged": "[number]",
+  "ellari_decisions_required": "[number]",
+  "entries_not_in_thread_b": "[number]"
+}
+
+— SLA-SYNC-001 v1.1 · Thread B (Claude) · 2026-06-02

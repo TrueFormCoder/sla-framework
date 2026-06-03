@@ -1,0 +1,159 @@
+{
+  "$schema": "https://ellari.institute/schemas/publicSurfaceFirewall.config.v1.json",
+  "version": "1.1",
+  "versionDate": "2026-06-03",
+  "owner": "Ellari Institute",
+  "governingPrimitive": "D3",
+  "governingRule": "Register Chimera = D3 (Frame Bleed primitive) + lane-boundary violation (macro). This firewall is the runtime enforcement of that macro.",
+  "laneRankOrder": ["internal", "practitioner", "institutional", "public", "high_risk"],
+  "rules": [
+    {
+      "id": "FW-001",
+      "term": "MASSA",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "MASSA is a former fidelity tier name (SLA-TIER-RENAME-001). Its presence at public surfaces signals a governance propagation failure.",
+      "repair": "MASSA has been renamed EMET (SLA-TIER-RENAME-001). If referring to the fidelity tier, use EMET. If referring to a specific historical record, use 'formerly MASSA'."
+    },
+    {
+      "id": "FW-002",
+      "term": "Black Label",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "Black Label is the Black Label register designation. It must not appear on public or institutional surfaces.",
+      "repair": "Use 'Archive Grade' for product surfaces, or omit register designation entirely at public tier."
+    },
+    {
+      "id": "FW-003",
+      "term": "VAESHA",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "VAESHA is a Black Label / cosmological-tier entity name. Register Separation Rule prohibits it at consumer tier.",
+      "repair": "Remove. If a product concept requires this function, use the consumer-lane equivalent."
+    },
+    {
+      "id": "FW-004",
+      "term": "VANTA",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "VANTA is the Thread A agent name. Not for public surfaces.",
+      "repair": "Remove or replace with 'governance review' where context requires description of the function."
+    },
+    {
+      "id": "FW-005",
+      "term": "ORAYA",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "ORAYA is a cosmological-layer governance concept. Black Label register.",
+      "repair": "Remove."
+    },
+    {
+      "id": "FW-006",
+      "term": "CORDIA",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "CORDIA is a governance-chain entity. Not for consumer surfaces.",
+      "repair": "Remove."
+    },
+    {
+      "id": "FW-007",
+      "term": "SIGLER",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "SIGLER is a governance-chain authentication entity. Not for consumer surfaces.",
+      "repair": "Remove."
+    },
+    {
+      "id": "FW-008",
+      "term": "ELLARI entity",
+      "severity": "blocker",
+      "laneThreshold": "public",
+      "reason": "The ELLARI entity (cosmological layer) is distinct from Ellari (founder/brand). The entity name is Black Label register.",
+      "repair": "Remove cosmological entity reference. Use 'Ellari' for brand/founder references only."
+    },
+    {
+      "id": "FW-009",
+      "term": "clinical protocol",
+      "severity": "blocker",
+      "laneThreshold": "practitioner",
+      "reason": "SLA is not a clinical protocol. Using this phrase creates false clinical authority.",
+      "repair": "Use 'practitioner protocol' or 'structural observation protocol' instead."
+    },
+    {
+      "id": "FW-010",
+      "term": "clinically proven",
+      "severity": "blocker",
+      "laneThreshold": "practitioner",
+      "reason": "No SLA or ELEOS claim has clinical proof status. This is an evidence overclaim.",
+      "repair": "Use 'structurally observed' (E1/E2), 'cross-domain alignment confirmed' (E3), or 'externally replicated' (E4) with the appropriate evidence tier."
+    },
+    {
+      "id": "FW-011",
+      "term": "scientifically proven",
+      "severity": "blocker",
+      "laneThreshold": "practitioner",
+      "reason": "Scientific proof is C7 claim level. No SLA claim is at C7.",
+      "repair": "Remove or replace with the accurate claim level (C1–C6)."
+    },
+    {
+      "id": "FW-012",
+      "term": "therapy protocol",
+      "severity": "blocker",
+      "laneThreshold": "practitioner",
+      "reason": "SLA/ELEOS is not therapy. This phrase creates therapeutic false authority.",
+      "repair": "Use 'structural observation practice' or 'practitioner-reviewed support tool'."
+    },
+    {
+      "id": "FW-013",
+      "term": "EMET",
+      "severity": "warning",
+      "laneThreshold": "public",
+      "reason": "EMET is a fidelity tier name. At public surfaces, it requires consumer-lane translation.",
+      "repair": "Use 'governing-level verified record' or 'verified with full receipt chain' in public contexts. EMET is internal governance vocabulary."
+    },
+    {
+      "id": "FW-014",
+      "term": "proof",
+      "severity": "warning",
+      "laneThreshold": "internal",
+      "reason": "Unqualified 'proof' is a potential evidence overclaim at any tier. Count function required.",
+      "repair": "Qualify with claim level: 'internal structural proof' (C1/C2), 'cross-domain confirmation' (C3), 'reviewer-supported' (C4), 'receipt-backed' (C5). Never use 'proof' without a count function."
+    },
+    {
+      "id": "FW-015",
+      "term": "confirmed",
+      "severity": "warning",
+      "laneThreshold": "internal",
+      "reason": "Unqualified 'confirmed' is a proof leak. 'Confirmed' alone is not a valid status.",
+      "repair": "Use the 9-level status taxonomy: draft / candidate / internally-mapped / internally-receipted / expert-reviewed / externally-reviewed / sealed / superseded / retired"
+    },
+    {
+      "id": "FW-016",
+      "term": "validated",
+      "severity": "warning",
+      "laneThreshold": "internal",
+      "reason": "Context-dependent: valid in governance/test contexts (e.g. 'validated scan receipt'); invalid in product copy as an authority claim.",
+      "repair": "Check context. In product copy: remove or qualify. In technical governance: acceptable if referring to a specific validation event."
+    },
+    {
+      "id": "FW-017",
+      "term": "Archive Grade",
+      "severity": "warning",
+      "laneThreshold": "public",
+      "reason": "Archive Grade is the renamed Black Label tier. May appear on LMI surfaces but requires context about what it means.",
+      "repair": "At public tier: add brief context — 'Archive Grade: highest protection classification for sensitive memory records.'"
+    }
+  ],
+  "changelog": [
+    {
+      "version": "1.0",
+      "date": "2026-06-02",
+      "changes": "Initial hardcoded version in receiptAdapter.ts"
+    },
+    {
+      "version": "1.1",
+      "date": "2026-06-03",
+      "changes": "Extracted to versioned config (FW-013). Added EMET as public-tier warning (FW-013). Added Archive Grade warning (FW-017). All rules now have IDs. Added repair text for all entries."
+    }
+  ]
+}

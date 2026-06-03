@@ -1,0 +1,205 @@
+{
+  "$schema": "https://ellari.institute/schemas/lmiArcClassifier.v0.1.json",
+  "version": "0.1",
+  "status": "candidate",
+  "owner": "Ellari Institute",
+  "date": "2026-06-03",
+  "governingNote": "Arc type governs handling protocol. Arc type is a structural observation from scanning the artifact — not a label the archivist applies. The arc scan must be documented in a scan receipt before arc type can be assigned.",
+  "pilotGate": "MIP-024+ blocked until Pilot A/B/C complete. These handling protocols require LMI team review before product implementation.",
+
+  "arcTypes": [
+    {
+      "type": "TYPE_1_TRANSFORMATION",
+      "arcId": "SLA-ARC-001",
+      "arcName": "Ordeal Arc",
+      "structuralSignature": "T3 (transient mode) present; R1 is present as structural event (not just claimed); entity at end is structurably different from origin state",
+      "canonLine": "Suffering transforms only when the entity survives and returns with structural difference.",
+      "handlingProtocol": {
+        "accessLevel": "subject_and_level_1_continuity_holders",
+        "displayProtocol": "full_arc_narrative",
+        "beforeStateHandling": "contextualized_within_arc",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "after-state I1 is the canonical identity, not before-state T3",
+        "archiveGradeDefault": false,
+        "childConsentLevel": "standard_plus_arc_context",
+        "childConsentNote": "Parental consent required for before-state material; the arc's I1 reconstitution is the primary protected identity",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": "with_consent"
+      },
+      "warnIfUsed": "R1-C risk: do not classify as TYPE_1 unless R1 arrival is structurally evidenced, not just claimed"
+    },
+    {
+      "type": "TYPE_2_WITNESS",
+      "arcId": "SLA-ARC-002",
+      "arcName": "Recognition Collapse",
+      "structuralSignature": "T3 (structural mode) present; P4 active; R1 not present in artifact (R1-A type)",
+      "canonLine": "A witness record is not memorial fuel.",
+      "handlingProtocol": {
+        "accessLevel": "MAXIMUM_RESTRICTED",
+        "accessNote": "Subject and Level 0 continuity holder minimum. No public access without explicit subject consent.",
+        "displayProtocol": "requires_type2_framing",
+        "displayFramingRequired": "This record preserves structural evidence from a moment when change was no longer possible. It is not a memorial. It is a witness record.",
+        "syntheticMemorialAllowed": false,
+        "syntheticMemorialCondition": "BLOCKED — explicit pre-mortem consent required with separate witness documentation. The freeze state cannot be re-animated.",
+        "syntheticVoiceAllowed": false,
+        "interactiveMemorialAllowed": false,
+        "archiveGradeDefault": true,
+        "archiveGradeNote": "Default Archive Grade until consent chain is verified. This is not a punishment — it is structural accuracy.",
+        "childConsentLevel": "MAXIMUM",
+        "childConsentNote": "Both parental consent AND child assent required when child is capable of assent. T3+P4 material cannot be used for child's memorial without documented pre-crisis consent.",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": false,
+        "sonicArtifactNote": "If artifact is sonic (voice recording, voicemail, audio), CMN (Collapse Music Notation) applies: the sonic content encodes the speaker's ELEOS functional state. This is inadvertent structural evidence. The speaker did not intend to create a governance artifact."
+      },
+      "warnIfUsed": "WEAP-001 applies: this artifact may not be used to claim the subject 'should have' done something different. R1-A type means structural unavailability, not behavioral failure."
+    },
+    {
+      "type": "TYPE_3_THRESHOLD",
+      "arcId": "SLA-ARC-003",
+      "arcName": "Basin Clearance",
+      "structuralSignature": "T3 (structural_home mode) present; S4 emergence observable; terminal state is new S3 (not origin S3)",
+      "canonLine": "Some systems must complete their collapse before new structure can emerge.",
+      "handlingProtocol": {
+        "accessLevel": "subject_and_community_record_holders",
+        "accessNote": "Collective-scale arcs may have community record rights",
+        "displayProtocol": "new_S3_as_canonical_identity",
+        "displayNote": "The new S3 is the canonical identity. The origin S3 is historical context. Neither is pathological.",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "Use new S3 identity, not basin-state material",
+        "archiveGradeDefault": false,
+        "childConsentLevel": "community_consultation",
+        "childConsentNote": "Special consideration for child subjects of collective-scale clearance events. Child may not have language for the arc they survived.",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": "with_consent"
+      }
+    },
+    {
+      "type": "TYPE_4_POSITIONAL",
+      "arcId": "SLA-ARC-004",
+      "arcName": "Polycentric Field",
+      "structuralSignature": "Multi-agent S1/S2 field; T3 (unresolved_basin) as terminal state; truth is positionally distributed",
+      "canonLine": "Truth is positional, not absolute.",
+      "handlingProtocol": {
+        "accessLevel": "standard",
+        "displayProtocol": "positional_framing_required",
+        "displayFramingRequired": "This record reflects [subject]'s position within a complex event. Other participants held different structural positions. Neither account is the complete account.",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "Must include positional framing. Presenting one positional record as 'the account' is D3 (Frame Bleed) at memorial scale.",
+        "archiveGradeDefault": false,
+        "childConsentLevel": "standard",
+        "positionalFramingRequired": true,
+        "publicDisplayAllowed": "with_positional_framing"
+      },
+      "warnIfUsed": "D3 (Frame Bleed) risk: positional records presented without framing become false complete accounts."
+    },
+    {
+      "type": "TYPE_5_CORRECTION",
+      "arcId": "SLA-ARC-005",
+      "arcName": "Covenant Loop",
+      "structuralSignature": "L2 governing; I1+C4 as anchor; T1 deviation and R1 correction both present; covenant persists",
+      "canonLine": "Order is contractual, not inherent.",
+      "handlingProtocol": {
+        "accessLevel": "covenant_parties",
+        "displayProtocol": "deviation_and_return_equal_weight",
+        "displayNote": "Both the deviation and the return are equally important. A record that shows only the correction without the deviation is R1-C risk.",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "Use covenant identity (I1+C4 configuration)",
+        "archiveGradeDefault": false,
+        "childConsentLevel": "standard",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": "with_consent"
+      },
+      "warnIfUsed": "R1-C risk: a correction record that omits the deviation is false return."
+    },
+    {
+      "type": "TYPE_6_ALTITUDE",
+      "arcId": "SLA-ARC-006",
+      "arcName": "Spiral Refinement",
+      "structuralSignature": "L3 governing; I1 elevating across passes; same structural challenge at different intensities",
+      "canonLine": "Growth is not linear. Each obstacle is the same obstacle at a different altitude.",
+      "handlingProtocol": {
+        "accessLevel": "subject_across_time",
+        "displayProtocol": "series_preservation_required",
+        "displayNote": "Single records from altitude series are low-information without series context. The series is the specimen; individual records are data points.",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "Altitude series ideal for living memorials that show trajectory rather than moment",
+        "archiveGradeDefault": false,
+        "childConsentLevel": "standard",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": "with_consent"
+      }
+    },
+    {
+      "type": "TYPE_7_EMERGENCE",
+      "arcId": "SLA-ARC-007",
+      "arcName": "Generative Rupture",
+      "structuralSignature": "S1→S2→S4→new S3 sequence; new structure from disruption",
+      "canonLine": "Innovation emerges from illegitimate moves.",
+      "handlingProtocol": {
+        "accessLevel": "standard",
+        "displayProtocol": "emergence_forward_focus",
+        "displayNote": "Disruption context is important but not the focus. Emergence Records are forward-looking; the new S3 is the canonical state.",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "S4 emergence identity",
+        "archiveGradeDefault": false,
+        "childConsentLevel": "standard",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": "with_consent"
+      }
+    },
+    {
+      "type": "TYPE_8_INTEGRATION",
+      "arcId": "SLA-ARC-008",
+      "arcName": "Shadow Integration",
+      "structuralSignature": "I2 present; D1 active; T1 confrontation; I4 bridge; I1 enlarged",
+      "canonLine": "The shadow does not dissolve by being ignored. It integrates by being witnessed.",
+      "handlingProtocol": {
+        "accessLevel": "subject_only_unless_explicitly_granted",
+        "displayProtocol": "enlarged_I1_as_canonical_identity",
+        "displayNote": "The I2 material (shadow content) requires the most careful contextualization. It is not evidence of pathology — it is structural evidence of what was held.",
+        "syntheticMemorialAllowed": true,
+        "syntheticMemorialCondition": "Enlarged I1 is the canonical identity; I2 material is personal context, NOT part of the memorial",
+        "archiveGradeDefault": false,
+        "archiveGradeNote": "Integration Grade: I2 content has distinct protection level — accessible to subject only unless explicitly granted",
+        "childConsentLevel": "MAXIMUM_FOR_I2_MATERIAL",
+        "childConsentNote": "A child's unacknowledged content must not be made visible to others without the child's own consent — not just parental consent. I2 material is the child's, not the parent's.",
+        "positionalFramingRequired": false,
+        "publicDisplayAllowed": false
+      }
+    }
+  ],
+
+  "classifierOutputSchema": {
+    "artifact_id": { "type": "string" },
+    "arc_type": { "type": "string", "enum": ["TYPE_1_TRANSFORMATION", "TYPE_2_WITNESS", "TYPE_3_THRESHOLD", "TYPE_4_POSITIONAL", "TYPE_5_CORRECTION", "TYPE_6_ALTITUDE", "TYPE_7_EMERGENCE", "TYPE_8_INTEGRATION"] },
+    "arc_id": { "type": "string" },
+    "consent_protocol": { "type": "string", "enum": ["standard", "standard_plus_arc_context", "maximum", "community_consultation", "covenant_parties", "subject_only", "MAXIMUM_RESTRICTED"] },
+    "synthetic_memorial_allowed": { "type": "boolean" },
+    "synthetic_memorial_condition": { "type": "string" },
+    "synthetic_voice_allowed": { "type": "boolean" },
+    "archive_grade_default": { "type": "boolean" },
+    "child_consent_level": { "type": "string" },
+    "positional_framing_required": { "type": "boolean" },
+    "public_display_allowed": { "type": ["boolean", "string"] },
+    "reason": { "type": "string" },
+    "scan_receipt_id": { "type": "string", "description": "Required: arc type cannot be assigned without a primitive-level scan receipt" },
+    "careGraph_relationship_type": { "type": "string", "description": "Optional: relationship arc type from CareGraph taxonomy" }
+  },
+
+  "exampleOutput_PTL_voicemail": {
+    "artifact_id": "PTL-VOICEMAIL-11:04AM",
+    "arc_type": "TYPE_2_WITNESS",
+    "arc_id": "SLA-ARC-002",
+    "consent_protocol": "MAXIMUM_RESTRICTED",
+    "synthetic_memorial_allowed": false,
+    "synthetic_memorial_condition": "BLOCKED — explicit pre-mortem consent required with separate witness documentation",
+    "synthetic_voice_allowed": false,
+    "archive_grade_default": true,
+    "child_consent_level": "MAXIMUM",
+    "positional_framing_required": false,
+    "public_display_allowed": false,
+    "reason": "T3 (structural mode) present; P4 (record machine as external witness) active; R1 not present in artifact; sonic content encodes ELEOS functional state at moment of prevented contact — inadvertent structural evidence",
+    "scan_receipt_id": "PTL-001-SCAN-RECEIPT",
+    "careGraph_relationship_type": "parent_child_unresolved"
+  }
+}

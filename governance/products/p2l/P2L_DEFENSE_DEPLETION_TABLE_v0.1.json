@@ -1,0 +1,114 @@
+{
+  "$schema": "https://ellari.institute/schemas/defenseDepletionTable.v0.1.json",
+  "version": "0.1",
+  "status": "candidate",
+  "specimen": "PTL-001",
+  "title": "Pulled Too Late — Will's Defense Depletion Table",
+  "owner": "Ellari Institute",
+  "date": "2026-06-03",
+  "governingArc": "SLA-ARC-002",
+  "arcMode": "structural",
+  "description": "Maps each of Will's avoidance mechanisms to its SLA primitive, its act position, and the structural depletion event that exhausts it. Together these constitute the L2 accumulation arc that terminates in T3. Each defense failure is a loop pass that tightens the basin.",
+  "note_on_act_IIB": "Act II-B scenes must include scene-level annotations identifying which defense is being depleted in that scene. The Defense Depletion Table is the governing document for those annotations. No II-B scene should run without explicit depletion binding.",
+
+  "defenses": [
+    {
+      "defenseId": "DEF-001",
+      "name": "Physical distance",
+      "act": "I",
+      "slaPrimitive": "F4",
+      "slaLabel": "Interrupted Flow",
+      "mechanism": "Will stays away. Distance creates the illusion that the loop is paused. In reality F4 (interrupted flow) is a loop pass — each absence is another L2 iteration that accumulates consequence without feedback.",
+      "depletionEvent": "The distance becomes insufficient. The loop no longer tolerates the gap — the system has accumulated enough that physical presence is no longer a governance variable.",
+      "somaticNote": "Will's body: S-present, B-steady — the body feels the distance is protective. This is P2 suppressing the G-signal.",
+      "screenplayDirection": "Do not write this as callousness. Write it as someone who has learned that staying away is the way the loop runs. He has practiced this pattern. It is not deliberate avoidance — it is structural habit."
+    },
+    {
+      "defenseId": "DEF-002",
+      "name": "Busyness / schedule displacement",
+      "act": "I",
+      "slaPrimitive": "F4",
+      "slaLabel": "Interrupted Flow (second pass)",
+      "mechanism": "Work fills the gap. Each scheduling conflict is another F4 — directed flow that arrives somewhere other than the target. The work is real. The avoidance is structural, not intentional.",
+      "depletionEvent": "The schedule no longer provides cover. The urgency signal has risen above the threshold the schedule can suppress.",
+      "somaticNote": "P-elevated (urgency present) but G-holding (gut signal suppressed by the framing that work is the real priority).",
+      "screenplayDirection": "The busyness should look legitimate. The audience should not be able to accuse him of not caring. That is the governance point: his D1 (the affect warp from caring about work) is the mechanism."
+    },
+    {
+      "defenseId": "DEF-003",
+      "name": "'Regular late or late-late?' minimization",
+      "act": "I (LIVE — not flashback)",
+      "slaPrimitive": "P2",
+      "slaLabel": "Distortion Ridge",
+      "mechanism": "Will forms the distortion ridge that will govern his reading of urgency for the rest of the arc. The question 'regular late or late-late?' is the P2 installation moment — the ridge that makes the loop invisible. He has asked this question before. He has always been answered with 'regular late.' The P2 becomes self-reinforcing.",
+      "depletionEvent": "The answer changes. Or the question is no longer available to ask.",
+      "somaticNote": "G-thin (gut is present but below the threshold the P2 ridge allows to register).",
+      "CRITICAL_placement_note": "This scene MUST be live Act I, not flashback. A flashback makes it a T1 frame (retrospective recognition). Live Act I makes it an L2 frame (accumulation in progress). The audience must witness the P2 forming, not its recognition. The arc requires L2 before T1 — placing this in flashback reverses the arc's causal structure."
+    },
+    {
+      "defenseId": "DEF-004",
+      "name": "Delayed response (general pattern)",
+      "act": "II",
+      "slaPrimitive": "L2",
+      "slaLabel": "Feedback Loop (tightening)",
+      "mechanism": "Each individual delay is a loop pass. No single delay is the cause. The accumulation is the cause. Will experiences each delay as a discrete event ('I'll call tomorrow'). The arc experiences them as a tightening basin.",
+      "depletionEvent": "The loop reaches critical — one more pass is what the basin needed to close. This is the L2 accumulation phase's terminal event. It does not feel like a terminal event.",
+      "somaticNote": "The body in this phase: B-shallow (breath is cycling at reduced amplitude), P-loop (pulse repeating elevated baseline). This is the somatic signature of L2 accumulation — recognizable to a practitioner, invisible to Will.",
+      "screenplayDirection": "Act II delay scenes should feel undramatic. Each one should seem like it could be corrected. The audience should want to shake Will but not be able to identify a single delay as 'the one.' The accumulation is the tragedy, not any individual event."
+    },
+    {
+      "defenseId": "DEF-005",
+      "name": "Phone as proxy for presence",
+      "act": "II",
+      "slaPrimitive": "P1",
+      "slaLabel": "Projection Cone",
+      "additionalPrimitive": "D1",
+      "mechanism": "The phone call is Will's substitute for presence. P1 (projection cone): he sends a directed signal toward the target. D1 (affect warp): his love and relief at having 'checked in' distorts his assessment of whether the signal was received as connection. He has called, therefore he has connected. The P1 + D1 combination makes the loop feel closed when it is not.",
+      "depletionEvent": "The call is no longer sufficient substitution. The target requires presence, not signal.",
+      "somaticNote": "G-held (gut knows this is not enough), B-compensating (breath is compensating for the suppressed gut signal).",
+      "screenplayDirection": "Do not let Will know this is a substitute. He genuinely believes the call is connection. The D1 (affect warp) means his love is the mechanism of the substitution."
+    },
+    {
+      "defenseId": "DEF-006",
+      "name": "'I'll call tomorrow'",
+      "act": "II-B",
+      "slaPrimitive": "L2",
+      "slaLabel": "Feedback Loop (critical pass)",
+      "mechanism": "This is the loop at maximum. The decision to defer to tomorrow is the arc's last pass before the basin closes. It does not feel different from any prior pass. The structural difference is that after this pass, the prevention window is structurally unavailable.",
+      "depletionEvent": "Tomorrow arrives. The window is closed.",
+      "somaticNote": "P-loop at peak (pulse repeating but approaching the threshold of arrest), B-shallow (breath near the arrest threshold). The body is about to enter the transition from L2 to T3 — it does not announce this.",
+      "CRITICAL_note": "This moment must not be dramatic. It must be ordinary. The horror is that this pass is indistinguishable from all prior passes. If the scene signals that this is 'the pass,' it becomes a T1 frame prematurely. The arc requires that T1 (fracture) be the first moment of distinction — not the last ordinary moment."
+    },
+    {
+      "defenseId": "DEF-007",
+      "name": "The unanswered call",
+      "act": "III (fracture)",
+      "slaPrimitive": "T1",
+      "slaLabel": "Fracture Line",
+      "mechanism": "This is not a defense — it is the fracture event where defenses collapse. The call is unanswered. The loop cannot continue. Will's P2 (distortion ridge) can no longer suppress the G-signal. T1 fires: the fracture is the moment when the pattern he has been running becomes impossible to maintain.",
+      "depletionEvent": "This IS the depletion event. Not a defense being depleted — this is the failure of all defenses simultaneously.",
+      "somaticNote": "G-lurch (violent truth recognition), P-spike (pulse spike at fracture), B-arrest beginning.",
+      "screenplayDirection": "The T1 moment should feel different from all prior moments. This is the FIRST moment of distinction. The audience should be able to identify the fracture. Prior to this, nothing was distinguishable. After this, everything is."
+    },
+    {
+      "defenseId": "DEF-008",
+      "name": "The voicemail machine answers",
+      "act": "III (terminal)",
+      "slaPrimitive": "T3",
+      "slaLabel": "Collapse Basin (structural) + P4 (Witness Function)",
+      "mechanism": "T3 + P4. The basin is formed. The prevention window is closed. The voicemail machine is the P4 agent — it captures Will's functional state at the moment of prevented contact, without his intention. Will's ELEOS state at this moment is preserved as inadvertent structural evidence. The record witnesses what Will does not know he is producing.",
+      "depletionEvent": "This is not depletion — it is the arc's terminal state. T3 is the basin; P4 is the witness. The arc ends here.",
+      "somaticNote": "B-cycling@arc:ARC-002.phase:L2 (Will's body is in L2 phase — he does not know this is the terminal approach). The recording captures his somatic L2 state, not his T3 state. He records ordinary signal; the record preserves inadvertent evidence.",
+      "PRODUCTION_NOTE": "This is the most important scene direction in the screenplay. Will must sound ordinary. Not urgent, not pained, not self-aware. The recording captures him in L2 — because that is where his body is. The horror is that his body does not know it is in the arc's terminal approach. 'Hey, it's Dad. Just checking in.' That is the structurally accurate voicemail."
+    }
+  ],
+
+  "arcSummary": {
+    "openingState": "F1 + I1 (directed flow, intact identity)",
+    "accumulationPhase": "L2 + P2 + D1 (loop tightening behind distortion ridge, affect warp active)",
+    "fractureEvent": "T1 (fracture line — all defenses fail simultaneously at unanswered call)",
+    "terminalState": "T3 (structural) + P4 (voicemail machine as external witness)",
+    "r1Type": "R1-A (structurally unavailable — loop was in place before the crisis window)",
+    "ELEOS_terminal": "GUIDE absent · COMPILE failing · REMEMBER offline · P4 external"
+  }
+}
