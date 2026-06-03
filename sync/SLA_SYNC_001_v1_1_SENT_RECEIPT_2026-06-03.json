@@ -1,0 +1,44 @@
+{
+  "receipt_id": "SLA-SYNC-001-v1.1-SENT-20260603-001",
+  "event": "THREAD_SYNC_REQUEST_SENT",
+  "sync_id": "SLA-SYNC-001",
+  "schema_version": "1.1",
+  "from": "Thread B (Claude)",
+  "to": "Thread A (VANTA)",
+  "timestamp_utc": "2026-06-03T03:25:15Z",
+  "timestamp_central": "2026-06-02T22:25:15-05:00",
+  "payload_type": "slaRegistry_reconciliation_request",
+  "source_file": {
+    "path": "/mnt/data/SLA-SYNC-001-v1.1.txt",
+    "filename": "SLA-SYNC-001-v1.1.txt",
+    "bytes": 14097,
+    "sha1": "a3a68b0e4df70875bab3d2843bb7cce498c40b91",
+    "sha256": "b4537a6c44b284be7ec3ab4b7ad8fa1b4dfab789c1769c903650cb198ca693e6"
+  },
+  "provided_hash": {
+    "value": "2bb4cd1cc4f0d21d1e566beae779e6221185ce28",
+    "length_hex_chars": 40,
+    "classification": "git_style_sha1_commit_or_object_hash",
+    "field_name": "git_commit_sha",
+    "not_registry_hash": true,
+    "not_file_sha256": true
+  },
+  "request_state_after_receipt": {
+    "sync_request": "sent_receipt_bearing",
+    "thread_a_response": "pending",
+    "registry_reconciliation": "not_closed",
+    "p0_registry_blockers": "still_blocked",
+    "hcpk_0_indexed_codes": "still_blocked_until_explicit_array_order_or_index_map",
+    "authority_note": "This receipt proves request custody only. It does not confirm registry content, primitive count, glyph status, P4 status, or HCPK index order."
+  },
+  "required_thread_a_response_fields": {
+    "response_to_commit_sha": "2bb4cd1cc4f0d21d1e566beae779e6221185ce28",
+    "registry_hash_current": "required",
+    "primitive_count_confirmed": "required",
+    "p0_complete": "required",
+    "p1_complete": "required",
+    "p2_complete": "required"
+  },
+  "next_action": "Wait for Thread A/VANTA response, then generate SLA_REGISTRY_RECONCILIATION_REPORT.md and implementation patch receipts.",
+  "canon_line": "A sent request is custody. A returned answer is evidence. A reconciled patch is authority."
+}
