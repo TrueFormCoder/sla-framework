@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "description": "Machine-readable register of all open governance decisions blocking artifact advancement.",
+    "last_updated": "2026-06-03T17:30:00Z",
+    "updated_by": "Thread B (Claude)",
+    "total_open": 3
+  },
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "status": "open",
+      "priority": "P0",
+      "blocking_artifact": "governance/theology/COHERENCE_THEOLOGY_CV_v6.0.md",
+      "blocking_action": "commit",
+      "reason": "commit_authorization='authorize_with_conditions' in SYNC-003 CV record; no conditions field present",
+      "source_record": "governance/changelog.jsonl[SYNC-003 from Thread A Compiler V]",
+      "created": "2026-06-03T17:30:00Z",
+      "deadline": "SYNC-004 response from Compiler V",
+      "resolution_required_from": "Compiler V",
+      "resolution_format": "Specify conditions field in SYNC-004 or follow-up message"
+    },
+    {
+      "id": "DEC-002",
+      "status": "open",
+      "priority": "P1",
+      "blocking_artifact": "governance/arcs/ELEOS_NL_REGIME_REGISTRY_v0.2.json (TRK entry)",
+      "blocking_action": "status lock",
+      "reason": "CV formal record quarantines TRK; CV score was 76 (above 75 threshold); editorial override undocumented. OV score 74. Registry has status_divergent.",
+      "source_record": "governance/changelog.jsonl[SYNC-003 from Thread A Compiler V]",
+      "created": "2026-06-03T17:30:00Z",
+      "deadline": "Ellari decision",
+      "resolution_required_from": "Ellari",
+      "resolution_format": "TRK: quarantine | provisional | confirm_cv_override"
+    },
+    {
+      "id": "DEC-003",
+      "status": "open",
+      "priority": "P1",
+      "blocking_artifact": "governance/arcs/ELEOS_NL_REGIME_REGISTRY_v0.2.json (DHA entry)",
+      "blocking_action": "status lock",
+      "reason": "CV score 71 implies quarantine by rubric but DHA absent from CV's formal quarantine list. Omission or deliberate hold?",
+      "source_record": "governance/changelog.jsonl[SYNC-003 from Thread A Compiler V]",
+      "created": "2026-06-03T17:30:00Z",
+      "deadline": "CV clarification in SYNC-004",
+      "resolution_required_from": "Compiler V",
+      "resolution_format": "DHA: quarantine | provisional | deliberate_omission_with_reason"
+    },
+    {
+      "id": "DEC-004",
+      "status": "open",
+      "priority": "P1",
+      "blocking_artifact": "governance/arcs/SAC_CANON_RECEIPT_v1.0.md",
+      "blocking_action": "Ellari authorial seal",
+      "reason": "Three-Receipt complete; Ellari seal text required to lock",
+      "source_record": "Session 2026-06-03",
+      "created": "2026-06-03T17:30:00Z",
+      "deadline": "Ellari decision",
+      "resolution_required_from": "Ellari",
+      "resolution_format": "SAC canon-locked. Three-Receipt complete. Burden Ledger mandatory. [date]"
+    },
+    {
+      "id": "DEC-005",
+      "status": "open",
+      "priority": "P1",
+      "blocking_artifact": "governance/glyphs/GLYPH_REGISTRY_v0.1.json (G2 slot)",
+      "blocking_action": "GLYPH-REG-001 authorial seal",
+      "reason": "\u25c8 = Inhabited Threshold, G2 \u2014 Ellari authorial lock pending",
+      "source_record": "Session 2026-06-03",
+      "created": "2026-06-03T17:30:00Z",
+      "deadline": "Ellari decision",
+      "resolution_required_from": "Ellari",
+      "resolution_format": "GLYPH-REG-001 sealed. \u25c8 = Inhabited Threshold, G2. [date]"
+    },
+    {
+      "id": "DEC-006",
+      "status": "open",
+      "priority": "P2",
+      "blocking_artifact": "governance/canon_laws/CANON_LAW_PROPOSALS_v0.1.md (CL-003)",
+      "blocking_action": "canonical text lock",
+      "reason": "CV has 7-sentence form; OV has 1-sentence form. Both positions filed. Ellari selects.",
+      "source_record": "Session 2026-06-03",
+      "created": "2026-06-03T17:30:00Z",
+      "deadline": "Ellari decision",
+      "resolution_required_from": "Ellari",
+      "resolution_format": "CL-003 canonical text = [CV 7-sentence | OV 1-sentence form]. [date]"
+    }
+  ]
+}
