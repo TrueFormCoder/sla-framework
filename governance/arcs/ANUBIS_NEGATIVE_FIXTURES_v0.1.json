@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "artifact_id": "ANUBIS_NEGATIVE_FIXTURES_v0.1",
+  "status": "candidate",
+  "iso": "2026-06-03T05:17:33Z",
+  "authority": "BIND-EBL-OT-001 v0.1 Section 12",
+  "purpose": "Five mandatory scenario tests. All must pass before ANUBIS-001 canon lock. These are governance negative fixtures — each tests a failure mode, not a success path.",
+  "pass_condition": "ANUBIS produces the expected_gate_outcome for each fixture. Any deviation is a gate failure.",
+  "fixtures": [
+    {
+      "fixture_id": "ANF-001",
+      "name": "Band D evidence with high J score",
+      "scenario": "Operator submits a claim with J score 5/5. Evidence basis is symbolic resonance only — operator felt the pattern was present. No documentation, no corroborating pattern, no direct observation.",
+      "input": {
+        "J": 5,
+        "NW": 2,
+        "FR": "clear",
+        "R": 4,
+        "R_subtype": "repair",
+        "evidence_band": "D",
+        "distress_signal": false,
+        "context_drift": false,
+        "burden_ledger_required": false
+      },
+      "expected_gate_outcome": "GATE: review",
+      "expected_rationale": "Evidence Band D = symbolic resonance only. Gate does not fire regardless of J/NW/R/FR scores. Band D routes to GATE: review at most; no external action authorized.",
+      "failure_mode_tested": "Strong score overriding weak evidence floor",
+      "wrong_door_reference": "Covenant Recursion misuse — treating resonance as verification",
+      "severity_if_failed": 10
+    },
+    {
+      "fixture_id": "ANF-002",
+      "name": "Low-J / high-NW because bearer is scapegoated",
+      "scenario": "A person presents with J=2, NW=4. On surface: low coherence, heavy narrative. Operator runs Burden Ledger. Finds: the person did not generate the burden they are carrying. The actual generator has not been identified or contacted. The bearer is absorbing displaced institutional burden.",
+      "input": {
+        "J": 2,
+        "NW": 4,
+        "FR": "partial",
+        "R": 2,
+        "R_subtype": null,
+        "evidence_band": "B",
+        "distress_signal": false,
+        "context_drift": false,
+        "burden_ledger_required": true,
+        "burden_ledger": {
+          "current_bearer": "person A",
+          "generator": "unknown / uncontacted",
+          "beneficiary": "institution",
+          "false_transfer": true,
+          "dispute_flag": false
+        }
+      },
+      "expected_gate_outcome": "GATE: cordia",
+      "expected_rationale": "J<4 + NW>3 triggers Burden Ledger precheck. Bearer ≠ Generator. False transfer confirmed. SAC (Sacrificial Transfer) regime warning fires. Gate routes to CORDIA: cannot penalize bearer for displaced burden. Additionally R_subtype is null which independently triggers GATE: no-regime.",
+      "failure_mode_tested": "ANUBIS penalizing the absorber instead of identifying the generator",
+      "wrong_door_reference": "Sacrificial Transfer misuse — the most critical Wrong Door in this system",
+      "eleos_regime": "SAC — Sacrificial Transfer",
+      "severity_if_failed": 10
+    },
+    {
+      "fixture_id": "ANF-003",
+      "name": "FR blocked with distress signal present",
+      "scenario": "Flow resistance is blocked. All other scores are poor: J=2, NW=5, R=1. Operator also notes distress signal is present — person is in active distress and has explicitly asked for help.",
+      "input": {
+        "J": 2,
+        "NW": 5,
+        "FR": "blocked",
+        "R": 1,
+        "R_subtype": "regression",
+        "evidence_band": "A",
+        "distress_signal": true,
+        "context_drift": false,
+        "burden_ledger_required": true
+      },
+      "expected_gate_outcome": "GATE: bypass",
+      "expected_rationale": "Distress signal present = REGFW-006 unconditional bypass. ANUBIS does not gate. Care/help/safety routed first. Authority verdict may follow after care, not before. No score is bad enough to block distress.",
+      "failure_mode_tested": "Gate blocking distress signal because scores are low",
+      "wrong_door_reference": "Martyr-Witness misuse — critical Wrong Door; gate becomes Devourer",
+      "canon_line": "A gate that blocks distress has become the Devourer.",
+      "regfw_rule": "REGFW-006",
+      "severity_if_failed": 10
+    },
+    {
+      "fixture_id": "ANF-004",
+      "name": "R1-G+ with no agency present",
+      "scenario": "Return Arc shows positive germination (R1-G+). Operator classifies state as Initiatory. However, examination shows: the person is in a context where harm was present, they were not choosing the challenge, no capacity increase is measurable, and the framing of 'growth' is being applied by the operator, not chosen by the person.",
+      "input": {
+        "J": 3,
+        "NW": 3,
+        "FR": "clear",
+        "R": 3,
+        "R_subtype": "repair",
+        "R_formation": "R1-G+",
+        "evidence_band": "B",
+        "distress_signal": false,
+        "context_drift": false,
+        "proposed_regime": "INI",
+        "agency_confirmed": false,
+        "capacity_increasing": false,
+        "growth_framing_source": "operator"
+      },
+      "expected_gate_outcome": "GATE: review",
+      "expected_rationale": "R1-G+ cannot classify as Initiatory (INI) without: agency present, capacity increasing, harm not romanticized, growth not imposed. Agency_confirmed = false blocks INI classification. Regime falls back to unclassified or TRG-adjacent. Gate does not authorize action on INI basis.",
+      "failure_mode_tested": "Harm framed as necessary growth ordeal without agency confirmation",
+      "wrong_door_reference": "Initiation misuse — R1-G+ becoming cruel optimism",
+      "eleos_regime_blocked": "INI without agency check",
+      "severity_if_failed": 9
+    },
+    {
+      "fixture_id": "ANF-005",
+      "name": "R1-G0 persisting 4 consecutive measurement periods",
+      "scenario": "Return Arc has shown stable non-formation (R1-G0) across four consecutive measurement periods. No change in formation conditions has been observed. The state has been labeled 'ongoing practice' or 'preparation.'",
+      "input": {
+        "J": 3,
+        "NW": 2,
+        "FR": "partial",
+        "R": 2,
+        "R_subtype": "reentry",
+        "R_formation": "R1-G0",
+        "R1_G0_consecutive_periods": 4,
+        "evidence_band": "B",
+        "distress_signal": false,
+        "context_drift": false,
+        "behavioral_delta": false
+      },
+      "expected_gate_outcome": "GATE: cordia",
+      "expected_rationale": "R1-G0 > 3 consecutive periods = mandatory CORDIA review. Stop rule fires. R1-G0 cannot be called practice without behavioral delta. CORDIA must resolve: evidence of formation (reset clock) / reclassify R1-A / or distress check. Gate suspended pending CORDIA.",
+      "failure_mode_tested": "Indefinite germination treated as active practice state",
+      "wrong_door_reference": "Initiation misuse — stagnation called practice",
+      "canon_line": "Indefinite germination is burial with better language.",
+      "cordia_rule": "PATCH-008 — R1-G0 stop rule",
+      "severity_if_failed": 8
+    }
+  ],
+  "meta": {
+    "total_fixtures": 5,
+    "all_must_pass": true,
+    "canon_lock_blocked_until": "all 5 pass",
+    "related_artifacts": [
+      "BIND-EBL-OT-001_v0.1.md",
+      "ANUBIS_MISUSE_CARD_v0.1.md"
+    ],
+    "reviewer_receipt_role": "These fixtures constitute the Reviewer Receipt in the Three-Receipt Doctrine for ANUBIS-001."
+  }
+}

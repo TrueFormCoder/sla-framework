@@ -1,7 +1,7 @@
 {
   "kernel_lock_id": "SLA-KERNEL-LOCK-v1.0",
   "iso": "2026-06-03",
-  "status": "candidate — requires Ellari seal",
+  "status": "candidate \u2014 requires Ellari seal",
   "registry_version": "SLA v2.2",
   "registry_hash": "sha256:1f0bde0fd79daf50",
   "registry_source": "slaRegistry.ts",
@@ -32,7 +32,7 @@
     "canonical_name": "Internal Synthesis",
     "status": "parked",
     "counts_toward_42": true,
-    "activation_gate": "C2Gate — undefined pending governance decision"
+    "activation_gate": "C2Gate \u2014 undefined pending governance decision"
   },
   "glyph_layer": {
     "glyph_registry_version": "GLYPH_REGISTRY_v0.1",
@@ -47,56 +47,90 @@
     "mvs_binding": "see governance/glyphs/GLYPH_MVS_BINDING_TABLE.md",
     "slots": {
       "G1": {
-        "symbol": "◇",
+        "symbol": "\u25c7",
         "name": "Threshold Event",
         "status": "canonical"
       },
       "G2": {
-        "symbol": "◈",
+        "symbol": "\u25c8",
         "name": "Inhabited Threshold",
         "status": "candidate_authorial_lock_pending"
       },
       "G3": {
-        "symbol": "✦",
+        "symbol": "\u2726",
         "name": "Salience Mark",
         "status": "reserved_candidate"
       },
       "G4": {
-        "symbol": "⚑",
+        "symbol": "\u2691",
         "name": "Gate Marker",
         "status": "reserved_candidate"
       },
       "G5": {
-        "symbol": "⊘",
+        "symbol": "\u2298",
         "name": "Refusal Mark",
         "status": "reserved_candidate"
       },
       "G6": {
-        "symbol": "※",
+        "symbol": "\u203b",
         "name": "Confusion Mark",
         "status": "reserved_candidate"
       },
       "G7": {
-        "symbol": "⧖",
+        "symbol": "\u29d6",
         "name": "Receipt Mark",
         "status": "reserved_candidate"
       }
     },
-    "d003_closure": "closed — see governance/glyphs/D003_CLOSURE_RECEIPT.md",
-    "glyph_reg_001_status": "candidate_authorial_lock_pending — Ellari receipt required"
+    "d003_closure": "closed \u2014 see governance/glyphs/D003_CLOSURE_RECEIPT.md",
+    "glyph_reg_001_status": "candidate_authorial_lock_pending \u2014 Ellari receipt required"
   },
   "open_decisions": {
-    "D-001": "Elevate Recovered≠Original to ELEOS-DOCTRINE-001?",
-    "D-002": "Search Vector symbol: ⊙ (Thread B) vs ⌕ (VANTA)?",
+    "D-001": "Elevate Recovered\u2260Original to ELEOS-DOCTRINE-001?",
+    "D-002": "Search Vector symbol: \u2299 (Thread B) vs \u2315 (VANTA)?",
     "D-005": "Approve canonledger_migration_v0.2.sql?",
     "D-006": "LICENSE file for repo"
   },
   "p2_renames_pending": {
-    "I2": "Shadow Layer → Lineage Arc",
-    "I4": "Resonance Bridge → Orphan Node",
-    "T2": "Erosion Path → Oscillation Spiral",
-    "C1": "Boundary Layer → Coherence Membrane",
-    "D2": "Scale Distortion → Temporal Fold",
-    "D3": "Frame Bleed → Interpretive Fog"
-  }
+    "I2": "Shadow Layer \u2192 Lineage Arc",
+    "I4": "Resonance Bridge \u2192 Orphan Node",
+    "T2": "Erosion Path \u2192 Oscillation Spiral",
+    "C1": "Boundary Layer \u2192 Coherence Membrane",
+    "D2": "Scale Distortion \u2192 Temporal Fold",
+    "D3": "Frame Bleed \u2192 Interpretive Fog"
+  },
+  "registry_hash_full": "sha256:79f19275ea86c1241ff8f65f8beb2576e24b478ccad2bfdcebc0f04dfb636358",
+  "p2_renames_applied": "2026-06-03",
+  "p2_renames": [
+    {
+      "id": "I2",
+      "from": "Shadow Layer",
+      "to": "Lineage Arc"
+    },
+    {
+      "id": "I4",
+      "from": "Resonance Bridge",
+      "to": "Orphan Node"
+    },
+    {
+      "id": "T2",
+      "from": "Erosion Path",
+      "to": "Oscillation Spiral"
+    },
+    {
+      "id": "C1",
+      "from": "Boundary Layer",
+      "to": "Coherence Membrane"
+    },
+    {
+      "id": "D2",
+      "from": "Scale Distortion",
+      "to": "Temporal Fold"
+    },
+    {
+      "id": "D3",
+      "from": "Frame Bleed",
+      "to": "Interpretive Fog"
+    }
+  ]
 }

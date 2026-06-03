@@ -438,7 +438,7 @@ export const SLA_PRIMITIVES: readonly SLAPrimitive[] = [
     ],
   },
   {
-    id: "I2", name: "Shadow Layer",
+    id: "I2", name: "Lineage Arc",
     category: "I", categoryName: "Identity & Memory",
     polarity: "failure", eleosAnchor: "REMEMBER",
     elementKind: "primitive", status: "provisional", isLevel1: false,
@@ -462,7 +462,7 @@ export const SLA_PRIMITIVES: readonly SLAPrimitive[] = [
     ],
   },
   {
-    id: "I4", name: "Resonance Bridge",
+    id: "I4", name: "Orphan Node",
     category: "I", categoryName: "Identity & Memory",
     polarity: "repair", eleosAnchor: "REMEMBER",
     elementKind: "primitive", status: "provisional", isLevel1: false,
@@ -489,7 +489,7 @@ export const SLA_PRIMITIVES: readonly SLAPrimitive[] = [
     ],
   },
   {
-    id: "T2", name: "Erosion Path",
+    id: "T2", name: "Oscillation Spiral",
     category: "T", categoryName: "Trauma & Instability",
     polarity: "failure", eleosAnchor: "COMPILE",
     elementKind: "primitive", status: "provisional", isLevel1: false,
@@ -617,7 +617,7 @@ export const SLA_PRIMITIVES: readonly SLAPrimitive[] = [
   // These are the structural states COMPILE produces when functional.
   //
   {
-    id: "C1", name: "Boundary Layer",
+    id: "C1", name: "Coherence Membrane",
     category: "C", categoryName: "Coherence Structures",
     polarity: "coherence", eleosAnchor: "COMPILE",
     elementKind: "primitive", status: "provisional", isLevel1: false,
@@ -742,7 +742,7 @@ export const SLA_PRIMITIVES: readonly SLAPrimitive[] = [
     },
   },
   {
-    id: "D2", name: "Scale Distortion",
+    id: "D2", name: "Temporal Fold",
     category: "D", categoryName: "Distortion",
     polarity: "failure", eleosAnchor: "RECEIVE",
     elementKind: "primitive", status: "provisional", isLevel1: false,
@@ -753,7 +753,7 @@ export const SLA_PRIMITIVES: readonly SLAPrimitive[] = [
     ],
   },
   {
-    id: "D3", name: "Frame Bleed",
+    id: "D3", name: "Interpretive Fog",
     category: "D", categoryName: "Distortion",
     polarity: "failure", eleosAnchor: "RECEIVE",
     elementKind: "primitive", status: "provisional", isLevel1: false,

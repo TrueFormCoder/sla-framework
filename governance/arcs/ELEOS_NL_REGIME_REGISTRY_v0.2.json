@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.1",
+  "artifact_id": "ELEOS_NL_REGIME_REGISTRY_v0.2",
+  "status": "candidate",
+  "iso": "2026-06-03T05:53:02Z",
+  "scoring_rounds": 2,
+  "scorers": {
+    "CV": {"thread": "A", "role": "Compiler V", "score_type": "artifact_receipt"},
+    "OV": {"thread": "C", "role": "Original V", "score_type": "reviewer_receipt"}
+  },
+  "three_receipt_doctrine": {
+    "SAC_artifact_receipt": "Compiler V self-score 96",
+    "SAC_reviewer_receipt": "Original V cross-score 91",
+    "SAC_method_receipt": "BIND-EBL-OT-001 v0.1",
+    "SAC_status": "THREE-RECEIPT COMPLETE — SAC canon lock authorized"
+  },
+  "summary": {
+    "canonical": ["SAC"],
+    "provisional_confirmed": ["TRG","COV","PIL","INI","EXI","REV","MAR"],
+    "status_divergent": ["TRK","DHA"],
+    "quarantine_confirmed": ["PSY","CAT"],
+    "burned": [],
+    "inter_scorer_mae": 3.33,
+    "max_delta_regime": "TRG (+7, OV higher)",
+    "max_delta_magnitude": 7
+  },
+  "canon_law_divergences": {
+    "CL-003": {
+      "CV": "canon_eligible — keep seven-sentence form",
+      "OV": "provisional — shorten; process chain not law sentence",
+      "OV_short_form": "ANUBIS may gate authority only after telemetry, regime, evidence, burden, force, and stuck-state review are complete.",
+      "ellari_decision_needed": true
+    },
+    "CL-006": {
+      "CV": "provisional / sealed-operator — Devourer mythic register too intense for public",
+      "OV": "canon_eligible — endorses Devourer language",
+      "resolution": "dual-version structure confirmed; OV endorses operator version; CV restricts to Archive Grade / trained practitioners"
+    }
+  },
+  "bind_osr_resolved_priority": ["BIND-OSR-005","BIND-OSR-007","BIND-OSR-006","BIND-OSR-001"],
+  "bind_osr_rationale": "OV order accepted: namespace collision safety (007) before R1-G semantic expansion (006)",
+  "regimes": [
+    {"id":"SAC","name":"Sacrificial Transfer","CV":96,"OV":91,"avg":93.5,"status":"CANONICAL","divergence":false,"three_receipt":"COMPLETE","canon_condition":"Burden Ledger mandatory. Wrong Door mandatory.","public_name":"Sacrificial Transfer","primary_risk":"Absorber scored as the problem."},
+    {"id":"TRG","name":"Tragic Convergence","CV":81,"OV":88,"avg":84.5,"status":"provisional-high","divergence":false,"note":"OV +7. Closest to canon after SAC.","canon_condition":"R1 availability test. P4 witness framing. Repair-tested terminal criteria before canon.","primary_risk":"Collapse declared final before repair tested."},
+    {"id":"COV","name":"Covenant Coherence","CV":85,"OV":82,"avg":83.5,"status":"provisional","divergence":false,"canon_condition":"Living-terms check. Context Drift Check. NOT auto-assigned from stable ANUBIS pass.","primary_risk":"Old covenant on changed context."},
+    {"id":"PIL","name":"Iterative Pilgrimage","CV":81,"OV":81,"avg":81.0,"status":"provisional","divergence":false,"note":"Identical scores — strongest inter-scorer agreement.","canon_condition":"Delta-per-cycle metric. R1-G0 stop rule applies.","primary_risk":"Repetition called practice, no behavioral delta."},
+    {"id":"INI","name":"Initiatory Spiral","CV":80,"OV":82,"avg":81.0,"status":"provisional","divergence":false,"canon_condition":"Agency Gate: agency remains, support exists, challenge proportionate, capacity increasing.","primary_risk":"Harm reframed as necessary growth without agency."},
+    {"id":"EXI","name":"Exilic Wandering","CV":81,"OV":80,"avg":80.5,"status":"provisional","divergence":false,"canon_condition":"Portable-continuity markers. Homecoming-condition test. R-reroute and R-refusal relevant.","primary_risk":"Forced return before homecoming conditions exist."},
+    {"id":"REV","name":"Revelatory Recognition","CV":79,"OV":81,"avg":80.0,"status":"provisional","divergence":false,"canon_condition":"New Signal Rule. Before/after evidence split. Anti-retroactive-agency rule.","primary_risk":"Revelation used to retroactively rewrite agency."},
+    {"id":"MAR","name":"Martyr-Witness","CV":81,"OV":76,"avg":78.5,"status":"provisional-operator-only","divergence":false,"note":"OV -5; closer to misuse risk in clinical work.","public_name_candidate":"Costly Witness (both CV and OV)","canon_condition":"REGFW-006 mandatory hard-bind. Suffering is not evidence.","primary_risk":"Distress used as credentialing mechanism."},
+    {"id":"TRK","name":"Active Witness / Tracking","CV":76,"OV":74,"avg":75.0,"status":"STATUS_DIVERGENT","divergence":true,"ellari_decision":"Required: CV=provisional(76) vs OV=quarantine(74). Average exactly on threshold.","rename_candidate":"Active Witness with Action Threshold (both CV and OV)","primary_risk":"Tracking used to defer action indefinitely."},
+    {"id":"DHA","name":"Dharmic Alignment","CV":71,"OV":75,"avg":73.0,"status":"STATUS_DIVERGENT","divergence":true,"ellari_decision":"Required: CV=quarantine(71) vs OV=provisional(75). Average 73 = quarantine.","rename_mandatory":"Role-Capacity Alignment (operator). 'Is this mine to carry?' (public).","primary_risk":"Alignment used to justify indefinite demand."},
+    {"id":"PSY","name":"Psychic Saturation","CV":74,"OV":67,"avg":70.5,"status":"quarantine","divergence":false,"note":"OV -7 from CV; may need deeper revision than initially assessed.","rename_candidates":"Cognitive-Emotional Saturation (CV) or Capacity Saturation (OV)","revision_required":"Measurable capacity threshold. Downshift protocol. Recovery state.","primary_risk":"Saturation normalized as baseline."},
+    {"id":"CAT","name":"Catalytic Disruption","CV":66,"OV":68,"avg":67.0,"status":"quarantine","divergence":false,"split_proposal":"CAT-D / CAT-R / CAT-F (Compiler V) — each subtype requires independent scoring","rename_candidate":"Catalytic Rupture (OV) only if Harm Ledger mandatory","primary_risk":"Disruption sanctified regardless of harm or consent."}
+  ]
+}
