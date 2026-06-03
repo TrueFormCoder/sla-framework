@@ -1,0 +1,102 @@
+{
+  "kernel_lock_id": "SLA-KERNEL-LOCK-v1.0",
+  "iso": "2026-06-03",
+  "status": "candidate — requires Ellari seal",
+  "registry_version": "SLA v2.2",
+  "registry_hash": "sha256:1f0bde0fd79daf50",
+  "registry_source": "slaRegistry.ts",
+  "element_count": {
+    "total": 47,
+    "node_geometries": 5,
+    "shape_primitives": 42,
+    "lock_status": "SEALED",
+    "lock_doctrine": "The alphabet is frozen. The grammar is where intelligence grows."
+  },
+  "fidelity_tiers": [
+    "QOL",
+    "DAVAR",
+    "EMET"
+  ],
+  "former_tier_name": {
+    "EMET": "MASSA",
+    "rename_id": "SLA-TIER-RENAME-001"
+  },
+  "p4_frames": {
+    "mechanism": "Expansion Funnel",
+    "witness": "Witness Function",
+    "repair": "Repair Gateway",
+    "threshold": "Threshold Aperture",
+    "frame_declaration_required": true
+  },
+  "c2_status": {
+    "canonical_name": "Internal Synthesis",
+    "status": "parked",
+    "counts_toward_42": true,
+    "activation_gate": "C2Gate — undefined pending governance decision"
+  },
+  "glyph_layer": {
+    "glyph_registry_version": "GLYPH_REGISTRY_v0.1",
+    "glyph_registry_source": "governance/glyphs/GLYPH_REGISTRY_v0.1.json",
+    "glyph_registry_hash": "sha256:910e1f727996612efd3211cf914209703237ef2c48b11ec5c31a635e43449e77",
+    "glyph_slot_count": 7,
+    "active_canonical_count": 1,
+    "candidate_count": 1,
+    "reserved_candidate_count": 5,
+    "slot_order_locked": true,
+    "counts_toward_sla_42": false,
+    "mvs_binding": "see governance/glyphs/GLYPH_MVS_BINDING_TABLE.md",
+    "slots": {
+      "G1": {
+        "symbol": "◇",
+        "name": "Threshold Event",
+        "status": "canonical"
+      },
+      "G2": {
+        "symbol": "◈",
+        "name": "Inhabited Threshold",
+        "status": "candidate_authorial_lock_pending"
+      },
+      "G3": {
+        "symbol": "✦",
+        "name": "Salience Mark",
+        "status": "reserved_candidate"
+      },
+      "G4": {
+        "symbol": "⚑",
+        "name": "Gate Marker",
+        "status": "reserved_candidate"
+      },
+      "G5": {
+        "symbol": "⊘",
+        "name": "Refusal Mark",
+        "status": "reserved_candidate"
+      },
+      "G6": {
+        "symbol": "※",
+        "name": "Confusion Mark",
+        "status": "reserved_candidate"
+      },
+      "G7": {
+        "symbol": "⧖",
+        "name": "Receipt Mark",
+        "status": "reserved_candidate"
+      }
+    },
+    "d003_closure": "closed — see governance/glyphs/D003_CLOSURE_RECEIPT.md",
+    "glyph_reg_001_status": "candidate_authorial_lock_pending — Ellari receipt required"
+  },
+  "open_decisions": {
+    "D-001": "Elevate Recovered≠Original to ELEOS-DOCTRINE-001?",
+    "D-002": "Search Vector symbol: ⊙ (Thread B) vs ⌕ (VANTA)?",
+    "D-005": "Approve canonledger_migration_v0.2.sql?",
+    "D-006": "LICENSE file for repo"
+  },
+  "p2_renames_pending": {
+    "I2": "Shadow Layer → Lineage Arc",
+    "I4": "Resonance Bridge → Orphan Node",
+    "T2": "Erosion Path → Oscillation Spiral",
+    "C1": "Boundary Layer → Coherence Membrane",
+    "D2": "Scale Distortion → Temporal Fold",
+    "D3": "Frame Bleed → Interpretive Fog"
+  }
+}

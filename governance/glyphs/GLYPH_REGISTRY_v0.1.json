@@ -1,0 +1,340 @@
+{
+  "registry_id": "GLYPH_REGISTRY_v0.1",
+  "iso": "2026-06-03",
+  "status": "candidate",
+  "owner": "Ellari",
+  "registry_hash": "sha256:910e1f727996612efd3211cf914209703237ef2c48b11ec5c31a635e43449e77",
+  "registry_source": "governance/glyphs/GLYPH_REGISTRY_v0.1.json",
+  "counts_toward_sla_42": false,
+  "glyph_slot_count": 7,
+  "active_canonical_count": 1,
+  "candidate_count": 1,
+  "reserved_candidate_count": 5,
+  "slot_order_locked": true,
+  "doctrine": [
+    "Glyphs mark governance events. Primitives name structural behavior.",
+    "A slot can be reserved without being authoritative.",
+    "A glyph becomes usable by surviving its own misuse cases.",
+    "The glyphs do not add meaning. They govern when meaning may be claimed.",
+    "A glyph slot is infrastructure. A glyph meaning is authority."
+  ],
+  "mvs_binding": {
+    "note": "Each glyph activates at a specific MVS step. See GLYPH_MVS_BINDING_TABLE.md.",
+    "step_1_cue": "G3",
+    "step_4_confusion": "G6",
+    "steps_2_3_threshold": [
+      "G1",
+      "G2"
+    ],
+    "step_5_gate_refusal": [
+      "G4",
+      "G5"
+    ],
+    "step_6_fidelity_receipt": "G7"
+  },
+  "fidelity_interaction": {
+    "G3_alone": "QOL ceiling",
+    "G3_plus_primitive": "QOL-to-DAVAR transition gate",
+    "G3_plus_primitive_plus_G6": "DAVAR floor",
+    "full_MVS_plus_G7": "EMET eligible",
+    "G2_without_receipt": "DAVAR ceiling regardless of other completeness",
+    "G2_with_receipt": "EMET eligible only after GLYPH-REG-001 receipt + specimen passport"
+  },
+  "glyphs": [
+    {
+      "slot": "G1",
+      "symbol": "◇",
+      "canonical_name": "Threshold Event",
+      "public_name": "Decision Point",
+      "institutional_name": "Bifurcation Marker",
+      "status": "canonical",
+      "element_kind": "glyph",
+      "primitive_anchor": null,
+      "anchor_note": "Multi-primitive by design. Threshold events produced by T1,T3,R1-D,L2,D1 in bifurcating configurations.",
+      "mvs_step": "steps_2_3",
+      "eleos_coupling": [
+        "GUIDE",
+        "INFER"
+      ],
+      "function": "Marks a threshold, decision, pivot, or bifurcation point.",
+      "gate_condition": "At least two possible governed outputs exist.",
+      "short_rule": "◇ marks the gate.",
+      "not_allowed_to_prove": [
+        "threshold has been crossed",
+        "decision has been made",
+        "repair occurred",
+        "subject is transformed"
+      ],
+      "nearest_confusions": [
+        {
+          "id": "G2",
+          "name": "Inhabited Threshold",
+          "why_not": "◇ marks the gate or event; ◈ marks sustained residence inside threshold pressure."
+        }
+      ],
+      "public_use_allowed": true,
+      "emet_eligible": true
+    },
+    {
+      "slot": "G2",
+      "symbol": "◈",
+      "canonical_name": "Inhabited Threshold",
+      "public_name": "Held Threshold",
+      "institutional_name": "Sustained Threshold Condition",
+      "status": "candidate_authorial_lock_pending",
+      "registry_gate": "GLYPH-REG-001",
+      "element_kind": "glyph",
+      "primitive_anchor": "M3",
+      "primitive_anchor_name": "Liminal Field",
+      "anchor_status": "candidate",
+      "anchor_note": "M3 and ◈ are independent decisions. Confirming M3 does not confirm ◈ anchor.",
+      "mvs_step": "steps_2_3",
+      "eleos_coupling": [
+        "REMEMBER",
+        "GUIDE_deferred"
+      ],
+      "function": "Marks a threshold condition sustained or occupied over time rather than merely encountered as a momentary event.",
+      "gate_condition": "Threshold condition + duration evidence + frameDeclaration + notAllowedToProve.",
+      "short_rule": "◈ marks residence at the gate.",
+      "required_fields": [
+        "observedCue",
+        "nodeType",
+        "frameDeclaration",
+        "thresholdEvidence",
+        "durationEvidence",
+        "notAllowedToProve"
+      ],
+      "specimen_gate": "PTL-001 proposed; sealed only after P4 frame declaration rule is implemented.",
+      "not_allowed_to_prove": [
+        "repair occurred",
+        "transformation occurred",
+        "person is liminal as identity",
+        "clinical/spiritual/metaphysical status"
+      ],
+      "nearest_confusions": [
+        {
+          "id": "G1",
+          "name": "Threshold Event",
+          "why_not": "◇ is momentary; ◈ requires sustained duration evidence."
+        },
+        {
+          "id": "M3",
+          "name": "Liminal Field",
+          "why_not": "M3 names the field condition; ◈ marks it in a scan or receipt."
+        },
+        {
+          "id": "P4",
+          "name": "Witness Function",
+          "why_not": "P4 witnesses; ◈ marks the threshold condition being witnessed."
+        },
+        {
+          "id": "T3",
+          "name": "Collapse Basin",
+          "why_not": "T3 is a basin/sink; ◈ is a threshold field and may be non-collapse."
+        }
+      ],
+      "blocked_uses": [
+        "real-person label",
+        "diagnosis",
+        "spiritual status",
+        "repair proof",
+        "completion proof",
+        "identity type"
+      ],
+      "public_use_allowed": false,
+      "emet_eligible": false
+    },
+    {
+      "slot": "G3",
+      "symbol": "✦",
+      "canonical_name": "Salience Mark",
+      "public_name": "Notice Mark",
+      "institutional_name": "Cue Flag",
+      "status": "reserved_candidate",
+      "element_kind": "glyph",
+      "primitive_anchor": "M1",
+      "primitive_anchor_name": "Salience Marker",
+      "anchor_note": "✦ marks when M1 fires at scan entry. G3 and M1 are not identical.",
+      "mvs_step": "step_1",
+      "eleos_coupling": [
+        "RECEIVE"
+      ],
+      "function": "Marks that a cue has become visible enough to record but not yet classify. Fires at MVS Step 1.",
+      "gate_condition": "Observed cue exists. Primitive assignment has not yet been made.",
+      "short_rule": "✦ marks attention before interpretation.",
+      "not_allowed_to_prove": [
+        "cue is important",
+        "cue is true",
+        "cue deserves a primitive",
+        "cue is evidence",
+        "cue has been classified"
+      ],
+      "promotion_blocker": "must not become importance proof",
+      "public_use_allowed": false,
+      "emet_eligible": false
+    },
+    {
+      "slot": "G4",
+      "symbol": "⚑",
+      "canonical_name": "Gate Marker",
+      "public_name": "Gate Flag",
+      "institutional_name": "Routing Condition",
+      "canonical_name_correction_note": "Corrected from V original 'Gate Signal' to 'Gate Marker' to disambiguate from M2 primitive 'Gate Signal'.",
+      "status": "reserved_candidate",
+      "element_kind": "glyph",
+      "primitive_anchor": "M2",
+      "primitive_anchor_name": "Gate Signal",
+      "anchor_note": "M2 'Gate Signal' = primitive (structural condition). G4 'Gate Marker' = glyph (annotation that M2 is active).",
+      "mvs_step": "step_5",
+      "eleos_coupling": [
+        "INFER",
+        "GUIDE"
+      ],
+      "function": "Marks that a routing, eligibility, release, or transition gate controls what may happen next.",
+      "gate_condition": "Named gate condition exists and governs routing.",
+      "short_rule": "⚑ marks a condition that governs routing.",
+      "required_fields": [
+        "gate_id"
+      ],
+      "not_allowed_to_prove": [
+        "gate is closed",
+        "gate is passed",
+        "actor blocked permanently",
+        "system decides without receipt"
+      ],
+      "nearest_confusions": [
+        {
+          "id": "G5",
+          "name": "Refusal Mark",
+          "why_not": "⚑ marks a navigable gate; ⊘ marks a hard block."
+        }
+      ],
+      "valida_critical_rule": "GATE_MARKER_AS_REFUSAL: ⚑ used where ⊘ required. Severity: Critical.",
+      "promotion_blocker": "must not become confused with refusal",
+      "public_use_allowed": false,
+      "emet_eligible": false
+    },
+    {
+      "slot": "G5",
+      "symbol": "⊘",
+      "canonical_name": "Refusal Mark",
+      "public_name": "Blocked Claim",
+      "institutional_name": "Invalid Transition / Block",
+      "status": "reserved_candidate",
+      "element_kind": "glyph",
+      "primitive_anchor": null,
+      "anchor_note": "Intentionally unanchored. ⊘ marks a cross-primitive governance event. No single primitive owns refusal. D-003 closed by this design decision.",
+      "d003_closure": "D-003 resolved. See governance/glyphs/D003_CLOSURE_RECEIPT.md.",
+      "mvs_step": "step_5",
+      "eleos_coupling": [
+        "COMPILE_refusal"
+      ],
+      "function": "Marks an invalid transition, blocked claim, rejected overclaim, or VALIDA refusal.",
+      "gate_condition": "A named rule explicitly blocks the claim, transition, or render request.",
+      "short_rule": "⊘ marks what the grammar refuses.",
+      "required_fields": [
+        "rule_id"
+      ],
+      "not_allowed_to_prove": [
+        "whole artifact is wrong",
+        "person failed",
+        "system has no valid path",
+        "refusal is permanent",
+        "terminal state"
+      ],
+      "nearest_confusions": [
+        {
+          "id": "G4",
+          "name": "Gate Marker",
+          "why_not": "⚑ = navigable gate; ⊘ = hard block requiring rule_id."
+        }
+      ],
+      "promotion_blocker": "must not overinvalidate whole artifact/person/system",
+      "public_use_allowed": false,
+      "emet_eligible": false
+    },
+    {
+      "slot": "G6",
+      "symbol": "※",
+      "canonical_name": "Confusion Mark",
+      "public_name": "Nearest Misread",
+      "institutional_name": "Adjacent Alternative Check",
+      "status": "reserved_candidate",
+      "element_kind": "glyph",
+      "primitive_anchor": null,
+      "anchor_note": "Unanchored by design. Confusion marks arise across all category transitions.",
+      "mvs_step": "step_4",
+      "eleos_coupling": [
+        "COMPILE"
+      ],
+      "function": "Marks that a nearest-confusion check is active or required.",
+      "gate_condition": "Primary assignment has a plausible adjacent alternative that must be named and rejected.",
+      "short_rule": "※ marks the nearest wrong answer.",
+      "required_fields": [
+        "nearest_confusion_id",
+        "nearest_confusion_rejection_sentence"
+      ],
+      "not_allowed_to_prove": [
+        "confusion is resolved definitively",
+        "one analyst is correct",
+        "alternative invalid in all frames",
+        "primary is EMET without receipt"
+      ],
+      "promotion_value": "Highest-priority glyph to promote after ◈. Operationalizes FLOOR-004.",
+      "promotion_blocker": "must require actual nearest-confusion text",
+      "public_use_allowed": false,
+      "emet_eligible": false
+    },
+    {
+      "slot": "G7",
+      "symbol": "⧖",
+      "canonical_name": "Receipt Mark",
+      "public_name": "Record Mark",
+      "institutional_name": "Custody Timestamp",
+      "status": "reserved_candidate",
+      "element_kind": "glyph",
+      "primitive_anchor": null,
+      "anchor_note": "Unanchored. Receipt marks arise at output layer of any governed scan, patch, or decision. EMIT-coupled.",
+      "mvs_step": "step_6",
+      "eleos_coupling": [
+        "EMIT"
+      ],
+      "function": "Marks that a scan, patch, decision, release, or disagreement has produced a receipt-bearing record.",
+      "gate_condition": "Timestamp + registry hash + allowedToProve + notAllowedToProve are present.",
+      "short_rule": "⧖ marks custody, not truth.",
+      "required_fields": [
+        "timestamp",
+        "registry_hash",
+        "allowed_to_prove",
+        "not_allowed_to_prove"
+      ],
+      "not_allowed_to_prove": [
+        "claim is true",
+        "artifact externally validated",
+        "decision is permanent",
+        "receipt is a seal"
+      ],
+      "promotion_blocker": "must not be treated as truth or validation",
+      "public_use_allowed": false,
+      "emet_eligible": false
+    }
+  ],
+  "glyph_state_machine": {
+    "stages": [
+      "reserved_candidate",
+      "candidate_passport_created",
+      "internal_use_allowed",
+      "receipt_backed",
+      "valida_integrated",
+      "public_candidate",
+      "canonical",
+      "superseded"
+    ],
+    "transition_authority": {
+      "stages_0_to_2": "Thread A or Thread B with documentation",
+      "stages_2_to_canonical": "Ellari decision receipt required"
+    },
+    "demotion_allowed": true,
+    "demotion_rule": "Any safety failure or governance breach can demote to reserved_candidate or superseded"
+  }
+}

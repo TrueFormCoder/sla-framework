@@ -1,0 +1,155 @@
+[
+  {
+    "id": "NEG-GLYPH-001",
+    "source": "V",
+    "claim": "She is ◈.",
+    "expected": "blocked",
+    "rule": "GLYPH_PERSON_LABELING",
+    "reason": "Glyph applied to real person as identity. ◈ marks structural conditions in scans, not people.",
+    "severity": "critical"
+  },
+  {
+    "id": "NEG-GLYPH-002",
+    "source": "V",
+    "claim": "The character crosses a threshold once in Act I, so mark ◈.",
+    "expected": "fail",
+    "rule": "HELD_THRESHOLD_NO_DURATION",
+    "reason": "Momentary crossing is ◇. ◈ requires sustained duration evidence.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-003",
+    "source": "V",
+    "claim": "◈ proves transformation occurred.",
+    "expected": "blocked",
+    "rule": "HELD_THRESHOLD_REPAIR_OVERCLAIM",
+    "reason": "◈ proves threshold is occupied, not that transformation occurred.",
+    "severity": "critical"
+  },
+  {
+    "id": "NEG-GLYPH-004",
+    "source": "V",
+    "claim": "◈ is the same as P4.",
+    "expected": "fail",
+    "rule": "DIAMOND_CONFUSION_UNCHECKED",
+    "reason": "P4 witnesses. ◈ marks the sustained threshold condition being witnessed.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-005",
+    "source": "V",
+    "claim": "✦ proves this image matters.",
+    "expected": "blocked",
+    "rule": "SALIENCE_MARK_OVERCLAIM",
+    "reason": "✦ marks a cue became visible, not that it is important or true.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-006",
+    "source": "V",
+    "claim": "⚑ means this artifact failed.",
+    "expected": "fail",
+    "rule": "GATE_MARKER_AS_REFUSAL",
+    "reason": "⚑ marks a routing condition. Failure/block requires ⊘.",
+    "severity": "critical"
+  },
+  {
+    "id": "NEG-GLYPH-007",
+    "source": "V",
+    "claim": "⊘ means the person is wrong.",
+    "expected": "blocked",
+    "rule": "REFUSAL_MARK_OVERBROAD",
+    "reason": "⊘ marks a specific claim or transition as refused, not a person or artifact.",
+    "severity": "critical"
+  },
+  {
+    "id": "NEG-GLYPH-008",
+    "source": "V",
+    "claim": "※ placed on scan but no nearest confusion provided.",
+    "expected": "fail",
+    "rule": "CONFUSION_MARK_NO_PAIR",
+    "reason": "※ requires nearest_confusion and rejection fields.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-009",
+    "source": "V",
+    "claim": "⧖ means the claim is verified as true.",
+    "expected": "blocked",
+    "rule": "RECEIPT_MARK_AS_VALIDATION",
+    "reason": "⧖ marks custody, not truth.",
+    "severity": "critical"
+  },
+  {
+    "id": "NEG-GLYPH-010",
+    "source": "Thread B",
+    "claim": "◇ and ◈ both applied to the same scene at the same temporal point.",
+    "expected": "blocked",
+    "rule": "GLYPH_COMBINATION_INVALID",
+    "reason": "◇ marks momentary event; ◈ marks sustained residence. Mutually exclusive at same temporal point.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-011",
+    "source": "Thread B",
+    "claim": "◈ used with full MVS complete, registry status candidate_authorial_lock_pending. Claim: EMET.",
+    "expected": "blocked",
+    "rule": "GLYPH_REG_001_UNREGISTERED",
+    "reason": "◈ caps at DAVAR until GLYPH-REG-001 receipt regardless of MVS completeness.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-012",
+    "source": "Thread B",
+    "claim": "⚑ placed at MVS Step 5 without naming the gate being activated.",
+    "expected": "fail",
+    "rule": "GATE_MARKER_WITHOUT_GATE_ID",
+    "reason": "⚑ requires gate_id field.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-013",
+    "source": "Thread B",
+    "claim": "✦ placed after T3 primitive assigned and ※ check completed.",
+    "expected": "fail",
+    "rule": "SALIENCE_MARK_AFTER_PRIMITIVE",
+    "reason": "✦ marks pre-classification observation (MVS Step 1).",
+    "severity": "medium"
+  },
+  {
+    "id": "NEG-GLYPH-014",
+    "source": "Thread B",
+    "claim": "◈ placed first in scan, before ✦ or ◇.",
+    "expected": "blocked",
+    "rule": "GLYPH_COMBINATION_INVALID_ORDER",
+    "reason": "✦ must precede all. ◈ requires ◇ as intermediate event.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-015",
+    "source": "Thread B",
+    "claim": "⧖ placed with no timestamp and no registry hash.",
+    "expected": "fail",
+    "rule": "RECEIPT_MARK_WITHOUT_HASH",
+    "reason": "⧖ requires timestamp + registry hash to constitute custody.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-016",
+    "source": "Thread B",
+    "claim": "G5 ⊘ reserved_candidate used in EMET-claiming institutional publication.",
+    "expected": "blocked",
+    "rule": "GLYPH_SLOT_UNRESOLVED",
+    "reason": "Reserved candidate glyphs cannot appear in public or EMET-claiming contexts.",
+    "severity": "high"
+  },
+  {
+    "id": "NEG-GLYPH-017",
+    "source": "Thread B",
+    "claim": "◈ used without nearest confusion check against ◇.",
+    "expected": "fail",
+    "rule": "DIAMOND_CONFUSION_UNCHECKED",
+    "reason": "◈ must explicitly reject ◇ with a reason.",
+    "severity": "high"
+  }
+]
