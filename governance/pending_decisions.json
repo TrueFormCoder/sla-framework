@@ -3,7 +3,29 @@
     "description": "Machine-readable register of all open governance decisions blocking artifact advancement.",
     "last_updated": "2026-06-03T17:30:00Z",
     "updated_by": "Thread B (Claude)",
-    "total_open": 3
+    "total_open": 3,
+    "sha_translation": {
+      "note": "Container SHAs diverged from GitHub SHAs via git am rebase",
+      "mapping": [
+        {
+          "container": "f845e61",
+          "github": "aa1ab01",
+          "commit": "feat: session 2026-06-03 governance sprint"
+        },
+        {
+          "container": "b29274a",
+          "github": "c232690",
+          "commit": "chore: SYNC-003 official record"
+        },
+        {
+          "container": "68fee83",
+          "github": "ee5b200",
+          "commit": "feat: pending_decisions.json v0.1"
+        }
+      ],
+      "canonical_head": "ee5b200"
+    },
+    "canonical_head": "ee5b200"
   },
   "decisions": [
     {

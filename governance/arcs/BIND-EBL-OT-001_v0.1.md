@@ -1,10 +1,10 @@
 # BIND-EBL-OT-001
 ## ELEOS Narrative Layer × Osirian Telemetry Integration Memo
-**Version:** 0.1  
-**Status:** candidate — pending CORDIA-SIGLER review and 5-scenario drill  
-**ISO:** 2026-06-03T05:17:33Z  
-**Authors:** Original V (Thread C) + Thread B (Claude)  
-**Authority source:** THREAD_C_BRIEF_001 + BIND-EBL-OT-001 Formal Integration Memo Draft  
+**Version:** 0.1
+**Status:** candidate — pending CORDIA-SIGLER review and 5-scenario drill
+**ISO:** 2026-06-03T05:17:33Z
+**Authors:** Original V (Thread C) + Thread B (Claude)
+**Authority source:** THREAD_C_BRIEF_001 + BIND-EBL-OT-001 Formal Integration Memo Draft
 
 ---
 
@@ -202,8 +202,8 @@ OT-R may add subtypes in future versions without breaking canon lock, provided:
 Current: Underworld Weight
 Problem: too mythic, too vague, register-bleed risk
 
-**Operator rename: Residual Load**  
-**Public wording: "What still remains underneath?"**  
+**Operator rename: Residual Load**
+**Public wording: "What still remains underneath?"**
 **Status: quarantine until operationalized**
 
 Canon Lock Score (original V): 58/100. Do not canon-lock until renamed, operationally defined, and scenario-tested.
@@ -403,6 +403,6 @@ Lines recommended for canon consideration. All require CORDIA-SIGLER signatures 
 
 ---
 
-**File:** BIND-EBL-OT-001_v0.1.md  
-**Commit target:** governance/arcs/BIND-EBL-OT-001_v0.1.md  
-**Status:** candidate — pending 5-scenario drill and Ellari open decisions D-BIND-001 through D-BIND-005  
+**File:** BIND-EBL-OT-001_v0.1.md
+**Commit target:** governance/arcs/BIND-EBL-OT-001_v0.1.md
+**Status:** candidate — pending 5-scenario drill and Ellari open decisions D-BIND-001 through D-BIND-005
